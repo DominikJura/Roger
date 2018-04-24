@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Font size-->
+    <dimen name="font_size_medium">15sp</dimen>
+    <dimen name="font_size_big">16sp</dimen>
+
+    <!--Margins-->
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+
+    <!--Padding-->
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_large">32dp</dimen>
+
+    <dimen name="match_constraint">0dp</dimen>
+
+    <!--Custom-->
+    <dimen name="toolbar_navigation_back_marginStart">@dimen/margin_small</dimen>
+    <dimen name="break_item_stroke_width">1dp</dimen>
+
+</resources>

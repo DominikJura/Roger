@@ -1,0 +1,5 @@
+<resources>
+    <string name="break_time">Break Time</string>
+    <string name="work_time">Work Time</string>
+    <string name="timer_zero">0:00:00</string>
+</resources>

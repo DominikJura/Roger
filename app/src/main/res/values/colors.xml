@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/tools">
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="lightish_blue">#536dfe</color>
+    <color name="warm_blue">#4e62df</color>
+
+    <color name="purple">#7b1fa2</color>
+
+    <color name="orange_yellow">#fbc02d</color>
+
+    <color name="cerise">#f00a6b</color>
+
+    <color name="white">#ffffff</color>
+
+
+    <!--Custom-->
+    <color name="break_item_smoking_background_solid_active">@color/purple</color>
+    <color name="break_item_smoking_background_solid_inactive">@color/white</color>
+    <color name="break_item_lunch_background_solid_active">@color/orange_yellow</color>
+    <color name="break_item_lunch_background_solid_inactive">@color/white</color>
+    <color name="break_item_other_background_solid_active">@color/cerise</color>
+    <color name="break_item_other_background_solid_inactive">@color/white</color>
+    <color name="break_item_lunch_image_tint_inactive">@color/orange_yellow</color>
+    <color name="break_item_lunch_image_tint_active">@color/white</color>
+    <color name="break_item_smoking_image_tint_inactive">@color/purple</color>
+    <color name="break_item_smoking_image_tint_active">@color/white</color>
+    <color name="break_item_other_image_tint_inactive">@color/cerise</color>
+    <color name="break_item_other_image_tint_active">@color/white</color>
+    <color name="break_item_smoking_background_stroke">@color/purple</color>
+    <color name="break_item_lunch_background_stroke">@color/orange_yellow</color>
+    <color name="break_item_other_background_stroke">@color/cerise</color>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/break_item_smoking_background_solid_active" />
+            <stroke android:width="@dimen/break_item_stroke_width" android:color="@color/break_item_smoking_background_stroke" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/break_item_smoking_background_solid_inactive" />
+            <stroke android:width="@dimen/break_item_stroke_width" android:color="@color/break_item_smoking_background_stroke" />
+        </shape>
+    </item>
+</selector>

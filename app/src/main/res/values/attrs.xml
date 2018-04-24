@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BreakItem">
+        <attr name="drawable_id" format="reference" />
+        <attr name="background_selector" format="reference" />
+        <attr name="image_tint_selector" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="SummaryTimeView">
+        <attr name="title_text" format="string" />
+    </declare-styleable>
+</resources>
