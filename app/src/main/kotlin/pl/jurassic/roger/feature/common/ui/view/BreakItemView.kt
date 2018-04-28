@@ -8,14 +8,14 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import pl.jurassic.roger.R
 import pl.jurassic.roger.getDrawable
-import kotlinx.android.synthetic.main.view_break_item.view.break_item_image as breakImageView
 import kotlinx.android.synthetic.main.view_break_item.view.break_item_container as container
+import kotlinx.android.synthetic.main.view_break_item.view.break_item_image as breakImageView
 
 class BreakItemView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
-) : FrameLayout(context, attrs, defStyleAttr)  {
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : FrameLayout(context, attrs, defStyleAttr) {
 
     @DrawableRes
     var breakImageDrawable: Int? = null

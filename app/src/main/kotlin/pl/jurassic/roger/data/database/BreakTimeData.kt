@@ -10,9 +10,9 @@ import pl.jurassic.roger.util.tools.converters.DateTimeConverter
 
 @Entity(tableName = "break_time")
 data class BreakTimeData(
-        @TypeConverters(BreakTypeConverter::class) val breakType: BreakType,
-        @TypeConverters(DateTimeConverter::class) val dateTime: DateTime,
-        val breakTime: Long
+    @TypeConverters(BreakTypeConverter::class) val breakType: BreakType,
+    @TypeConverters(DateTimeConverter::class) val dateTime: DateTime,
+    val breakTime: Long
 
 ) {
     @PrimaryKey var id: String = "${breakType.name}-${dateTime.dayOfYear()}"

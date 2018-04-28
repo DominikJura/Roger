@@ -28,9 +28,9 @@ class SummaryFragmentModule {
     @RuntimeScope
     @Provides
     fun presenter(
-            view: SummaryFragmentContract.View,
-            repository: Repository,
-            compositeDisposable: CompositeDisposable
+        view: SummaryFragmentContract.View,
+        repository: Repository,
+        compositeDisposable: CompositeDisposable
     ): SummaryFragmentContract.Presenter =
             SummaryFragmentPresenter(view, repository, compositeDisposable)
 }

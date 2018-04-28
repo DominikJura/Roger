@@ -7,8 +7,8 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import pl.jurassic.roger.feature.common.BaseContract
 import dagger.android.support.AndroidSupportInjection
+import pl.jurassic.roger.feature.common.BaseContract
 import javax.inject.Inject
 
 abstract class BaseFragment<P : BaseContract.Presenter> : Fragment() {
@@ -26,9 +26,9 @@ abstract class BaseFragment<P : BaseContract.Presenter> : Fragment() {
 
     @CallSuper
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? = inflater.inflate(layoutId, container, false)
 
     protected open fun initOnClickListeners() = Unit

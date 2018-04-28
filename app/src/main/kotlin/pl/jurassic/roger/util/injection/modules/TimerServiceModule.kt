@@ -3,8 +3,9 @@ package pl.jurassic.roger.util.injection.modules
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.Disposable
-import pl.jurassic.roger.util.injection.RuntimeScope
-import pl.jurassic.roger.util.timer.*
+import pl.jurassic.roger.util.timer.BreakType
+import pl.jurassic.roger.util.timer.TimerConfiguration
+import pl.jurassic.roger.util.timer.TimerConfigurationImpl
 import pl.jurassic.roger.util.tools.JobTimer
 import pl.jurassic.roger.util.tools.JobTimerImpl
 

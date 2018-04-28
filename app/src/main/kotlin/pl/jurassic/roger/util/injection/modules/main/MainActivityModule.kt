@@ -27,8 +27,8 @@ class MainActivityModule {
     @RuntimeScope
     @Provides
     fun presenter(
-            view: MainActivityContract.View,
-            router: MainActivityContract.Router
+        view: MainActivityContract.View,
+        router: MainActivityContract.Router
     ): MainActivityContract.Presenter =
             MainActivityPresenter(view, router)
 }

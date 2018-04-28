@@ -4,16 +4,16 @@ import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import pl.jurassic.roger.feature.common.BaseContract
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import org.greenrobot.eventbus.EventBus
+import pl.jurassic.roger.feature.common.BaseContract
 import javax.inject.Inject
 
 abstract class BaseActivity<P : BaseContract.Presenter>(
-        private val isHandlingEvents: Boolean = false
+    private val isHandlingEvents: Boolean = false
 ) : AppCompatActivity(), HasSupportFragmentInjector {
 
     @Inject lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>

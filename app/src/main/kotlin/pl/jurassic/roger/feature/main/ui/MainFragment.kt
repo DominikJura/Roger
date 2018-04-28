@@ -16,10 +16,10 @@ import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_main.main_break_item_lunch as breakItemLunch
 import kotlinx.android.synthetic.main.fragment_main.main_break_item_other as breakItemOther
 import kotlinx.android.synthetic.main.fragment_main.main_break_item_smoking as breakItemSmoking
-import kotlinx.android.synthetic.main.fragment_main.main_job_time_text as jobTimeTextView
 import kotlinx.android.synthetic.main.fragment_main.main_break_time_text as breakTimeTextView
-import kotlinx.android.synthetic.main.fragment_main.main_timer_button as timerImageView
+import kotlinx.android.synthetic.main.fragment_main.main_job_time_text as jobTimeTextView
 import kotlinx.android.synthetic.main.fragment_main.main_save_button as saveButton
+import kotlinx.android.synthetic.main.fragment_main.main_timer_button as timerImageView
 
 class MainFragment : BaseFragment<Presenter>(), View {
 

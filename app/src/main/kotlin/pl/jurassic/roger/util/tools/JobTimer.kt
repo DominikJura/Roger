@@ -4,5 +4,5 @@ import io.reactivex.Observable
 
 interface JobTimer {
 
-    fun timerObservable(startTimestamp: Long, totalTimePass: Long = 0L) : Observable<Long>
+    fun timerObservable(startTimestamp: Long, totalTimePass: Long = 0L): Observable<Long>
 }

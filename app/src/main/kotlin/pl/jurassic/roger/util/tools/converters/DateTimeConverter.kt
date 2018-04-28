@@ -10,5 +10,4 @@ class DateTimeConverter {
 
     @TypeConverter
     fun dateToTimestamp(date: DateTime) = date.millis
-
 }

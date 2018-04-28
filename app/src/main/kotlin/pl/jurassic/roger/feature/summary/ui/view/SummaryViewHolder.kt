@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.view_summary_item.view.summary_item_break_
 import kotlinx.android.synthetic.main.view_summary_item.view.summary_item_date as dateTextView
 import kotlinx.android.synthetic.main.view_summary_item.view.summary_item_work_time as workTimeView
 
-
 class SummaryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun setItem(summaryWorkTime: SummaryWorkTime) = with(itemView) {

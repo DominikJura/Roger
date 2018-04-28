@@ -4,7 +4,6 @@ import android.support.v7.recyclerview.extensions.ListAdapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import pl.jurassic.roger.R
-import pl.jurassic.roger.data.database.WorkTimeData
 import pl.jurassic.roger.data.ui.SummaryWorkTime
 import pl.jurassic.roger.feature.summary.ui.view.SummaryViewHolder
 

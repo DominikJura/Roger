@@ -8,6 +8,6 @@ import pl.jurassic.roger.util.tools.converters.DateTimeConverter
 
 @Entity(tableName = "job_time")
 data class JobTimeData(
-        @PrimaryKey @TypeConverters(DateTimeConverter::class) val dateTime: DateTime,
-        val jobTime: Long
+    @PrimaryKey @TypeConverters(DateTimeConverter::class) val dateTime: DateTime,
+    val jobTime: Long
 )

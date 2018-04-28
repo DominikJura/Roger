@@ -8,7 +8,6 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import dagger.android.HasServiceInjector
 import net.danlew.android.joda.JodaTimeAndroid
-import pl.jurassic.roger.util.injection.DaggerAppComponent
 import javax.inject.Inject
 
 abstract class BaseRogerApp : Application(), HasActivityInjector, HasServiceInjector {

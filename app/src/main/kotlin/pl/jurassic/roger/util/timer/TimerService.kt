@@ -11,7 +11,6 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.joda.time.DateTime
 import pl.jurassic.roger.util.tools.JobTimer
-import pl.jurassic.roger.util.tools.JobTimerImpl
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -34,7 +33,6 @@ class TimerService : Service() {
     var timeUpdateCallback: TimeUpdateCallback? = null
     var breakUpdateCallback: TimeUpdateCallback? = null
 
-
     override fun onCreate() {
         super.onCreate()
         AndroidInjection.inject(this)
@@ -50,7 +48,7 @@ class TimerService : Service() {
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { it + getBreakTotalTimeSum() }
-                .subscribe ({ breakUpdateCallback?.invoke(it) }, { Timber.e(it)})
+                .subscribe ({ breakUpdateCallback?.invoke(it) }, { Timber.e(it) })
 
         compositeDisposable.add(breakTimeDisposable)
     }
@@ -80,7 +78,7 @@ class TimerService : Service() {
         )
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe ({ timeUpdateCallback?.invoke(it) }, { Timber.e(it)})
+                .subscribe ({ timeUpdateCallback?.invoke(it) }, { Timber.e(it) })
 
         compositeDisposable.add(jobTimeDisposable)
     }

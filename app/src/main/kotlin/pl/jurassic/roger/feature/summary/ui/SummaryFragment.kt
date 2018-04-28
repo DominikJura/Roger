@@ -11,7 +11,6 @@ import javax.inject.Inject
 
 import kotlinx.android.synthetic.main.fragment_summary.summary_work_recycler as workRecyclerView
 
-
 class SummaryFragment : BaseFragment<Presenter>(), View {
 
     @Inject

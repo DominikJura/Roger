@@ -3,17 +3,17 @@ package pl.jurassic.roger.feature.main.presentation
 import org.joda.time.DateTime
 import pl.jurassic.roger.data.WorkTime
 import pl.jurassic.roger.feature.main.MainFragmentContract.Presenter
-import pl.jurassic.roger.feature.main.MainFragmentContract.View
 import pl.jurassic.roger.feature.main.MainFragmentContract.Router
+import pl.jurassic.roger.feature.main.MainFragmentContract.View
 import pl.jurassic.roger.util.repository.Repository
 import pl.jurassic.roger.util.timer.BreakType
 import pl.jurassic.roger.util.tools.DateFormatter
 
 class MainFragmentPresenter(
-        private val view: View,
-        private val router: Router,
-        private val dateFormatter: DateFormatter,
-        private val repository: Repository
+    private val view: View,
+    private val router: Router,
+    private val dateFormatter: DateFormatter,
+    private val repository: Repository
 ) : Presenter {
 
     override fun initialize() = Unit
@@ -22,7 +22,7 @@ class MainFragmentPresenter(
 
     override fun onTimerButtonClicked() {
         val configuration = view.timerService.configuration
-        when(configuration.isRunning) {
+        when (configuration.isRunning) {
             true -> pauseTimer()
             false -> startTimer()
         }
@@ -48,7 +48,7 @@ class MainFragmentPresenter(
     }
 
     override fun onSmokingItemClicked(isSelected: Boolean) = with(view) {
-        when(isSelected) {
+        when (isSelected) {
             true -> {
                 pauseBreakTimer()
                 deactivateSmokingButton()
@@ -75,7 +75,7 @@ class MainFragmentPresenter(
     }
 
     override fun onLunchItemClicked(isSelected: Boolean) = with(view) {
-        when(isSelected) {
+        when (isSelected) {
             true -> {
                 pauseBreakTimer()
                 deactivateLunchButton()
@@ -86,14 +86,13 @@ class MainFragmentPresenter(
                 deactivateOtherButton()
                 deactivateSmokingButton()
                 activeLunchButton()
-
             }
         }
     }
 
     override fun onOtherItemClicked(isSelected: Boolean) = with(view) {
-        when(isSelected) {
-            true ->  {
+        when (isSelected) {
+            true -> {
                 pauseBreakTimer()
                 deactivateOtherButton()
             }

@@ -9,9 +9,9 @@ import pl.jurassic.roger.util.repository.Repository
 import timber.log.Timber
 
 class SummaryFragmentPresenter(
-        private val view: View,
-        private val repository: Repository,
-        private val compositeDisposable: CompositeDisposable
+    private val view: View,
+    private val repository: Repository,
+    private val compositeDisposable: CompositeDisposable
 ) : Presenter {
 
     override fun initialize() {
@@ -25,5 +25,4 @@ class SummaryFragmentPresenter(
     override fun clear() {
         compositeDisposable.clear()
     }
-
 }

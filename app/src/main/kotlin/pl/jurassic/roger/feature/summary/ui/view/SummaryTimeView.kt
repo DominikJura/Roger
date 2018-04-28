@@ -8,9 +8,9 @@ import kotlinx.android.synthetic.main.view_summary_time.view.summary_time_date_t
 import kotlinx.android.synthetic.main.view_summary_time.view.summary_time_title_text as titleTextView
 
 class SummaryTimeView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : CardView(context, attrs, defStyleAttr) {
 
     var dateTimeText: CharSequence

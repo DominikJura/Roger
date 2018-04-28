@@ -1,6 +1,5 @@
 package pl.jurassic.roger.util.repository
 
-import io.reactivex.Flowable
 import io.reactivex.Observable
 import org.joda.time.DateTime
 import pl.jurassic.roger.data.WorkTime
@@ -13,8 +12,8 @@ import pl.jurassic.roger.util.database.WorkTimeDao
 import pl.jurassic.roger.util.tools.DateFormatter
 
 class RepositoryImpl(
-        private val workTimeDao: WorkTimeDao,
-        private val dateFormatter: DateFormatter
+    private val workTimeDao: WorkTimeDao,
+    private val dateFormatter: DateFormatter
 ) : Repository {
 
     override fun getWorkTimeList(): Observable<List<SummaryWorkTime>> =

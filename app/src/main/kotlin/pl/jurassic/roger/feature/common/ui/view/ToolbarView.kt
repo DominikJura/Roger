@@ -9,11 +9,10 @@ import pl.jurassic.roger.R
 import kotlinx.android.synthetic.main.view_toolbar.view.toolbar_navigation_back as navigationBackImageView
 import kotlinx.android.synthetic.main.view_toolbar.view.toolbar_title as titleTextView
 
-
 class ToolbarView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = R.attr.toolbarStyle
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = R.attr.toolbarStyle
 ) : Toolbar(context, attrs, defStyleAttr) {
 
     companion object {

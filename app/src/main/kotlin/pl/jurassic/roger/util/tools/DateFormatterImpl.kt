@@ -14,7 +14,7 @@ class DateFormatterImpl : DateFormatter {
         val WORK_DATE_FORMAT: DateTimeFormatter = DateTimeFormat.forPattern("MMMM,\ndd yyyy")
     }
 
-    override fun parseTime(timestamp: Long): String  {
+    override fun parseTime(timestamp: Long): String {
         val localTime = LocalTime(timestamp)
         return String.format(
                 JOB_TIME_FORMAT,

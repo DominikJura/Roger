@@ -9,13 +9,10 @@ import pl.jurassic.roger.feature.main.MainFragmentContract
 import pl.jurassic.roger.feature.main.navigation.MainFragmentRouter
 import pl.jurassic.roger.feature.main.presentation.MainFragmentPresenter
 import pl.jurassic.roger.feature.main.ui.MainFragment
-import pl.jurassic.roger.util.database.WorkTimeDao
 import pl.jurassic.roger.util.injection.RuntimeScope
 import pl.jurassic.roger.util.repository.Repository
-import pl.jurassic.roger.util.repository.RepositoryImpl
 import pl.jurassic.roger.util.timer.TimerService
 import pl.jurassic.roger.util.tools.DateFormatter
-import pl.jurassic.roger.util.tools.DateFormatterImpl
 
 @Module
 class MainFragmentModule {
@@ -34,10 +31,10 @@ class MainFragmentModule {
     @RuntimeScope
     @Provides
     fun presenter(
-            view: MainFragmentContract.View,
-            router: MainFragmentContract.Router,
-            dateFormatter: DateFormatter,
-            repository: Repository
+        view: MainFragmentContract.View,
+        router: MainFragmentContract.Router,
+        dateFormatter: DateFormatter,
+        repository: Repository
     ): MainFragmentContract.Presenter =
             MainFragmentPresenter(view, router, dateFormatter, repository)
 }

@@ -10,10 +10,10 @@ import pl.jurassic.roger.R
 import pl.jurassic.roger.getColor
 
 class TimeProgressBarView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr)  {
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : View(context, attrs, defStyleAttr) {
 
     companion object {
         private const val RING_STROKE_WITH = 2f
@@ -52,26 +52,23 @@ class TimeProgressBarView @JvmOverloads constructor(
         setLayerType(LAYER_TYPE_SOFTWARE, innerCircleShadowPaint)
     }
 
-
-
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         //TODO clear that code
         super.onLayout(changed, left, top, right, bottom)
-        val someValue = (right - left)/6
+        val someValue = (right - left) / 6
         outerCircleRectF.set(0f, 0f, (right - left).toFloat(), (bottom - top).toFloat())
         innerCircleRectF.set(0f + someValue, 0f + someValue, (right - left - someValue).toFloat(), (bottom - top - someValue).toFloat())
     }
 
     override fun onDraw(canvas: Canvas) {
-        canvas.drawOval(outerCircleRectF,  innerCircleWhitePaint)
-        canvas.drawOval(outerCircleRectF,  ringStrokePaint)
+        canvas.drawOval(outerCircleRectF, innerCircleWhitePaint)
+        canvas.drawOval(outerCircleRectF, ringStrokePaint)
 
-        for(i in 0..8) {
+        for (i in 0..8) {
             val tmp = 45f * i
             canvas.drawArc(outerCircleRectF, tmp, 0.5f, true, ringBluePaint)
         }
         canvas.drawOval(innerCircleRectF, innerCircleShadowPaint)
-
 
         super.onDraw(canvas)
     }

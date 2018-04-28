@@ -5,8 +5,6 @@ import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import android.arch.persistence.room.Query
 import android.arch.persistence.room.Transaction
-import io.reactivex.Flowable
-import io.reactivex.Maybe
 import io.reactivex.Single
 import pl.jurassic.roger.data.database.BreakTimeData
 import pl.jurassic.roger.data.database.JobTimeData
