@@ -26,18 +26,6 @@ class MainFragment : BaseFragment<Presenter>(), View {
     @Inject
     lateinit var timerServiceIntent: Intent
 
-    val timerServiceConnection = object : ServiceConnection {
-        override fun onServiceConnected(className: ComponentName, service: IBinder) {
-            val binder = service as TimerServiceBinder
-            timerService = binder.service
-            timerServiceBound = true
-        }
-
-        override fun onServiceDisconnected(arg0: ComponentName) {
-            timerServiceBound = false
-        }
-    }
-
     override var activeBreakType: BreakType? = null
 
     override val layoutId: Int = R.layout.fragment_main
@@ -55,6 +43,18 @@ class MainFragment : BaseFragment<Presenter>(), View {
                 timerService.breakUpdateCallback = null
             }
         }
+
+    private val timerServiceConnection = object : ServiceConnection {
+        override fun onServiceConnected(className: ComponentName, service: IBinder) {
+            val binder = service as TimerServiceBinder
+            timerService = binder.service
+            timerServiceBound = true
+        }
+
+        override fun onServiceDisconnected(arg0: ComponentName) {
+            timerServiceBound = false
+        }
+    }
 
     override fun initOnClickListeners() = with(presenter) {
         timerImageView.setOnClickListener { onTimerButtonClicked() }
@@ -76,6 +76,10 @@ class MainFragment : BaseFragment<Presenter>(), View {
             activity?.unbindService(timerServiceConnection)
             timerServiceBound = false
         }
+    }
+
+    override fun setJobTimeProgress(progress: Float) {
+        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun setJobTime(jobTime: String) {

@@ -4,17 +4,18 @@ import android.content.Context
 import android.support.annotation.ColorInt
 import android.support.annotation.DrawableRes
 import android.support.v4.content.ContextCompat
-import android.support.v7.widget.CardView
 import android.util.AttributeSet
+import android.widget.FrameLayout
 import pl.jurassic.roger.R
 import pl.jurassic.roger.getDrawable
 import kotlinx.android.synthetic.main.view_break_item.view.break_item_image as breakImageView
+import kotlinx.android.synthetic.main.view_break_item.view.break_item_container as container
 
 class BreakItemView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0
-) : CardView(context, attrs, defStyleAttr)  {
+) : FrameLayout(context, attrs, defStyleAttr)  {
 
     @DrawableRes
     var breakImageDrawable: Int? = null
@@ -25,7 +26,7 @@ class BreakItemView @JvmOverloads constructor(
     @DrawableRes
     var breakBackgroundResource: Int? = null
         set(backgroundRes) {
-            backgroundRes?.let { setBackgroundResource(it) }
+            backgroundRes?.let { container.setBackgroundResource(it) }
         }
 
     @ColorInt

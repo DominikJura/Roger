@@ -20,12 +20,6 @@ class ToolbarView @JvmOverloads constructor(
         private const val colorUndefined = -1
     }
 
-    var isNavigableBack
-        set(value) {
-            navigationBackImageView.visibility = if (value) VISIBLE else GONE
-        }
-        get() = navigationBackImageView.visibility == VISIBLE
-
     var text: String
         set(text) {
             titleTextView.text = title

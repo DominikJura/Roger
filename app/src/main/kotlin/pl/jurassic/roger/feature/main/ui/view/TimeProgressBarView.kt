@@ -15,31 +15,64 @@ class TimeProgressBarView @JvmOverloads constructor(
         defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr)  {
 
-    val jobTime = 5
-
-    val rectF = RectF()
-    val rectF2 = RectF()
-
-    val paint = Paint()
-    val paint2 = Paint()
-
-    init {
-        paint.color = getColor(R.color.lightish_blue)
-        paint.isAntiAlias = true
-
-        paint2.color = getColor(R.color.white)
+    companion object {
+        private const val RING_STROKE_WITH = 2f
+        private const val INNER_CIRCLE_SHADOW_RADIUS = 10f
     }
 
+    private val outerCircleRectF = RectF()
+    private val innerCircleRectF = RectF()
+
+    private val innerCircleWhitePaint = Paint()
+    private val innerCircleShadowPaint = Paint()
+    private val ringBluePaint = Paint()
+    private val ringStrokePaint = Paint()
+
+    init {
+        initPaints()
+    }
+
+    private fun initPaints() {
+        innerCircleWhitePaint.color = getColor(R.color.pale_grey)
+        innerCircleWhitePaint.style = Paint.Style.FILL
+        innerCircleWhitePaint.isAntiAlias = true
+
+        innerCircleShadowPaint.color = getColor(R.color.white)
+        innerCircleShadowPaint.setShadowLayer(INNER_CIRCLE_SHADOW_RADIUS, 0f, 0f, getColor(R.color.black16))
+        innerCircleShadowPaint.isAntiAlias = true
+
+        ringBluePaint.color = getColor(R.color.lightish_blue)
+        ringBluePaint.isAntiAlias = true
+
+        ringStrokePaint.color = getColor(R.color.lightish_blue)
+        ringStrokePaint.style = Paint.Style.STROKE
+        ringStrokePaint.strokeWidth = RING_STROKE_WITH
+        ringStrokePaint.isAntiAlias = true
+
+        setLayerType(LAYER_TYPE_SOFTWARE, innerCircleShadowPaint)
+    }
+
+
+
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        //TODO clear that code
         super.onLayout(changed, left, top, right, bottom)
-        val someValue = (right - left)/5
-        rectF.set(0f, 0f, (right - left).toFloat(), (bottom - top).toFloat())
-        rectF2.set(0f + someValue, 0f + someValue, (right - left - someValue).toFloat(), (bottom - top - someValue).toFloat())
+        val someValue = (right - left)/6
+        outerCircleRectF.set(0f, 0f, (right - left).toFloat(), (bottom - top).toFloat())
+        innerCircleRectF.set(0f + someValue, 0f + someValue, (right - left - someValue).toFloat(), (bottom - top - someValue).toFloat())
     }
 
     override fun onDraw(canvas: Canvas) {
-        canvas.drawArc(rectF, 0f, 350f, true, paint)
-        canvas.drawOval(rectF2, paint2)
+        canvas.drawOval(outerCircleRectF,  innerCircleWhitePaint)
+        canvas.drawOval(outerCircleRectF,  ringStrokePaint)
+
+        for(i in 0..8) {
+            val tmp = 45f * i
+            canvas.drawArc(outerCircleRectF, tmp, 0.5f, true, ringBluePaint)
+        }
+        canvas.drawOval(innerCircleRectF, innerCircleShadowPaint)
+
+
         super.onDraw(canvas)
     }
 }

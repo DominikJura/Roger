@@ -6,8 +6,12 @@ import java.util.concurrent.TimeUnit
 
 class JobTimerImpl : JobTimer {
 
+    companion object {
+        private const val TIME_INTERVAL_IN_MILLISECONDS = 1000L
+    }
+
     override fun timerObservable(startTimestamp: Long, totalTimePass: Long): Observable<Long> =
-            Observable.interval(1000L, TimeUnit.MILLISECONDS)
+            Observable.interval(TIME_INTERVAL_IN_MILLISECONDS, TimeUnit.MILLISECONDS)
                     .flatMap { Observable.just(countTimePass(startTimestamp, totalTimePass)) }
 
     private fun countTimePass(startTimestamp: Long, totalTimeAlreadyPass: Long) =

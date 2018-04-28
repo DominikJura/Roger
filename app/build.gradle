@@ -71,6 +71,9 @@ android {
                 'src/main/res/layouts',
                 'src/main/res/layouts/activity',
                 'src/main/res/layouts/fragment',
+                'src/main/res/layouts/view',
+                'src/main/res/drawables/selector',
+                'src/main/res/drawables/icon'
         ]
     }
     testOptions {
@@ -94,7 +97,7 @@ dependencies {
     //Mockito
     testImplementation "org.mockito:mockito-core:2.13.0"
     //Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //Ktlint
     ktlint "com.github.shyiko:ktlint:0.21.0"
     //Support

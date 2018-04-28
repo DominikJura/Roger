@@ -2,13 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline_horizontal_75"
-        style="@style/GuidelineHorizontal"
-        app:layout_constraintGuide_percent="0.75" />
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/main_job_time_text"
@@ -16,13 +10,14 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
         android:textStyle="bold"
         android:textSize="32sp"
         android:textColor="@color/lightish_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/main_break_time_text"
+        app:layout_constraintVertical_chainStyle="packed"
         android:text="@string/timer_zero"/>
 
     <TextView
@@ -36,9 +31,11 @@
         app:layout_constraintTop_toBottomOf="@id/main_job_time_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/main_time_progresss"
         android:text="@string/timer_zero"/>
 
     <pl.jurassic.roger.feature.main.ui.view.TimeProgressBarView
+        android:id="@+id/main_time_progresss"
         android:layout_width="250dp"
         android:layout_height="250dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,9 +66,10 @@
         app:background_selector="@drawable/break_smoking_background_selector"
         app:drawable_id="@drawable/ic_arrow_back"
         app:image_tint_selector="@color/break_smoking_image_tint_selector"
+        app:layout_constraintTop_toBottomOf="@id/main_time_progresss"
         app:layout_constraintEnd_toStartOf="@+id/main_break_item_lunch"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_75" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <pl.jurassic.roger.feature.common.ui.view.BreakItemView
         android:id="@+id/main_break_item_lunch"
@@ -84,7 +82,8 @@
         app:image_tint_selector="@color/break_lunch_image_tint_selector"
         app:layout_constraintEnd_toStartOf="@+id/main_break_item_other"
         app:layout_constraintStart_toEndOf="@id/main_break_item_smoking"
-        app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_75"
+        app:layout_constraintTop_toBottomOf="@id/main_time_progresss"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <pl.jurassic.roger.feature.common.ui.view.BreakItemView
@@ -97,8 +96,9 @@
         app:drawable_id="@drawable/ic_arrow_back"
         app:image_tint_selector="@color/break_other_image_tint_selector"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_time_progresss"
         app:layout_constraintStart_toEndOf="@id/main_break_item_lunch"
-        app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_75"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
@@ -107,7 +107,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_break_item_other"
         android:text="SAVE"/>
 

@@ -1,6 +1,5 @@
 package pl.jurassic.roger.feature.main.presentation
 
-import android.test.suitebuilder.annotation.Smoke
 import org.joda.time.DateTime
 import pl.jurassic.roger.data.WorkTime
 import pl.jurassic.roger.feature.main.MainFragmentContract.Presenter
@@ -40,6 +39,7 @@ class MainFragmentPresenter(
     }
 
     override fun onJobTimeReceive(time: Long) {
+//        view.setTimeProgress()
         view.setJobTime(dateFormatter.parseTime(time))
     }
 

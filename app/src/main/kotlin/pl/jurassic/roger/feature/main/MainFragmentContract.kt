@@ -18,6 +18,7 @@ interface MainFragmentContract {
         fun deactivateLunchButton()
         fun deactivateOtherButton()
         fun setJobTime(jobTime: String)
+        fun setJobTimeProgress(progress: Float)
         fun setTimerPause()
         fun setTimerStart()
         fun setBreakTime(breakTime: String)

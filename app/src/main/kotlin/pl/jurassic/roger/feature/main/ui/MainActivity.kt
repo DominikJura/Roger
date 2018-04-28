@@ -1,5 +1,7 @@
 package pl.jurassic.roger.feature.main.ui
 
+import android.os.Bundle
+import android.os.PersistableBundle
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import pl.jurassic.roger.R
@@ -10,12 +12,20 @@ import pl.jurassic.roger.util.tools.EventHelper
 import pl.jurassic.roger.util.tools.MainNavigationEvent
 import javax.inject.Inject
 
+import kotlinx.android.synthetic.main.activity_main.main_toolbar as toolbar
+
 class MainActivity : BaseActivity<Presenter>(true), View {
 
     @Inject
     lateinit var eventHelper: EventHelper
 
     override val layoutId: Int = R.layout.activity_main
+
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+
+        setSupportActionBar(toolbar)
+    }
 
     override fun showMainFragment() {
         supportFragmentManager.beginTransaction()
