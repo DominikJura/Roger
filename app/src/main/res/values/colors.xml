@@ -25,6 +25,10 @@
     <color name="toolbar_icon_tint_color">@color/white</color>
 
     <!--Custom-->
+    <color name="break_smoking_color">@color/purple</color>
+    <color name="break_lunch_color">@color/orange_yellow</color>
+    <color name="break_other_color">@color/cerise</color>
+
     <color name="break_item_smoking_background_solid_active">@color/purple</color>
     <color name="break_item_smoking_background_solid_inactive">@color/white</color>
     <color name="break_item_lunch_background_solid_active">@color/orange_yellow</color>

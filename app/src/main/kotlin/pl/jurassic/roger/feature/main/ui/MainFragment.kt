@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.IBinder
 import pl.jurassic.roger.R
+import pl.jurassic.roger.data.ui.BreakProgressAngle
 import pl.jurassic.roger.feature.common.ui.BaseFragment
 import pl.jurassic.roger.feature.main.MainFragmentContract.Presenter
 import pl.jurassic.roger.feature.main.MainFragmentContract.View
@@ -19,6 +20,7 @@ import kotlinx.android.synthetic.main.fragment_main.main_break_item_smoking as b
 import kotlinx.android.synthetic.main.fragment_main.main_break_time_text as breakTimeTextView
 import kotlinx.android.synthetic.main.fragment_main.main_job_time_text as jobTimeTextView
 import kotlinx.android.synthetic.main.fragment_main.main_save_button as saveButton
+import kotlinx.android.synthetic.main.fragment_main.main_time_progress as timeProgressView
 import kotlinx.android.synthetic.main.fragment_main.main_timer_button as timerImageView
 
 class MainFragment : BaseFragment<Presenter>(), View {
@@ -33,14 +35,14 @@ class MainFragment : BaseFragment<Presenter>(), View {
     override lateinit var timerService: TimerService
 
     override var timerServiceBound: Boolean = false
-        set(value) {
+        set(value) = with(timerService) {
             field = value
             if (value) {
-                timerService.timeUpdateCallback = { presenter.onJobTimeReceive(it) }
-                timerService.breakUpdateCallback = { presenter.onBreakTimeReceive(it) }
+                timeUpdateCallback = { presenter.onJobTimeReceive(it) }
+                breakUpdateCallback = { breakType, breakTime -> presenter.onBreakTimeReceive(breakType, breakTime) }
             } else {
-                timerService.timeUpdateCallback = null
-                timerService.breakUpdateCallback = null
+                timeUpdateCallback = null
+                breakUpdateCallback = null
             }
         }
 
@@ -78,15 +80,19 @@ class MainFragment : BaseFragment<Presenter>(), View {
         }
     }
 
-    override fun setJobTimeProgress(progress: Float) {
-        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun setBreakTimeProgressAngles(progressBreakAngles: List<BreakProgressAngle>) {
+        timeProgressView.breakProgressAngleList = progressBreakAngles
+    }
+
+    override fun setJobTimeProgressAngle(progressAngle: Float) {
+        timeProgressView.jobProgressAngle = progressAngle
     }
 
     override fun setJobTime(jobTime: String) {
         jobTimeTextView.text = jobTime
     }
 
-    override fun setBreakTime(breakTime: String) {
+    override fun setBreakTotalTime(breakTime: String) {
         breakTimeTextView.text = breakTime
     }
 
@@ -120,5 +126,20 @@ class MainFragment : BaseFragment<Presenter>(), View {
 
     override fun setTimerStart() {
         timerImageView.isSelected = true
+    }
+
+    override fun setLunchTimeText(breakTime: String) {
+        breakItemLunch.breakTimeTextColor = R.color.break_lunch_color
+        breakItemLunch.breakTimeText = breakTime
+    }
+
+    override fun setSmokingTimeText(breakTime: String) {
+        breakItemSmoking.breakTimeTextColor = R.color.break_smoking_color
+        breakItemSmoking.breakTimeText = breakTime
+    }
+
+    override fun setOtherTimeText(breakTime: String) {
+        breakItemOther.breakTimeTextColor = R.color.break_other_color
+        breakItemOther.breakTimeText = breakTime
     }
 }

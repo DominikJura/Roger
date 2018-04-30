@@ -7,6 +7,7 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
 import pl.jurassic.roger.R
+import pl.jurassic.roger.data.ui.BreakProgressAngle
 import pl.jurassic.roger.getColor
 
 class TimeProgressBarView @JvmOverloads constructor(
@@ -20,6 +21,18 @@ class TimeProgressBarView @JvmOverloads constructor(
         private const val INNER_CIRCLE_SHADOW_RADIUS = 10f
     }
 
+    var breakProgressAngleList: List<BreakProgressAngle> = arrayListOf()
+    set(value) {
+        field = value
+        invalidate()
+    }
+
+    var jobProgressAngle: Float = 0f
+    set(value) {
+        field = value
+        invalidate()
+    }
+
     private val outerCircleRectF = RectF()
     private val innerCircleRectF = RectF()
 
@@ -27,6 +40,8 @@ class TimeProgressBarView @JvmOverloads constructor(
     private val innerCircleShadowPaint = Paint()
     private val ringBluePaint = Paint()
     private val ringStrokePaint = Paint()
+
+    private val breakRingPaint = Paint()
 
     init {
         initPaints()
@@ -49,6 +64,8 @@ class TimeProgressBarView @JvmOverloads constructor(
         ringStrokePaint.strokeWidth = RING_STROKE_WITH
         ringStrokePaint.isAntiAlias = true
 
+        breakRingPaint.isAntiAlias = true
+
         setLayerType(LAYER_TYPE_SOFTWARE, innerCircleShadowPaint)
     }
 
@@ -60,16 +77,29 @@ class TimeProgressBarView @JvmOverloads constructor(
         innerCircleRectF.set(0f + someValue, 0f + someValue, (right - left - someValue).toFloat(), (bottom - top - someValue).toFloat())
     }
 
-    override fun onDraw(canvas: Canvas) {
-        canvas.drawOval(outerCircleRectF, innerCircleWhitePaint)
-        canvas.drawOval(outerCircleRectF, ringStrokePaint)
+    override fun onDraw(canvas: Canvas) = with(canvas) {
+        drawOval(outerCircleRectF, innerCircleWhitePaint)
+        drawOval(outerCircleRectF, ringStrokePaint)
+
+        drawArc(outerCircleRectF, 270f, jobProgressAngle, true, ringBluePaint)
+
+        breakProgressAngleList.forEach {
+            breakRingPaint.color = getColor(it.arcColor)
+            drawArc(outerCircleRectF, 270f + it.startAngle, it.sweepAngle, true, breakRingPaint)
+        }
 
         for (i in 0..8) {
             val tmp = 45f * i
-            canvas.drawArc(outerCircleRectF, tmp, 0.5f, true, ringBluePaint)
-        }
-        canvas.drawOval(innerCircleRectF, innerCircleShadowPaint)
+            when(jobProgressAngle > tmp) {
+                true -> ringBluePaint.color = getColor(R.color.pale_grey)
+                false -> ringBluePaint.color = getColor(R.color.lightish_blue)
+            }
 
-        super.onDraw(canvas)
+            drawArc(outerCircleRectF, 270 + tmp, 0.5f, true, ringBluePaint)
+        }
+
+        drawOval(innerCircleRectF, innerCircleShadowPaint)
+
+        super.onDraw(this)
     }
 }

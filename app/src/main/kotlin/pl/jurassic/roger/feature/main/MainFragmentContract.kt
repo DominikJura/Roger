@@ -1,5 +1,6 @@
 package pl.jurassic.roger.feature.main
 
+import pl.jurassic.roger.data.ui.BreakProgressAngle
 import pl.jurassic.roger.feature.common.BaseContract
 import pl.jurassic.roger.util.timer.BreakType
 import pl.jurassic.roger.util.timer.TimerService
@@ -18,10 +19,14 @@ interface MainFragmentContract {
         fun deactivateLunchButton()
         fun deactivateOtherButton()
         fun setJobTime(jobTime: String)
-        fun setJobTimeProgress(progress: Float)
+        fun setJobTimeProgressAngle(progressAngle: Float)
         fun setTimerPause()
         fun setTimerStart()
-        fun setBreakTime(breakTime: String)
+        fun setBreakTotalTime(breakTime: String)
+        fun setBreakTimeProgressAngles(progressBreakAngles: List<BreakProgressAngle>)
+        fun setLunchTimeText(breakTime: String)
+        fun setSmokingTimeText(breakTime: String)
+        fun setOtherTimeText(breakTime: String)
     }
 
     interface Router {
@@ -35,6 +40,6 @@ interface MainFragmentContract {
         fun onSaveClicked()
         fun onTimerButtonClicked()
         fun onJobTimeReceive(time: Long)
-        fun onBreakTimeReceive(time: Long)
+        fun onBreakTimeReceive(breakType: BreakType, time: Long)
     }
 }

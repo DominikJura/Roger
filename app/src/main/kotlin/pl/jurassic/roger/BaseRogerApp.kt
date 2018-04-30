@@ -8,6 +8,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import dagger.android.HasServiceInjector
 import net.danlew.android.joda.JodaTimeAndroid
+import pl.jurassic.roger.util.injection.DaggerAppComponent
 import javax.inject.Inject
 
 abstract class BaseRogerApp : Application(), HasActivityInjector, HasServiceInjector {
@@ -23,11 +24,9 @@ abstract class BaseRogerApp : Application(), HasActivityInjector, HasServiceInje
         init()
     }
 
-    override fun serviceInjector(): AndroidInjector<Service> =
-            serviceInjector
+    override fun serviceInjector(): AndroidInjector<Service> = serviceInjector
 
-    override fun activityInjector(): AndroidInjector<Activity> =
-            activityInjector
+    override fun activityInjector(): AndroidInjector<Activity> = activityInjector
 
     open fun init() {
         initTimber()

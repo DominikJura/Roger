@@ -10,6 +10,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.joda.time.DateTime
+import pl.jurassic.roger.data.BreakTime
 import pl.jurassic.roger.util.tools.JobTimer
 import timber.log.Timber
 import javax.inject.Inject
@@ -31,7 +32,7 @@ class TimerService : Service() {
     private lateinit var breakTimeDisposable: Disposable
 
     var timeUpdateCallback: TimeUpdateCallback? = null
-    var breakUpdateCallback: TimeUpdateCallback? = null
+    var breakUpdateCallback: ((breakType: BreakType, time: Long) -> Unit)? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -42,43 +43,34 @@ class TimerService : Service() {
         TimerServiceBinder(this)
 
     fun startBreakTimer(breakType: BreakType) {
-        configuration.breakTypeStartTime[breakType] = DateTime.now().millis
+        val breakStartTimestamp = DateTime.now().millis
 
-        breakTimeDisposable = jobTimer.timerObservable(getBreakStartTime(breakType))
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map { it + getBreakTotalTimeSum() }
-                .subscribe ({ breakUpdateCallback?.invoke(it) }, { Timber.e(it) })
+        configuration.breakTimesMap[breakType]?.add(BreakTime(breakStartTimestamp, breakStartTimestamp))
+
+        breakTimeDisposable = jobTimer.timerObservable(breakStartTimestamp)
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ breakUpdateCallback?.invoke(breakType, it) }, { Timber.e(it) })
 
         compositeDisposable.add(breakTimeDisposable)
     }
 
-    private fun getBreakTotalTime(breakType: BreakType) =
-            configuration.breakTypeTotalTime[breakType] ?: 0L
-
-    private fun getBreakStartTime(breakType: BreakType) =
-            configuration.breakTypeStartTime[breakType] ?: 0L
-
-    private fun getBreakTotalTimeSum() =
-            configuration.breakTypeTotalTime.values.sum()
-
     fun pauseBreakTimer(breakType: BreakType) {
         compositeDisposable.remove(breakTimeDisposable)
 
-        val totalBreakTime = DateTime.now().millis - getBreakStartTime(breakType)
-        configuration.breakTypeTotalTime[breakType] = getBreakTotalTime(breakType) + totalBreakTime
+        configuration.breakTimesMap[breakType]?.peek()?.stopTimestamp = DateTime.now().millis
     }
 
     fun startJobTimer() {
         configuration.isRunning = true
         configuration.startTime = DateTime.now().millis
         jobTimeDisposable = jobTimer.timerObservable(
-                configuration.startTime,
-                configuration.jobTimeThatAlreadyPass
+            configuration.startTime,
+            configuration.jobTimeThatAlreadyPass
         )
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe ({ timeUpdateCallback?.invoke(it) }, { Timber.e(it) })
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ timeUpdateCallback?.invoke(it) }, { Timber.e(it) })
 
         compositeDisposable.add(jobTimeDisposable)
     }

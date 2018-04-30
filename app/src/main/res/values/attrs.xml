@@ -4,6 +4,7 @@
         <attr name="drawable_id" format="reference" />
         <attr name="background_selector" format="reference" />
         <attr name="image_tint_selector" format="reference" />
+        <attr name="time_text_color" format="color" />
     </declare-styleable>
 
     <declare-styleable name="SummaryTimeView">

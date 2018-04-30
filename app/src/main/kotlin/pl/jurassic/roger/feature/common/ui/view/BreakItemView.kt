@@ -8,8 +8,10 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import pl.jurassic.roger.R
 import pl.jurassic.roger.getDrawable
-import kotlinx.android.synthetic.main.view_break_item.view.break_item_container as container
+import pl.jurassic.roger.getString
 import kotlinx.android.synthetic.main.view_break_item.view.break_item_image as breakImageView
+import kotlinx.android.synthetic.main.view_break_item.view.break_item_image_container as container
+import kotlinx.android.synthetic.main.view_break_item.view.break_item_time as breakTimeTextView
 
 class BreakItemView @JvmOverloads constructor(
     context: Context,
@@ -32,8 +34,19 @@ class BreakItemView @JvmOverloads constructor(
     @ColorInt
     var breakImageColor: Int? = null
         set(colorSelector) {
-            colorSelector?.let {
-                breakImageView.imageTintList = ContextCompat.getColorStateList(context, it)
+            colorSelector?.let { breakImageView.imageTintList = ContextCompat.getColorStateList(context, it) }
+        }
+
+    var breakTimeText: String = getString(R.string.timer_zero)
+        set(timeText) {
+            breakTimeTextView.text = timeText
+        }
+
+    @ColorInt
+    var breakTimeTextColor: Int? = null
+        set(color) {
+            if (breakTimeText == getString(R.string.timer_zero)) {
+                color?.let { breakTimeTextView.setTextColor(it) }
             }
         }
 
