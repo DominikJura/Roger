@@ -124,7 +124,7 @@ class MainFragment : BaseFragment<Presenter>(), View {
         timerImageView.isSelected = false
     }
 
-    override fun setTimerStart() {
+    override fun activeJobButton() {
         timerImageView.isSelected = true
     }
 

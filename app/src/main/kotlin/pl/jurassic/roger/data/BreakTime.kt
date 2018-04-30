@@ -1,3 +1,5 @@
 package pl.jurassic.roger.data
 
-data class BreakTime(var startTimestamp: Long, var stopTimestamp: Long = 0L)
+import pl.jurassic.roger.util.timer.BreakType
+
+data class BreakTime(val breakType: BreakType, var startTimestamp: Long, var stopTimestamp: Long = 0L)

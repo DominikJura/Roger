@@ -21,7 +21,7 @@ interface MainFragmentContract {
         fun setJobTime(jobTime: String)
         fun setJobTimeProgressAngle(progressAngle: Float)
         fun setTimerPause()
-        fun setTimerStart()
+        fun activeJobButton()
         fun setBreakTotalTime(breakTime: String)
         fun setBreakTimeProgressAngles(progressBreakAngles: List<BreakProgressAngle>)
         fun setLunchTimeText(breakTime: String)

@@ -3,18 +3,14 @@ package pl.jurassic.roger.util.timer
 import android.support.annotation.ColorRes
 import pl.jurassic.roger.R
 import pl.jurassic.roger.data.BreakTime
-import java.util.Queue
 
 interface TimerConfiguration {
 
     var isRunning: Boolean
-
+    var initialize: Boolean
     var startTime: Long
-    var jobTimeThatAlreadyPass: Long
 
-    var breakTypeTotalTime: MutableMap<BreakType, Long>
-    var breakTypeStartTime: MutableMap<BreakType, Long>
-    var breakTimesMap: MutableMap<BreakType, Queue<BreakTime>>
+    var breakTimesList: ArrayList<BreakTime>
 }
 
 enum class BreakType(@ColorRes val breakColorRes: Int) {

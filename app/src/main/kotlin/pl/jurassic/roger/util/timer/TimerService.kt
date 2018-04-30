@@ -43,9 +43,13 @@ class TimerService : Service() {
         TimerServiceBinder(this)
 
     fun startBreakTimer(breakType: BreakType) {
+        if(!configuration.isRunning) {
+            startJobTimer()
+        }
+
         val breakStartTimestamp = DateTime.now().millis
 
-        configuration.breakTimesMap[breakType]?.add(BreakTime(breakStartTimestamp, breakStartTimestamp))
+        configuration.breakTimesList.add(BreakTime(breakType, breakStartTimestamp, breakStartTimestamp))
 
         breakTimeDisposable = jobTimer.timerObservable(breakStartTimestamp)
             .subscribeOn(Schedulers.computation())
@@ -55,19 +59,19 @@ class TimerService : Service() {
         compositeDisposable.add(breakTimeDisposable)
     }
 
-    fun pauseBreakTimer(breakType: BreakType) {
+    fun pauseBreakTimer() {
         compositeDisposable.remove(breakTimeDisposable)
 
-        configuration.breakTimesMap[breakType]?.peek()?.stopTimestamp = DateTime.now().millis
+        configuration.breakTimesList.last().stopTimestamp = DateTime.now().millis
     }
 
     fun startJobTimer() {
         configuration.isRunning = true
-        configuration.startTime = DateTime.now().millis
-        jobTimeDisposable = jobTimer.timerObservable(
-            configuration.startTime,
-            configuration.jobTimeThatAlreadyPass
-        )
+        if(!configuration.initialize) {
+            configuration.startTime = DateTime.now().millis
+            configuration.initialize = true
+        }
+        jobTimeDisposable = jobTimer.timerObservable(configuration.startTime)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ timeUpdateCallback?.invoke(it) }, { Timber.e(it) })
@@ -79,7 +83,6 @@ class TimerService : Service() {
         compositeDisposable.remove(jobTimeDisposable)
 
         configuration.isRunning = false
-        configuration.jobTimeThatAlreadyPass += DateTime.now().millis - configuration.startTime
     }
 
     override fun onDestroy() {

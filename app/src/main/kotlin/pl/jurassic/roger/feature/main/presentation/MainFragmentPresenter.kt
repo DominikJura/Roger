@@ -1,7 +1,5 @@
 package pl.jurassic.roger.feature.main.presentation
 
-import org.joda.time.DateTime
-import pl.jurassic.roger.data.WorkTime
 import pl.jurassic.roger.data.ui.BreakProgressAngle
 import pl.jurassic.roger.feature.main.MainFragmentContract.Presenter
 import pl.jurassic.roger.feature.main.MainFragmentContract.Router
@@ -41,7 +39,7 @@ class MainFragmentPresenter(
 
     private fun startTimer() = with(view) {
         timerService.startJobTimer()
-        setTimerStart()
+        activeJobButton()
     }
 
     private fun pauseTimer() = with(view) {
@@ -59,7 +57,7 @@ class MainFragmentPresenter(
 
     override fun onBreakTimeReceive(breakType: BreakType, time: Long) {
         val breakTime = dateFormatter.parseTime(getBreakTime(breakType) + time)
-        when(breakType) {
+        when (breakType) {
             BreakType.LUNCH -> view.setLunchTimeText(breakTime)
             BreakType.SMOKING -> view.setSmokingTimeText(breakTime)
             BreakType.OTHER -> view.setOtherTimeText(breakTime)
@@ -69,33 +67,22 @@ class MainFragmentPresenter(
         view.setBreakTotalTime(dateFormatter.parseTime(getBreakTotalTime() + time))
     }
 
-    private fun getBreakTotalTime(): Int {
-        var totalTime = 0
-        configuration.breakTimesMap.forEach { _, value -> totalTime += value
-            .sumBy { (it.stopTimestamp - it.startTimestamp).toInt() } }
-        return totalTime
-    }
-
+    private fun getBreakTotalTime(): Int =
+        configuration.breakTimesList.sumBy { (it.stopTimestamp - it.startTimestamp).toInt() }
 
     private fun getBreakTime(breakType: BreakType): Int =
-        configuration.breakTimesMap[breakType]?.sumBy { (it.stopTimestamp - it.startTimestamp).toInt() } ?: 0
+        configuration.breakTimesList
+            .filter { it.breakType == breakType }
+            .sumBy { (it.stopTimestamp - it.startTimestamp).toInt() }
 
-    private fun transformToProgressAngleList(time: Long): List<BreakProgressAngle> {
-        val list = arrayListOf<BreakProgressAngle>()
-        val breakTimeMap = configuration.breakTimesMap
-
-        breakTimeMap.forEach { type, breakTime ->
-            breakTime.forEach {
+    private fun transformToProgressAngleList(time: Long): List<BreakProgressAngle> =
+        configuration.breakTimesList
+            .map {
+                val startAngle = countProgressAngle(it.startTimestamp - configuration.startTime)
                 val sweepAngle = countProgressAngle(it.stopTimestamp - it.startTimestamp)
-                val startAngle = countProgressAngle(it.startTimestamp - view.timerService.configuration.startTime)
-                list.add(BreakProgressAngle(startAngle, sweepAngle, type.breakColorRes))
+                BreakProgressAngle(startAngle, sweepAngle, it.breakType.breakColorRes)
             }
-        }
-
-        list.last().sweepAngle += countProgressAngle(time)
-
-        return list
-    }
+            .also { it.last().sweepAngle += countProgressAngle(time) }
 
     override fun onSmokingItemClicked(isSelected: Boolean) = with(view) {
         when (isSelected) {
@@ -105,6 +92,7 @@ class MainFragmentPresenter(
             }
             false -> {
                 startBreakTimer(BreakType.SMOKING)
+                activeJobButton()
 
                 deactivateOtherButton()
                 deactivateLunchButton()
@@ -114,12 +102,12 @@ class MainFragmentPresenter(
     }
 
     private fun pauseBreakTimer() = with(view) {
-        activeBreakType?.let { timerService.pauseBreakTimer(it) }
+        activeBreakType?.let { timerService.pauseBreakTimer() }
         activeBreakType = null
     }
 
     private fun startBreakTimer(breakType: BreakType) = with(view) {
-        activeBreakType?.let { timerService.pauseBreakTimer(it) }
+        activeBreakType?.let { timerService.pauseBreakTimer() }
         activeBreakType = breakType
         timerService.startBreakTimer(breakType)
     }
@@ -132,6 +120,7 @@ class MainFragmentPresenter(
             }
             false -> {
                 startBreakTimer(BreakType.LUNCH)
+                activeJobButton()
 
                 deactivateOtherButton()
                 deactivateSmokingButton()
@@ -148,6 +137,7 @@ class MainFragmentPresenter(
             }
             false -> {
                 startBreakTimer(BreakType.OTHER)
+                activeJobButton()
 
                 deactivateSmokingButton()
                 deactivateLunchButton()
@@ -157,9 +147,9 @@ class MainFragmentPresenter(
     }
 
     override fun onSaveClicked() = with(view.timerService.configuration) {
-        val workTime = WorkTime(jobTimeThatAlreadyPass, breakTypeTotalTime, DateTime.now())
-        repository.saveWorkTime(workTime)
+        //        val workTime = WorkTime(jobTimeThatAlreadyPass, breakTypeTotalTime, DateTime.now())
+//        repository.saveWorkTime(workTime)
 
-        router.navigateToSummaryScreen()
+//        router.navigateToSummaryScreen()
     }
 }
