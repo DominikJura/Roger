@@ -12,8 +12,8 @@ import pl.jurassic.roger.util.tools.converters.DateTimeConverter
 data class BreakTimeData(
     @TypeConverters(BreakTypeConverter::class) val breakType: BreakType,
     @TypeConverters(DateTimeConverter::class) val dateTime: DateTime,
-    val breakTime: Long
-
+    val startTimestamp: Long,
+    var stopTimestamp: Long
 ) {
     @PrimaryKey var id: String = "${breakType.name}-${dateTime.dayOfYear()}"
 }

@@ -1,9 +1,12 @@
 package pl.jurassic.roger.feature.main.presentation
 
+import org.joda.time.DateTime
+import pl.jurassic.roger.data.WorkTime
 import pl.jurassic.roger.data.ui.BreakProgressAngle
 import pl.jurassic.roger.feature.main.MainFragmentContract.Presenter
 import pl.jurassic.roger.feature.main.MainFragmentContract.Router
 import pl.jurassic.roger.feature.main.MainFragmentContract.View
+import pl.jurassic.roger.sumByLong
 import pl.jurassic.roger.util.repository.Repository
 import pl.jurassic.roger.util.timer.BreakType
 import pl.jurassic.roger.util.tools.DateFormatter
@@ -67,13 +70,13 @@ class MainFragmentPresenter(
         view.setBreakTotalTime(dateFormatter.parseTime(getBreakTotalTime() + time))
     }
 
-    private fun getBreakTotalTime(): Int =
-        configuration.breakTimesList.sumBy { (it.stopTimestamp - it.startTimestamp).toInt() }
+    private fun getBreakTotalTime(): Long =
+        configuration.breakTimesList.sumByLong { (it.stopTimestamp - it.startTimestamp) }
 
-    private fun getBreakTime(breakType: BreakType): Int =
+    private fun getBreakTime(breakType: BreakType): Long =
         configuration.breakTimesList
             .filter { it.breakType == breakType }
-            .sumBy { (it.stopTimestamp - it.startTimestamp).toInt() }
+            .sumByLong { (it.stopTimestamp - it.startTimestamp) }
 
     private fun transformToProgressAngleList(time: Long): List<BreakProgressAngle> =
         configuration.breakTimesList
@@ -146,10 +149,10 @@ class MainFragmentPresenter(
         }
     }
 
-    override fun onSaveClicked() = with(view.timerService.configuration) {
-        //        val workTime = WorkTime(jobTimeThatAlreadyPass, breakTypeTotalTime, DateTime.now())
-//        repository.saveWorkTime(workTime)
+    override fun onSaveClicked() = with(configuration) {
+        val workTime = WorkTime(configuration.startTime, breakTimesList, DateTime.now())
+        repository.saveWorkTime(workTime)
 
-//        router.navigateToSummaryScreen()
+        router.navigateToSummaryScreen()
     }
 }

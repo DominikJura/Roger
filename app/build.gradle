@@ -73,6 +73,7 @@ android {
                 'src/main/res/layouts/fragment',
                 'src/main/res/layouts/view',
                 'src/main/res/drawables/selector',
+                'src/main/res/drawables/shape',
                 'src/main/res/drawables/icon'
         ]
     }

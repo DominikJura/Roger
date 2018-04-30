@@ -17,7 +17,7 @@
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
-        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res;file://$MODULE_DIR$/src/main/res/layouts;file://$MODULE_DIR$/src/main/res/layouts/activity;file://$MODULE_DIR$/src/main/res/layouts/fragment;file://$MODULE_DIR$/src/main/res/layouts/view;file://$MODULE_DIR$/src/main/res/drawables/selector;file://$MODULE_DIR$/src/main/res/drawables/icon" />
+        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res;file://$MODULE_DIR$/src/main/res/layouts;file://$MODULE_DIR$/src/main/res/layouts/activity;file://$MODULE_DIR$/src/main/res/layouts/fragment;file://$MODULE_DIR$/src/main/res/layouts/view;file://$MODULE_DIR$/src/main/res/drawables/selector;file://$MODULE_DIR$/src/main/res/drawables/shape;file://$MODULE_DIR$/src/main/res/drawables/icon" />
         <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
       </configuration>
     </facet>
@@ -143,6 +143,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/res/layouts/fragment" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/res/layouts/view" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/res/drawables/selector" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/res/drawables/shape" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/res/drawables/icon" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/assets" type="java-resource" />

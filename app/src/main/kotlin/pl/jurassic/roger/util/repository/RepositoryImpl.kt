@@ -8,6 +8,7 @@ import pl.jurassic.roger.data.database.JobTimeData
 import pl.jurassic.roger.data.database.WorkTimeData
 import pl.jurassic.roger.data.ui.SummaryBreakTime
 import pl.jurassic.roger.data.ui.SummaryWorkTime
+import pl.jurassic.roger.sumByLong
 import pl.jurassic.roger.util.database.WorkTimeDao
 import pl.jurassic.roger.util.tools.DateFormatter
 
@@ -28,7 +29,8 @@ class RepositoryImpl(
     private fun transformWorkTimeData(workTime: WorkTimeData): SummaryWorkTime = with(workTime) {
         val workDateTime = dateFormatter.parseDate(jobTimeData.dateTime)
         val jobTime = dateFormatter.parseTime(jobTimeData.jobTime)
-        val breakTotalTime = dateFormatter.parseTime(breakTimeList.map { it.breakTime }.sum())
+        val breakTotalTime = dateFormatter.parseTime(breakTimeList
+            .sumByLong { (it.stopTimestamp - it.startTimestamp) })
 
         val summaryBreakTimeList = breakTimeList.map { transformBreakTimeData(it) }
 
@@ -36,7 +38,7 @@ class RepositoryImpl(
     }
 
     private fun transformBreakTimeData(breakTimeData: BreakTimeData): SummaryBreakTime {
-        val breakTime = dateFormatter.parseTime(breakTimeData.breakTime)
+        val breakTime = dateFormatter.parseTime(breakTimeData.stopTimestamp - breakTimeData.startTimestamp)
         return SummaryBreakTime(breakTimeData.breakType, breakTime)
     }
 
@@ -44,8 +46,8 @@ class RepositoryImpl(
         val dateTime = DateTime.now()
         val jobTimeData = JobTimeData(dateTime, jobTime)
 
-        breakTime.forEach { key, value ->
-            workTimeDao.insertBreakTime(BreakTimeData(key, dateTime, value))
+        breakTime.forEach {
+            workTimeDao.insertBreakTime(BreakTimeData(it.breakType, dateTime, it.startTimestamp, it.stopTimestamp))
         }
 
         workTimeDao.insertJobTime(jobTimeData)

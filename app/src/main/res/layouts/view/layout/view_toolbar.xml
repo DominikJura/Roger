@@ -44,7 +44,7 @@
             android:padding="4dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_settings"
-            android:tint="@color/toolbar_icon_tint_color" />
+            android:tint="@color/toolbar_icon_tint" />
 
     </FrameLayout>
 
@@ -65,7 +65,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_stats"
             android:padding="4dp"
-            android:tint="@color/toolbar_icon_tint_color" />
+            android:tint="@color/toolbar_icon_tint" />
 
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

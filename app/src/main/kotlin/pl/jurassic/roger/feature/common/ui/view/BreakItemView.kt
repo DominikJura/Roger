@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import pl.jurassic.roger.R
+import pl.jurassic.roger.getColor
 import pl.jurassic.roger.getDrawable
 import pl.jurassic.roger.getString
 import kotlinx.android.synthetic.main.view_break_item.view.break_item_image as breakImageView
@@ -37,17 +38,15 @@ class BreakItemView @JvmOverloads constructor(
             colorSelector?.let { breakImageView.imageTintList = ContextCompat.getColorStateList(context, it) }
         }
 
-    var breakTimeText: String = getString(R.string.timer_zero)
-        set(timeText) {
-            breakTimeTextView.text = timeText
-        }
-
     @ColorInt
     var breakTimeTextColor: Int? = null
         set(color) {
-            if (breakTimeText == getString(R.string.timer_zero)) {
-                color?.let { breakTimeTextView.setTextColor(it) }
-            }
+            color?.let { breakTimeTextView.setTextColor(it) }
+        }
+
+    var breakTimeText: String = getString(R.string.timer_zero)
+        set(timeText) {
+            breakTimeTextView.text = timeText
         }
 
     init {
@@ -62,17 +61,15 @@ class BreakItemView @JvmOverloads constructor(
     private fun initTypedArray(attrs: AttributeSet?) {
         val typeArray = context.theme?.obtainStyledAttributes(attrs, R.styleable.BreakItem, 0, 0)
         typeArray?.let {
-            breakImageDrawable = it.getResourceId(
-                    R.styleable.BreakItem_drawable_id,
-                    R.drawable.ic_arrow_back
-            )
+            breakTimeTextColor = it.getColor(R.styleable.BreakItem_time_text_color, getColor(R.color.break_smoking))
+            breakImageDrawable = it.getResourceId(R.styleable.BreakItem_drawable_id, R.drawable.ic_arrow_back)
             breakBackgroundResource = it.getResourceId(
-                    R.styleable.BreakItem_background_selector,
-                    R.drawable.break_smoking_background_selector
+                R.styleable.BreakItem_background_selector,
+                R.drawable.break_smoking_background_selector
             )
             breakImageColor = it.getResourceId(
-                    R.styleable.BreakItem_image_tint_selector,
-                    R.color.break_smoking_image_tint_selector
+                R.styleable.BreakItem_image_tint_selector,
+                R.color.break_smoking_image_tint_selector
             )
             it.recycle()
         }

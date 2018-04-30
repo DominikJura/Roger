@@ -129,17 +129,14 @@ class MainFragment : BaseFragment<Presenter>(), View {
     }
 
     override fun setLunchTimeText(breakTime: String) {
-        breakItemLunch.breakTimeTextColor = R.color.break_lunch_color
         breakItemLunch.breakTimeText = breakTime
     }
 
     override fun setSmokingTimeText(breakTime: String) {
-        breakItemSmoking.breakTimeTextColor = R.color.break_smoking_color
         breakItemSmoking.breakTimeText = breakTime
     }
 
     override fun setOtherTimeText(breakTime: String) {
-        breakItemOther.breakTimeTextColor = R.color.break_other_color
         breakItemOther.breakTimeText = breakTime
     }
 }
