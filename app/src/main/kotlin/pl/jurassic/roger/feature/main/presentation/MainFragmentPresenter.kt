@@ -1,7 +1,5 @@
 package pl.jurassic.roger.feature.main.presentation
 
-import org.joda.time.DateTime
-import pl.jurassic.roger.data.WorkTime
 import pl.jurassic.roger.data.ui.BreakProgressAngle
 import pl.jurassic.roger.feature.main.MainFragmentContract.Presenter
 import pl.jurassic.roger.feature.main.MainFragmentContract.Router
@@ -82,7 +80,7 @@ class MainFragmentPresenter(
     private fun transformToProgressAngleList(time: Long): List<BreakProgressAngle> =
         configuration.breakTimesList
             .map {
-                val startAngle = countProgressAngle(it.startTimestamp - configuration.startTime)
+                val startAngle = countProgressAngle(it.jobTimeThatPass)
                 val sweepAngle = countProgressAngle(it.stopTimestamp - it.startTimestamp)
                 BreakProgressAngle(startAngle, sweepAngle, it.breakType.breakColorRes)
             }
@@ -151,9 +149,9 @@ class MainFragmentPresenter(
     }
 
     override fun onSaveClicked() = with(configuration) {
-        val workTime = WorkTime(configuration.startTime, breakTimesList, DateTime.now())
-        repository.saveWorkTime(workTime)
-
-        router.navigateToSummaryScreen()
+//        val workTime = WorkTime(configuration.startTime, breakTimesList, DateTime.now())
+//        repository.saveWorkTime(workTime)
+//
+//        router.navigateToSummaryScreen()
     }
 }

@@ -31,6 +31,8 @@ class TimerService : Service() {
     private lateinit var jobTimeDisposable: Disposable
     private lateinit var breakTimeDisposable: Disposable
 
+    var timeThatPass = 0L //todo refactor
+
     var timeUpdateCallback: TimeUpdateCallback? = null
     var breakUpdateCallback: ((breakType: BreakType, time: Long) -> Unit)? = null
 
@@ -45,7 +47,12 @@ class TimerService : Service() {
     fun startBreakTimer(breakType: BreakType) {
         val breakStartTimestamp = DateTime.now().millis
 
-        configuration.breakTimesList.add(BreakTime(breakType, breakStartTimestamp, breakStartTimestamp))
+        configuration.breakTimesList.add(BreakTime(
+            breakType,
+            breakStartTimestamp,
+            timeThatPass,
+            breakStartTimestamp
+        ))
 
         breakTimeDisposable = jobTimer.timerObservable(breakStartTimestamp)
             .subscribeOn(Schedulers.computation())
@@ -66,13 +73,12 @@ class TimerService : Service() {
 
             configuration.isRunning = true
 
-            if(!configuration.initialize) {
-                configuration.startTime = DateTime.now().millis
-                configuration.initialize = true
-            }
-            jobTimeDisposable = jobTimer.timerObservable(configuration.startTime)
+            configuration.startJobTime = DateTime.now().millis
+
+            jobTimeDisposable = jobTimer.timerObservable(configuration.startJobTime, configuration.totalJobTimeThatPass)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext { timeThatPass = it }
                 .subscribe({ timeUpdateCallback?.invoke(it) }, { Timber.e(it) })
 
             compositeDisposable.add(jobTimeDisposable)
@@ -81,6 +87,8 @@ class TimerService : Service() {
 
     fun pauseJobTimer() {
         compositeDisposable.remove(jobTimeDisposable)
+
+        configuration.totalJobTimeThatPass += DateTime.now().millis - configuration.startJobTime
 
         configuration.isRunning = false
     }

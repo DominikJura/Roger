@@ -5,8 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.os.IBinder
-import android.support.constraint.ConstraintSet
 import android.transition.TransitionManager
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import pl.jurassic.roger.R
 import pl.jurassic.roger.data.ui.BreakProgressAngle
 import pl.jurassic.roger.feature.common.ui.BaseFragment
@@ -144,22 +145,12 @@ class MainFragment : BaseFragment<Presenter>(), View {
     }
 
     override fun hideSaveButton() {
-        val constraintSet1 = ConstraintSet()
-        constraintSet1.clone(rootConstraint)
-        val constraintSet2 = ConstraintSet()
-        constraintSet2.clone(context, R.layout.tmp)
-
+        saveButton.visibility = GONE
         TransitionManager.beginDelayedTransition(rootConstraint)
-        constraintSet2.applyTo(rootConstraint)
     }
 
     override fun showSaveButton() {
-        val constraintSet1 = ConstraintSet()
-        constraintSet1.clone(rootConstraint)
-        val constraintSet2 = ConstraintSet()
-        constraintSet2.clone(context, R.layout.fragment_main)
-
+        saveButton.visibility = VISIBLE
         TransitionManager.beginDelayedTransition(rootConstraint)
-        constraintSet2.applyTo(rootConstraint)
     }
 }

@@ -1,6 +1,5 @@
 package pl.jurassic.roger.util.timer
 
-import org.joda.time.DateTime
 import pl.jurassic.roger.data.BreakTime
 
 class TimerConfigurationImpl : TimerConfiguration {
@@ -9,7 +8,9 @@ class TimerConfigurationImpl : TimerConfiguration {
 
     override var initialize: Boolean = false
 
-    override var startTime: Long = DateTime.now().millis
+    override var totalJobTimeThatPass: Long = 0L
+
+    override var startJobTime: Long = 0L
 
     override var breakTimesList: ArrayList<BreakTime> = arrayListOf()
 

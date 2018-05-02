@@ -8,7 +8,9 @@ interface TimerConfiguration {
 
     var isRunning: Boolean
     var initialize: Boolean
-    var startTime: Long
+
+    var startJobTime: Long
+    var totalJobTimeThatPass: Long
 
     var breakTimesList: ArrayList<BreakTime>
 }
