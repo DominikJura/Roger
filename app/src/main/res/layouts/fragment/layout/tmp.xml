@@ -112,6 +112,7 @@
             android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
             android:textAllCaps="true"
+            android:visibility="gone"
             android:textColor="@color/white"
             android:background="@color/main_save_button_background"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -20,13 +20,15 @@ interface MainFragmentContract {
         fun deactivateOtherButton()
         fun setJobTime(jobTime: String)
         fun setJobTimeProgressAngle(progressAngle: Float)
-        fun setTimerPause()
+        fun deactivateJobButton()
         fun activeJobButton()
         fun setBreakTotalTime(breakTime: String)
         fun setBreakTimeProgressAngles(progressBreakAngles: List<BreakProgressAngle>)
         fun setLunchTimeText(breakTime: String)
         fun setSmokingTimeText(breakTime: String)
         fun setOtherTimeText(breakTime: String)
+        fun hideSaveButton()
+        fun showSaveButton()
     }
 
     interface Router {

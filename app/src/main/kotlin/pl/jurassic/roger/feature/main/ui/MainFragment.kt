@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.os.IBinder
+import android.support.constraint.ConstraintSet
+import android.transition.TransitionManager
 import pl.jurassic.roger.R
 import pl.jurassic.roger.data.ui.BreakProgressAngle
 import pl.jurassic.roger.feature.common.ui.BaseFragment
@@ -19,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_main.main_break_item_other as bre
 import kotlinx.android.synthetic.main.fragment_main.main_break_item_smoking as breakItemSmoking
 import kotlinx.android.synthetic.main.fragment_main.main_break_time_text as breakTimeTextView
 import kotlinx.android.synthetic.main.fragment_main.main_job_time_text as jobTimeTextView
+import kotlinx.android.synthetic.main.fragment_main.main_root as rootConstraint
 import kotlinx.android.synthetic.main.fragment_main.main_save_button as saveButton
 import kotlinx.android.synthetic.main.fragment_main.main_time_progress as timeProgressView
 import kotlinx.android.synthetic.main.fragment_main.main_timer_button as timerImageView
@@ -120,7 +123,7 @@ class MainFragment : BaseFragment<Presenter>(), View {
         breakItemOther.isSelected = false
     }
 
-    override fun setTimerPause() {
+    override fun deactivateJobButton() {
         timerImageView.isSelected = false
     }
 
@@ -138,5 +141,25 @@ class MainFragment : BaseFragment<Presenter>(), View {
 
     override fun setOtherTimeText(breakTime: String) {
         breakItemOther.breakTimeText = breakTime
+    }
+
+    override fun hideSaveButton() {
+        val constraintSet1 = ConstraintSet()
+        constraintSet1.clone(rootConstraint)
+        val constraintSet2 = ConstraintSet()
+        constraintSet2.clone(context, R.layout.tmp)
+
+        TransitionManager.beginDelayedTransition(rootConstraint)
+        constraintSet2.applyTo(rootConstraint)
+    }
+
+    override fun showSaveButton() {
+        val constraintSet1 = ConstraintSet()
+        constraintSet1.clone(rootConstraint)
+        val constraintSet2 = ConstraintSet()
+        constraintSet2.clone(context, R.layout.fragment_main)
+
+        TransitionManager.beginDelayedTransition(rootConstraint)
+        constraintSet2.applyTo(rootConstraint)
     }
 }

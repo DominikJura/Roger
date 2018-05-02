@@ -43,10 +43,6 @@ class TimerService : Service() {
         TimerServiceBinder(this)
 
     fun startBreakTimer(breakType: BreakType) {
-        if(!configuration.isRunning) {
-            startJobTimer()
-        }
-
         val breakStartTimestamp = DateTime.now().millis
 
         configuration.breakTimesList.add(BreakTime(breakType, breakStartTimestamp, breakStartTimestamp))
@@ -66,17 +62,21 @@ class TimerService : Service() {
     }
 
     fun startJobTimer() {
-        configuration.isRunning = true
-        if(!configuration.initialize) {
-            configuration.startTime = DateTime.now().millis
-            configuration.initialize = true
-        }
-        jobTimeDisposable = jobTimer.timerObservable(configuration.startTime)
-            .subscribeOn(Schedulers.computation())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ timeUpdateCallback?.invoke(it) }, { Timber.e(it) })
+        if(!configuration.isRunning) {
 
-        compositeDisposable.add(jobTimeDisposable)
+            configuration.isRunning = true
+
+            if(!configuration.initialize) {
+                configuration.startTime = DateTime.now().millis
+                configuration.initialize = true
+            }
+            jobTimeDisposable = jobTimer.timerObservable(configuration.startTime)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ timeUpdateCallback?.invoke(it) }, { Timber.e(it) })
+
+            compositeDisposable.add(jobTimeDisposable)
+        }
     }
 
     fun pauseJobTimer() {

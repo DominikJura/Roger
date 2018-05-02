@@ -26,14 +26,13 @@ class MainFragmentPresenter(
         private const val WORK_TIME = 8f //todo take from share-prefs
     }
 
-    val configuration by lazy { view.timerService.configuration }
+    private val configuration by lazy { view.timerService.configuration }
 
     override fun initialize() = Unit
 
     override fun clear() = Unit
 
     override fun onTimerButtonClicked() {
-        val configuration = view.timerService.configuration
         when (configuration.isRunning) {
             true -> pauseTimer()
             false -> startTimer()
@@ -43,11 +42,13 @@ class MainFragmentPresenter(
     private fun startTimer() = with(view) {
         timerService.startJobTimer()
         activeJobButton()
+        hideSaveButton()
     }
 
     private fun pauseTimer() = with(view) {
         timerService.pauseJobTimer()
-        setTimerPause()
+        deactivateJobButton()
+        showSaveButton()
     }
 
     override fun onJobTimeReceive(time: Long) {
@@ -95,7 +96,7 @@ class MainFragmentPresenter(
             }
             false -> {
                 startBreakTimer(BreakType.SMOKING)
-                activeJobButton()
+                startTimer()
 
                 deactivateOtherButton()
                 deactivateLunchButton()
@@ -123,7 +124,7 @@ class MainFragmentPresenter(
             }
             false -> {
                 startBreakTimer(BreakType.LUNCH)
-                activeJobButton()
+                startTimer()
 
                 deactivateOtherButton()
                 deactivateSmokingButton()
@@ -140,7 +141,7 @@ class MainFragmentPresenter(
             }
             false -> {
                 startBreakTimer(BreakType.OTHER)
-                activeJobButton()
+                startTimer()
 
                 deactivateSmokingButton()
                 deactivateLunchButton()
