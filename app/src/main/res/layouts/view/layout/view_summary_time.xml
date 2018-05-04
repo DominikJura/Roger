@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/summary_time_title_text"
@@ -24,9 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:textSize="20sp"
+        android:textColor="@color/vivid_blue"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/summary_time_title_text"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="06:00:45"/>
 

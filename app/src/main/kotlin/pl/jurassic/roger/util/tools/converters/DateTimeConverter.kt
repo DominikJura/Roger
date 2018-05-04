@@ -7,7 +7,7 @@ import org.joda.time.format.DateTimeFormat
 class DateTimeConverter {
 
     @TypeConverter
-    fun fromTimestamp(timestamp: String): DateTime = DateTime.parse(timestamp ,DateTimeFormat.shortTime())
+    fun fromTimestamp(timestamp: String): DateTime = DateTime.parse(timestamp, DateTimeFormat.shortDate())
 
     @TypeConverter
     fun dateToTimestamp(date: DateTime): String = date.toString(DateTimeFormat.shortDate())

@@ -1,11 +1,15 @@
 package pl.jurassic.roger.feature.summary.ui.view
 
+import android.support.annotation.ColorRes
+import android.support.annotation.DrawableRes
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import pl.jurassic.roger.R
 import pl.jurassic.roger.data.ui.SummaryWorkTime
 import pl.jurassic.roger.feature.common.ui.view.BreakItemView
+import pl.jurassic.roger.getColor
 import pl.jurassic.roger.util.timer.BreakType
 import kotlinx.android.synthetic.main.view_summary_item.view.summary_item_break_time as breakTimeTimeView
 import kotlinx.android.synthetic.main.view_summary_item.view.summary_item_break_view_container as containerLinearLayout
@@ -25,22 +29,47 @@ class SummaryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     private fun addBreakView(breakType: BreakType, totalTime: String) {
-        val tmp = BreakItemView(itemView.context)
+        val breakView = when (breakType) {
+            BreakType.LUNCH -> getBreakView(
+                R.drawable.break_lunch_background_selector,
+                R.color.break_lunch,
+                R.drawable.ic_lunch
+            )
 
-        val res = when (breakType) {
-            BreakType.LUNCH -> R.drawable.break_lunch_background_selector
-            BreakType.SMOKING -> R.drawable.break_smoking_background_selector
-            BreakType.OTHER -> R.drawable.break_other_background_selector
+            BreakType.SMOKING -> getBreakView(
+                R.drawable.break_smoking_background_selector,
+                R.color.break_smoking,
+                R.drawable.ic_smoke
+            )
+
+            BreakType.OTHER -> getBreakView(
+                R.drawable.break_other_background_selector,
+                R.color.break_other,
+                R.drawable.ic_other
+            )
         }
 
-        tmp.breakBackgroundResource = res
-        tmp.breakImageDrawable = R.drawable.ic_arrow_back
-        tmp.breakImageColor = R.color.break_item_smoking_image_tint_inactive
+        breakView.breakTimeText = totalTime
+        breakView.layoutParams = ConstraintLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        ).apply { setMargins(0, 16, 64, 0) }
 
-        tmp.layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT)
+        itemView.containerLinearLayout.addView(breakView)
+    }
 
-        itemView.containerLinearLayout.addView(tmp)
+    private fun getBreakView(
+        @DrawableRes backgroundResource: Int,
+        @ColorRes color: Int,
+        @DrawableRes imageDrawable: Int
+    ): BreakItemView = BreakItemView(itemView.context).apply {
+        breakBackgroundResource = backgroundResource
+        breakImageColor = color
+        breakTimeTextColor = getColor(color)
+        breakImageDrawable = imageDrawable
+    }
+
+    fun setBackground(@ColorRes color: Int) {
+        itemView.setBackgroundColor(getColor(color))
     }
 }

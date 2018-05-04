@@ -7,6 +7,7 @@
     <color name="periwinkle_blue">#8c9eff</color>
     <color name="lightish_blue">#536dfe</color>
     <color name="warm_blue">#4e62df</color>
+    <color name="vivid_blue">#1c3bff</color>
 
     <color name="purple">#7b1fa2</color>
 
@@ -21,6 +22,10 @@
     <!--Main-->
     <color name="main_toolbar_background">@android:color/transparent</color>
     <color name="main_save_button_background">@color/lightish_blue</color>
+
+    <!--Summary-->
+    <color name="summary_item_background">@color/pale_grey</color>
+    <color name="summary_item_date_text">@color/vivid_blue</color>
 
     <!--Toolbar-->
     <color name="toolbar_icon_tint">@color/white</color>

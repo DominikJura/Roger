@@ -1,7 +1,7 @@
 package pl.jurassic.roger.feature.summary.ui.view
 
 import android.content.Context
-import android.support.v7.widget.CardView
+import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import pl.jurassic.roger.R
 import kotlinx.android.synthetic.main.view_summary_time.view.summary_time_date_time as dateTimeTextView
@@ -11,7 +11,7 @@ class SummaryTimeView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : CardView(context, attrs, defStyleAttr) {
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     var dateTimeText: CharSequence
         get() = dateTimeTextView.text

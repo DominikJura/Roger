@@ -127,10 +127,12 @@ dependencies {
     //Leak Canary
     debugImplementation "com.squareup.leakcanary:leakcanary-android:1.5.4"
     //JodaTime
-    implementation "net.danlew:android.joda:2.9.9.1"
+    implementation "net.danlew:android.joda:2.9.9.3"
     testImplementation "joda-time:joda-time:2.9.9"
     //EventBus
     implementation "org.greenrobot:eventbus:3.1.1"
+    //SmartTabLayout
+    implementation 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
 }
 
 task ktlint(type: JavaExec) {

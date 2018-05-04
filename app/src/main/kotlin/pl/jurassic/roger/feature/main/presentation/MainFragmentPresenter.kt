@@ -1,5 +1,7 @@
 package pl.jurassic.roger.feature.main.presentation
 
+import org.joda.time.DateTime
+import pl.jurassic.roger.data.WorkTime
 import pl.jurassic.roger.data.ui.BreakProgressAngle
 import pl.jurassic.roger.feature.main.MainFragmentContract.Presenter
 import pl.jurassic.roger.feature.main.MainFragmentContract.Router
@@ -149,9 +151,9 @@ class MainFragmentPresenter(
     }
 
     override fun onSaveClicked() = with(configuration) {
-//        val workTime = WorkTime(configuration.startTime, breakTimesList, DateTime.now())
-//        repository.saveWorkTime(workTime)
-//
-//        router.navigateToSummaryScreen()
+        val workTime = WorkTime(configuration.totalJobTimeThatPass, breakTimesList, DateTime.now())
+        repository.saveWorkTime(workTime)
+
+        router.navigateToSummaryScreen()
     }
 }

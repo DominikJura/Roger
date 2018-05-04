@@ -46,7 +46,7 @@
             app:layout_constraintBottom_toTopOf="@id/main_break_item_lunch"
     />
 
-    <android.support.v7.widget.AppCompatImageView
+    <ImageView
             android:id="@+id/main_timer_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,7 +54,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:srcCompat="@drawable/timer_start_pouse_selector"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/timer_start_pouse_selector"
             app:tint="@color/lightish_blue"
             app:layout_constraintEnd_toEndOf="@id/main_time_progress"
             app:layout_constraintStart_toStartOf="@id/main_time_progress"

@@ -12,5 +12,6 @@ interface MainActivityContract {
 
     interface Presenter : BaseContract.Presenter {
         fun eventNavigationToSummary()
+        fun onStatisticClicked()
     }
 }

@@ -14,5 +14,9 @@ class MainActivityPresenter(private val view: View, private val router: Router) 
         router.navigateToSummaryScreen()
     }
 
+    override fun onStatisticClicked() {
+        router.navigateToSummaryScreen()
+    }
+
     override fun clear() = Unit
 }
