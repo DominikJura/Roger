@@ -5,10 +5,12 @@ import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import pl.jurassic.roger.feature.main.ui.MainFragment
-import pl.jurassic.roger.feature.summary.ui.SummaryFragment
+import pl.jurassic.roger.feature.summary.ui.SummaryChartFragment
+import pl.jurassic.roger.feature.summary.ui.SummaryListFragment
 import pl.jurassic.roger.util.injection.RuntimeScope
 import pl.jurassic.roger.util.injection.modules.main.MainFragmentModule
-import pl.jurassic.roger.util.injection.modules.summary.SummaryFragmentModule
+import pl.jurassic.roger.util.injection.modules.summary.SummaryChartFragmentModule
+import pl.jurassic.roger.util.injection.modules.summary.SummaryListFragmentModule
 
 @Module
 abstract class FragmentBinderModule {
@@ -21,6 +23,10 @@ abstract class FragmentBinderModule {
     abstract fun bindMainFragment(): MainFragment
 
     @RuntimeScope
-    @ContributesAndroidInjector(modules = [SummaryFragmentModule::class])
-    abstract fun bindSummaryFragment(): SummaryFragment
+    @ContributesAndroidInjector(modules = [SummaryListFragmentModule::class])
+    abstract fun bindSummaryListFragment(): SummaryListFragment
+
+    @RuntimeScope
+    @ContributesAndroidInjector(modules = [SummaryChartFragmentModule::class])
+    abstract fun bindSummaryChartFragment(): SummaryChartFragment
 }

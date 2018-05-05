@@ -23,7 +23,7 @@ class SummaryActivity : BaseActivity<Presenter>(), View {
 
     override fun showSummaryFragment() {
 //        supportFragmentManager.beginTransaction()
-//                .replace(R.id.summary_fragment_root, SummaryFragment())
+//                .replace(R.id.summary_fragment_root, SummaryListFragment())
 //                .commit()
     }
 
@@ -38,10 +38,12 @@ class SummaryActivity : BaseActivity<Presenter>(), View {
         viewPagerTabLayout.setCustomTabView({ container, position, _ ->
             val inflater = LayoutInflater.from(container.context)
             val icon = inflater.inflate(R.layout.view_summary_pager_item, container, false) as ImageView
-            when (position) {
-                0 -> icon.setImageDrawable(getDrawable(SummaryFragments.SUMMARY_LIST.drawableRes))
-                else -> throw IllegalStateException("Invalid position: $position")
-            }
+            icon.setImageDrawable(getDrawable(SummaryFragments.values()[position].drawableRes))
+//            when (position) {
+//                0 -> icon.setImageDrawable(getDrawable(SummaryFragments.SUMMARY_LIST.drawableRes))
+//                1 -> icon.setImageDrawable(getDrawable(SummaryFragments.SUMMARY_CHART.drawableRes))
+//                else -> throw IllegalStateException("Invalid position: $position")
+//            }
             return@setCustomTabView icon
         })
         viewPagerTabLayout.setViewPager(viewPager)

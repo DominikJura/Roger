@@ -5,32 +5,32 @@ import android.support.v7.widget.RecyclerView
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
-import pl.jurassic.roger.feature.summary.SummaryFragmentContract
-import pl.jurassic.roger.feature.summary.presentation.SummaryFragmentPresenter
-import pl.jurassic.roger.feature.summary.ui.SummaryFragment
+import pl.jurassic.roger.feature.summary.SummaryListFragmentContract
+import pl.jurassic.roger.feature.summary.presentation.SummaryListFragmentPresenter
+import pl.jurassic.roger.feature.summary.ui.SummaryListFragment
 import pl.jurassic.roger.feature.summary.ui.adapters.SummaryAdapter
 import pl.jurassic.roger.util.injection.RuntimeScope
 import pl.jurassic.roger.util.repository.Repository
 
 @Module
-class SummaryFragmentModule {
+class SummaryListFragmentModule {
 
     @Provides
-    fun view(fragment: SummaryFragment): SummaryFragmentContract.View = fragment
+    fun view(fragment: SummaryListFragment): SummaryListFragmentContract.View = fragment
 
     @Provides
     fun adapter(): SummaryAdapter = SummaryAdapter()
 
     @Provides
-    fun recyclerLayoutManager(fragment: SummaryFragment): RecyclerView.LayoutManager =
+    fun recyclerLayoutManager(fragment: SummaryListFragment): RecyclerView.LayoutManager =
             LinearLayoutManager(fragment.context, LinearLayoutManager.VERTICAL, false)
 
     @RuntimeScope
     @Provides
     fun presenter(
-        view: SummaryFragmentContract.View,
+        view: SummaryListFragmentContract.View,
         repository: Repository,
         compositeDisposable: CompositeDisposable
-    ): SummaryFragmentContract.Presenter =
-            SummaryFragmentPresenter(view, repository, compositeDisposable)
+    ): SummaryListFragmentContract.Presenter =
+            SummaryListFragmentPresenter(view, repository, compositeDisposable)
 }
