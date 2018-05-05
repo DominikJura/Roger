@@ -9,7 +9,7 @@ import android.transition.TransitionManager
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import pl.jurassic.roger.R
-import pl.jurassic.roger.data.ui.BreakProgressAngle
+import pl.jurassic.roger.data.ui.ProgressAngles
 import pl.jurassic.roger.feature.common.ui.BaseFragment
 import pl.jurassic.roger.feature.main.MainFragmentContract.Presenter
 import pl.jurassic.roger.feature.main.MainFragmentContract.View
@@ -55,6 +55,7 @@ class MainFragment : BaseFragment<Presenter>(), View {
             val binder = service as TimerServiceBinder
             timerService = binder.service
             timerServiceBound = true
+            presenter.onServiceConnect()
         }
 
         override fun onServiceDisconnected(arg0: ComponentName) {
@@ -84,12 +85,8 @@ class MainFragment : BaseFragment<Presenter>(), View {
         }
     }
 
-    override fun setBreakTimeProgressAngles(progressBreakAngles: List<BreakProgressAngle>) {
-        timeProgressView.breakProgressAngleList = progressBreakAngles
-    }
-
-    override fun setJobTimeProgressAngle(progressAngle: Float) {
-        timeProgressView.jobProgressAngle = progressAngle
+    override fun setProgressAngles(progressAngles: ProgressAngles) {
+        timeProgressView.progressAngle = progressAngles
     }
 
     override fun setJobTime(jobTime: String) {

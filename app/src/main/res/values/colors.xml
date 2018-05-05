@@ -26,6 +26,9 @@
     <!--Summary-->
     <color name="summary_item_background">@color/pale_grey</color>
     <color name="summary_item_date_text">@color/vivid_blue</color>
+    <color name="summary_pager_selector_active">@color/lightish_blue</color>
+    <color name="summary_pager_selector_inactive">@color/pale_grey</color>
+	<color name="summary_pager_indicator">@color/lightish_blue</color>
 
     <!--Toolbar-->
     <color name="toolbar_icon_tint">@color/white</color>

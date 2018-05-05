@@ -7,7 +7,7 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
 import pl.jurassic.roger.R
-import pl.jurassic.roger.data.ui.BreakProgressAngle
+import pl.jurassic.roger.data.ui.ProgressAngles
 import pl.jurassic.roger.getColor
 
 class TimeProgressBarView @JvmOverloads constructor(
@@ -21,13 +21,7 @@ class TimeProgressBarView @JvmOverloads constructor(
         private const val INNER_CIRCLE_SHADOW_RADIUS = 10f
     }
 
-    var breakProgressAngleList: List<BreakProgressAngle> = arrayListOf()
-    set(value) {
-        field = value
-        invalidate()
-    }
-
-    var jobProgressAngle: Float = 0f
+    var progressAngle: ProgressAngles = ProgressAngles(0f, emptyList())
     set(value) {
         field = value
         invalidate()
@@ -81,16 +75,17 @@ class TimeProgressBarView @JvmOverloads constructor(
         drawOval(outerCircleRectF, innerCircleWhitePaint)
         drawOval(outerCircleRectF, ringStrokePaint)
 
-        drawArc(outerCircleRectF, 270f, jobProgressAngle, true, ringBluePaint)
+        drawArc(outerCircleRectF, 270f, progressAngle.jobProgressAngle, true, ringBluePaint)
 
-        breakProgressAngleList.forEach {
+        progressAngle.progressBreakAngles.forEach {
             breakRingPaint.color = getColor(it.arcColor)
             drawArc(outerCircleRectF, 270f + it.startAngle, it.sweepAngle, true, breakRingPaint)
         }
 
+        //TODO clear that code
         for (i in 0..8) {
             val tmp = 45f * i
-            when(jobProgressAngle > tmp) {
+            when(progressAngle.jobProgressAngle > tmp) {
                 true -> ringBluePaint.color = getColor(R.color.pale_grey)
                 false -> ringBluePaint.color = getColor(R.color.lightish_blue)
             }

@@ -1,11 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/summary_fragment_root"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+	<android.support.v7.widget.Toolbar
+		android:id="@+id/summary_toolbar"
+		android:layout_width="@dimen/match_constraint"
+		android:layout_height="?attr/actionBarSize"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent" />
+
+	<com.ogaclejapan.smarttablayout.SmartTabLayout
+		android:id="@+id/summary_tab"
+		android:layout_width="@dimen/match_constraint"
+		android:layout_height="@dimen/summary_tab_height"
+		app:stl_distributeEvenly="true"
+		app:stl_indicatorColor="@color/summary_pager_indicator"
+		app:layout_constraintTop_toBottomOf="@id/summary_toolbar"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintBottom_toTopOf="@+id/summary_view_pager" />
+
+	<android.support.v4.view.ViewPager
+		android:id="@+id/summary_view_pager"
+		android:layout_width="@dimen/match_constraint"
+		android:layout_height="@dimen/match_constraint"
+		app:layout_constraintTop_toBottomOf="@id/summary_tab"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintBottom_toBottomOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

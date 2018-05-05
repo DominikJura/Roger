@@ -1,8 +1,15 @@
 package pl.jurassic.roger.feature.main.presentation
 
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.BiFunction
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.Subject
 import org.joda.time.DateTime
 import pl.jurassic.roger.data.WorkTime
 import pl.jurassic.roger.data.ui.BreakProgressAngle
+import pl.jurassic.roger.data.ui.ProgressAngles
 import pl.jurassic.roger.feature.main.MainFragmentContract.Presenter
 import pl.jurassic.roger.feature.main.MainFragmentContract.Router
 import pl.jurassic.roger.feature.main.MainFragmentContract.View
@@ -10,12 +17,16 @@ import pl.jurassic.roger.sumByLong
 import pl.jurassic.roger.util.repository.Repository
 import pl.jurassic.roger.util.timer.BreakType
 import pl.jurassic.roger.util.tools.DateFormatter
+import timber.log.Timber
 
 class MainFragmentPresenter(
     private val view: View,
     private val router: Router,
     private val dateFormatter: DateFormatter,
-    private val repository: Repository
+    private val repository: Repository,
+    private val jobTimeSubject: Subject<Long>,
+    private val breakTimeSubject: Subject<Long>,
+    private val compositeDisposable: CompositeDisposable
 ) : Presenter {
 
     companion object {
@@ -28,9 +39,26 @@ class MainFragmentPresenter(
 
     private val configuration by lazy { view.timerService.configuration }
 
-    override fun initialize() = Unit
+    override fun initialize() {
+        compositeDisposable.add(
+            Observable.combineLatest(
+                jobTimeSubject.map { countProgressAngle(it) },
+                breakTimeSubject.map { transformToProgressAngleList(it) },
+                BiFunction<Float, List<BreakProgressAngle>, ProgressAngles> { t1, t2 -> ProgressAngles(t1, t2) }
+            )
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ view.setProgressAngles(it) }, { Timber.e(it) })
+        )
+    }
 
-    override fun clear() = Unit
+    override fun clear() {
+        compositeDisposable.clear()
+    }
+
+    override fun onServiceConnect() {
+        breakTimeSubject.onNext(0) //Todo refactor
+    }
 
     override fun onTimerButtonClicked() {
         when (configuration.isRunning) {
@@ -47,12 +75,20 @@ class MainFragmentPresenter(
 
     private fun pauseTimer() = with(view) {
         timerService.pauseJobTimer()
-        deactivateJobButton()
+        pauseBreakTimer()
+        deactivateAllButtons()
         showSaveButton()
     }
 
+    private fun deactivateAllButtons() = with(view) {
+        deactivateJobButton()
+        deactivateSmokingButton()
+        deactivateLunchButton()
+        deactivateOtherButton()
+    }
+
     override fun onJobTimeReceive(time: Long) {
-        view.setJobTimeProgressAngle(countProgressAngle(time))
+        jobTimeSubject.onNext(time)
         view.setJobTime(dateFormatter.parseTime(time))
     }
 
@@ -66,8 +102,7 @@ class MainFragmentPresenter(
             BreakType.SMOKING -> view.setSmokingTimeText(breakTime)
             BreakType.OTHER -> view.setOtherTimeText(breakTime)
         }
-
-        view.setBreakTimeProgressAngles(transformToProgressAngleList(time))
+        breakTimeSubject.onNext(time)
         view.setBreakTotalTime(dateFormatter.parseTime(getBreakTotalTime() + time))
     }
 
@@ -86,7 +121,7 @@ class MainFragmentPresenter(
                 val sweepAngle = countProgressAngle(it.stopTimestamp - it.startTimestamp)
                 BreakProgressAngle(startAngle, sweepAngle, it.breakType.breakColorRes)
             }
-            .also { it.last().sweepAngle += countProgressAngle(time) }
+            .also { if (it.isNotEmpty()) it.last().sweepAngle += countProgressAngle(time) }
 
     override fun onSmokingItemClicked(isSelected: Boolean) = with(view) {
         when (isSelected) {

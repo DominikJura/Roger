@@ -6,7 +6,7 @@ import android.support.v7.widget.Toolbar
 import android.util.AttributeSet
 import pl.jurassic.roger.OnClickedListener
 import pl.jurassic.roger.R
-import kotlinx.android.synthetic.main.view_toolbar.view.toolbar_icon_stats as statisticsFrameLayout
+import kotlinx.android.synthetic.main.view_toolbar.view.toolbar_icon_stats_image as statisticsImageView
 import kotlinx.android.synthetic.main.view_toolbar.view.toolbar_navigation_back as navigationBackImageView
 import kotlinx.android.synthetic.main.view_toolbar.view.toolbar_title as titleTextView
 
@@ -45,7 +45,7 @@ class ToolbarView @JvmOverloads constructor(
     }
 
     private fun initOnClickListeners() {
-        statisticsFrameLayout.setOnClickListener { statisticsClickedListener?.invoke() }
+        statisticsImageView.setOnClickListener { statisticsClickedListener?.invoke() }
         navigationBackImageView.setOnClickListener { navigationBackClickedListener?.invoke() }
     }
 

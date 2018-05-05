@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.Intent
 import dagger.Module
 import dagger.Provides
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.Subject
 import org.greenrobot.eventbus.EventBus
 import pl.jurassic.roger.feature.main.MainFragmentContract
 import pl.jurassic.roger.feature.main.navigation.MainFragmentRouter
@@ -28,13 +31,27 @@ class MainFragmentModule {
     fun timerServiceIntent(context: Context): Intent =
             Intent(context, TimerService::class.java)
 
+    @Provides
+    fun subjectLong(): Subject<Long> = PublishSubject.create()
+
     @RuntimeScope
     @Provides
     fun presenter(
         view: MainFragmentContract.View,
         router: MainFragmentContract.Router,
         dateFormatter: DateFormatter,
-        repository: Repository
+        repository: Repository,
+        subjectJob: Subject<Long>,
+        subjectBreak: Subject<Long>,
+        compositeDisposable: CompositeDisposable
     ): MainFragmentContract.Presenter =
-            MainFragmentPresenter(view, router, dateFormatter, repository)
+            MainFragmentPresenter(
+                view,
+                router,
+                dateFormatter,
+                repository,
+                subjectJob,
+                subjectBreak,
+                compositeDisposable
+            )
 }
