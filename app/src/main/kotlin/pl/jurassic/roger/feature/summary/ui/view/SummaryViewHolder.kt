@@ -10,6 +10,7 @@ import pl.jurassic.roger.R
 import pl.jurassic.roger.data.ui.SummaryWorkTime
 import pl.jurassic.roger.feature.common.ui.view.BreakItemView
 import pl.jurassic.roger.getColor
+import pl.jurassic.roger.getDimen
 import pl.jurassic.roger.util.timer.BreakType
 import kotlinx.android.synthetic.main.view_summary_item.view.summary_item_break_time as breakTimeTimeView
 import kotlinx.android.synthetic.main.view_summary_item.view.summary_item_break_view_container as containerLinearLayout
@@ -53,7 +54,13 @@ class SummaryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         breakView.layoutParams = ConstraintLayout.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
-        ).apply { setMargins(0, 16, 64, 0) }
+        ).apply {
+            setMargins(
+                0,
+                getDimen(R.dimen.summary_item_break_element_margin_top).toInt(),
+                getDimen(R.dimen.summary_item_break_element_margin_right).toInt(),
+                getDimen(R.dimen.summary_item_break_element_margin_bottom).toInt())
+        }
 
         itemView.containerLinearLayout.addView(breakView)
     }

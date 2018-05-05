@@ -21,16 +21,18 @@ class SummaryActivity : BaseActivity<Presenter>(), View {
 
     override val layoutId: Int = R.layout.activity_summary
 
-    override fun showSummaryFragment() {
-//        supportFragmentManager.beginTransaction()
-//                .replace(R.id.summary_fragment_root, SummaryListFragment())
-//                .commit()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initToolbar()
         initViewPager()
+    }
+
+    private fun initToolbar() = with(toolbar) {
+        setSupportActionBar(this)
+        navigationIcon = getDrawable(R.drawable.ic_arrow_back)
+        title = ""
+        setNavigationOnClickListener { presenter.onBackPressed() }
     }
 
     private fun initViewPager() {
@@ -39,13 +41,13 @@ class SummaryActivity : BaseActivity<Presenter>(), View {
             val inflater = LayoutInflater.from(container.context)
             val icon = inflater.inflate(R.layout.view_summary_pager_item, container, false) as ImageView
             icon.setImageDrawable(getDrawable(SummaryFragments.values()[position].drawableRes))
-//            when (position) {
-//                0 -> icon.setImageDrawable(getDrawable(SummaryFragments.SUMMARY_LIST.drawableRes))
-//                1 -> icon.setImageDrawable(getDrawable(SummaryFragments.SUMMARY_CHART.drawableRes))
-//                else -> throw IllegalStateException("Invalid position: $position")
-//            }
+
             return@setCustomTabView icon
         })
         viewPagerTabLayout.setViewPager(viewPager)
+    }
+
+    override fun navigateBack() {
+        onBackPressed()
     }
 }

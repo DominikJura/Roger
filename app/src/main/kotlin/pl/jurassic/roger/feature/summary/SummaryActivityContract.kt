@@ -5,10 +5,12 @@ import pl.jurassic.roger.feature.common.BaseContract
 interface SummaryActivityContract {
 
     interface View {
-        fun showSummaryFragment()
+        fun navigateBack()
     }
 
     interface Router
 
-    interface Presenter : BaseContract.Presenter
+    interface Presenter : BaseContract.Presenter {
+        fun onBackPressed()
+    }
 }

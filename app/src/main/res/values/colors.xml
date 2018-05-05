@@ -17,7 +17,9 @@
 
     <color name="pale_grey">#e8eaf6</color>
     <color name="white">#ffffff</color>
+
     <color name="black16">#29000000</color>
+    <color name="black">#000000</color>
 
     <!--Main-->
     <color name="main_toolbar_background">@android:color/transparent</color>
@@ -29,6 +31,8 @@
     <color name="summary_pager_selector_active">@color/lightish_blue</color>
     <color name="summary_pager_selector_inactive">@color/pale_grey</color>
 	<color name="summary_pager_indicator">@color/lightish_blue</color>
+    <color name="summary_navigation_arrow_color">@color/periwinkle_blue</color>
+    <color name="summary_time_text">@color/black</color>
 
     <!--Toolbar-->
     <color name="toolbar_icon_tint">@color/white</color>

@@ -2,20 +2,26 @@ package pl.jurassic.roger
 
 import android.graphics.drawable.Drawable
 import android.support.annotation.ColorRes
+import android.support.annotation.DimenRes
+import android.support.annotation.DrawableRes
+import android.support.annotation.StringRes
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.View
 
 typealias OnClickedListener = () -> Unit
 
-fun View.getString(id: Int): String = context.getString(id)
+fun View.getString(@StringRes id: Int): String = context.getString(id)
 
 fun View.getColor(@ColorRes id: Int): Int = ContextCompat.getColor(context, id)
 
-fun View.getDrawable(id: Int): Drawable? = ContextCompat.getDrawable(context, id)
+fun View.getDrawable(@DrawableRes id: Int): Drawable? = ContextCompat.getDrawable(context, id)
 
-fun RecyclerView.ViewHolder.getColor(@ColorRes id: Int): Int =
-    itemView.getColor(id)
+fun RecyclerView.ViewHolder.getColor(@ColorRes id: Int): Int = itemView.getColor(id)
+
+fun RecyclerView.ViewHolder.getDimen(@DimenRes id: Int): Float = itemView.getDimen(id)
+
+fun View.getDimen(@DimenRes id: Int): Float = resources.getDimension(id)
 
 inline fun <T> Iterable<T>.sumByLong(selector: (T) -> Long): Long {
     var sum: Long = 0L

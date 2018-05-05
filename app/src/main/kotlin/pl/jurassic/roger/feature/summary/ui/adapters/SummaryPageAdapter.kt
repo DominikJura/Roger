@@ -19,6 +19,6 @@ class SummaryPageAdapter(fragmentManager: FragmentManager) : FragmentStatePagerA
 }
 
 enum class SummaryFragments(val drawableRes: Int) {
-    SUMMARY_LIST(R.drawable.ic_arrow_back),
+    SUMMARY_LIST(R.drawable.ic_list),
     SUMMARY_CHART(R.drawable.ic_arrow_back)
 }

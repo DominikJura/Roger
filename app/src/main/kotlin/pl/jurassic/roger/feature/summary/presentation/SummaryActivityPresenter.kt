@@ -5,9 +5,11 @@ import pl.jurassic.roger.feature.summary.SummaryActivityContract.View
 
 class SummaryActivityPresenter(private val view: View) : Presenter {
 
-    override fun initialize() {
-        view.showSummaryFragment()
-    }
+    override fun initialize() = Unit
 
     override fun clear() = Unit
+
+    override fun onBackPressed() {
+        view.navigateBack()
+    }
 }
