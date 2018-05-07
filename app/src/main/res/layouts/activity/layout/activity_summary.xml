@@ -19,6 +19,7 @@
 		android:layout_height="@dimen/summary_tab_height"
 		app:stl_distributeEvenly="true"
 		app:stl_indicatorColor="@color/summary_pager_indicator"
+		app:stl_indicatorThickness="@dimen/summary_pager_indicator_thickness"
 		app:layout_constraintTop_toBottomOf="@id/summary_toolbar"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"

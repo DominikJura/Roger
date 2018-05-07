@@ -19,12 +19,12 @@ fun View.getDrawable(@DrawableRes id: Int): Drawable? = ContextCompat.getDrawabl
 
 fun RecyclerView.ViewHolder.getColor(@ColorRes id: Int): Int = itemView.getColor(id)
 
-fun RecyclerView.ViewHolder.getDimen(@DimenRes id: Int): Float = itemView.getDimen(id)
+fun RecyclerView.ViewHolder.getDimen(@DimenRes id: Int): Int = itemView.getDimen(id)
 
-fun View.getDimen(@DimenRes id: Int): Float = resources.getDimension(id)
+fun View.getDimen(@DimenRes id: Int): Int = resources.getDimensionPixelOffset(id)
 
 inline fun <T> Iterable<T>.sumByLong(selector: (T) -> Long): Long {
-    var sum: Long = 0L
+    var sum = 0L
     for (element in this) {
         sum += selector(element)
     }

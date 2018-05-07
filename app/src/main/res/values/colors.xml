@@ -29,7 +29,7 @@
     <color name="summary_item_background">@color/pale_grey</color>
     <color name="summary_item_date_text">@color/vivid_blue</color>
     <color name="summary_pager_selector_active">@color/lightish_blue</color>
-    <color name="summary_pager_selector_inactive">@color/pale_grey</color>
+    <color name="summary_pager_selector_inactive">@color/periwinkle_blue</color>
 	<color name="summary_pager_indicator">@color/lightish_blue</color>
     <color name="summary_navigation_arrow_color">@color/periwinkle_blue</color>
     <color name="summary_time_text">@color/black</color>

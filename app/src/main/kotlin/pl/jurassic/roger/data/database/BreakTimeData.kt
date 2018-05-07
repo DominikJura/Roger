@@ -15,5 +15,5 @@ data class BreakTimeData(
     val startTimestamp: Long,
     var stopTimestamp: Long
 ) {
-    @PrimaryKey var id: String = "${breakType.name}-${dateTime.dayOfYear()}"
+    @PrimaryKey(autoGenerate = true) var id: Int = 0
 }

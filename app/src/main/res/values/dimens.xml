@@ -27,5 +27,6 @@
     <dimen name="summary_item_break_element_margin_right">32dp</dimen>
     <dimen name="summary_item_break_element_margin_top">24dp</dimen>
     <dimen name="summary_item_break_element_margin_bottom">4dp</dimen>
+	<dimen name="summary_pager_indicator_thickness">1.5dp</dimen>
 
 </resources>

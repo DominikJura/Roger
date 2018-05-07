@@ -51,18 +51,20 @@ class SummaryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
 
         breakView.breakTimeText = totalTime
-        breakView.layoutParams = ConstraintLayout.LayoutParams(
+
+        val tmp = ConstraintLayout.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
-        ).apply {
-            setMargins(
-                0,
-                getDimen(R.dimen.summary_item_break_element_margin_top).toInt(),
-                getDimen(R.dimen.summary_item_break_element_margin_right).toInt(),
-                getDimen(R.dimen.summary_item_break_element_margin_bottom).toInt())
-        }
+        )
 
-        itemView.containerLinearLayout.addView(breakView)
+        tmp.setMargins(
+            0,
+            getDimen(R.dimen.summary_item_break_element_margin_top),
+            getDimen(R.dimen.summary_item_break_element_margin_right),
+            getDimen(R.dimen.summary_item_break_element_margin_bottom)
+        )
+
+        itemView.containerLinearLayout.addView(breakView, tmp)
     }
 
     private fun getBreakView(

@@ -6,10 +6,12 @@ import pl.jurassic.roger.data.WorkTime
 import pl.jurassic.roger.data.database.BreakTimeData
 import pl.jurassic.roger.data.database.JobTimeData
 import pl.jurassic.roger.data.database.WorkTimeData
+import pl.jurassic.roger.data.ui.BreakBarData
 import pl.jurassic.roger.data.ui.SummaryBreakTime
 import pl.jurassic.roger.data.ui.SummaryWorkTime
 import pl.jurassic.roger.sumByLong
 import pl.jurassic.roger.util.database.WorkTimeDao
+import pl.jurassic.roger.util.timer.BreakType
 import pl.jurassic.roger.util.tools.DateFormatter
 
 class RepositoryImpl(
@@ -17,14 +19,36 @@ class RepositoryImpl(
     private val dateFormatter: DateFormatter
 ) : Repository {
 
+    override fun getWorkTimeChartData(): Observable<List<BreakBarData>> =
+        workTimeDao.getAllWorkTime()
+            .toObservable()
+            .flatMapIterable { it }
+            .map { transformWorkTimeToBarEntry(it) }
+            .flatMapIterable { it }
+            .toList()
+            .toObservable()
+
+    private fun transformWorkTimeToBarEntry(workTimeData: WorkTimeData): List<BreakBarData> =
+        workTimeData.breakTimeList
+            .groupBy { it -> it.breakType }
+            .map {
+                transformToBarEntry(
+                    it.key,
+                    workTimeData.jobTimeData.dateTime,
+                    it.value.sumByLong { it.stopTimestamp - it.startTimestamp })
+            }
+
+    private fun transformToBarEntry(breakType: BreakType, dateTime: DateTime, breakTotalTime: Long) =
+        BreakBarData(breakType, dateTime, breakTotalTime)
+
     override fun getWorkTimeList(): Observable<List<SummaryWorkTime>> =
-            workTimeDao
-                    .getAllWorkTime()
-                    .toObservable()
-                    .flatMapIterable { it }
-                    .map { transformWorkTimeData(it) }
-                    .toList()
-                    .toObservable()
+        workTimeDao
+            .getAllWorkTime()
+            .toObservable()
+            .flatMapIterable { it }
+            .map { transformWorkTimeData(it) }
+            .toList()
+            .toObservable()
 
     private fun transformWorkTimeData(workTime: WorkTimeData): SummaryWorkTime = with(workTime) {
         val workDateTime = dateFormatter.parseDate(jobTimeData.dateTime)
@@ -32,14 +56,18 @@ class RepositoryImpl(
         val breakTotalTime = dateFormatter.parseTime(breakTimeList
             .sumByLong { (it.stopTimestamp - it.startTimestamp) })
 
-        val summaryBreakTimeList = breakTimeList.map { transformBreakTimeData(it) }
+        val summaryBreakTimeList = breakTimeList.groupBy { it -> it.breakType }
+            .map {
+                transformBreakTimeData(it.key, it.value.sumByLong { it.stopTimestamp - it.startTimestamp })
+            }
+            .sortedBy { it.breakType.ordinal }
 
         return SummaryWorkTime(workDateTime, jobTime, breakTotalTime, summaryBreakTimeList)
     }
 
-    private fun transformBreakTimeData(breakTimeData: BreakTimeData): SummaryBreakTime {
-        val breakTime = dateFormatter.parseTime(breakTimeData.stopTimestamp - breakTimeData.startTimestamp)
-        return SummaryBreakTime(breakTimeData.breakType, breakTime)
+    private fun transformBreakTimeData(breakType: BreakType, breakTotalTime: Long): SummaryBreakTime {
+        val breakTime = dateFormatter.parseTime(breakTotalTime)
+        return SummaryBreakTime(breakType, breakTime)
     }
 
     override fun saveWorkTime(workTime: WorkTime) = with(workTime) {

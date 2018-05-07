@@ -16,7 +16,7 @@ interface TimerConfiguration {
 }
 
 enum class BreakType(@ColorRes val breakColorRes: Int) {
-    LUNCH(R.color.break_lunch),
     SMOKING(R.color.break_smoking),
+    LUNCH(R.color.break_lunch),
     OTHER(R.color.break_other)
 }
