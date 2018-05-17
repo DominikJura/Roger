@@ -8,6 +8,8 @@ import android.os.IBinder
 import android.transition.TransitionManager
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import com.crashlytics.android.Crashlytics
+import org.joda.time.format.DateTimeFormat
 import pl.jurassic.roger.R
 import pl.jurassic.roger.data.ui.ProgressAngles
 import pl.jurassic.roger.feature.common.ui.BaseFragment
@@ -73,6 +75,7 @@ class MainFragment : BaseFragment<Presenter>(), View {
 
     override fun onResume() {
         super.onResume()
+
         activity?.bindService(timerServiceIntent, timerServiceConnection, Context.BIND_AUTO_CREATE)
         activity?.startService(timerServiceIntent)
     }
@@ -86,7 +89,7 @@ class MainFragment : BaseFragment<Presenter>(), View {
     }
 
     override fun setProgressAngles(progressAngles: ProgressAngles) {
-        timeProgressView.progressAngle = progressAngles
+        timeProgressView.setProgressAngle(progressAngles)
     }
 
     override fun setJobTime(jobTime: String) {

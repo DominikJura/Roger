@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pl.jurassic.roger">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".RogerApp"
         android:allowBackup="true"
@@ -15,6 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+                android:name="io.fabric.ApiKey"
+                android:value="c37e6220faf107d14ea457a4d10683d8caeb0e3a"
+                />
+
         <activity android:name=".feature.summary.ui.SummaryActivity" />
 
         <service android:name=".util.timer.TimerService" />

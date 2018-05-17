@@ -7,9 +7,11 @@ import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.Subject
 import org.joda.time.DateTime
+import pl.jurassic.roger.R
 import pl.jurassic.roger.data.WorkTime
 import pl.jurassic.roger.data.ui.BreakProgressAngle
 import pl.jurassic.roger.data.ui.ProgressAngles
+import pl.jurassic.roger.data.ui.ProgressHourIndicator
 import pl.jurassic.roger.feature.main.MainFragmentContract.Presenter
 import pl.jurassic.roger.feature.main.MainFragmentContract.Router
 import pl.jurassic.roger.feature.main.MainFragmentContract.View
@@ -30,26 +32,46 @@ class MainFragmentPresenter(
 ) : Presenter {
 
     companion object {
-        private const val FULL_ANGLE_DEGREE = 360f
-        private const val MINUTS_IN_HOUR = 60f
+        private const val CIRCLE_FULL_ANGLE = 360f
+        private const val MINUTES_IN_HOUR = 60f
         private const val SECONDS_IN_MINUTS = 60f
         private const val MILLISECONDS_IN_SECONDS = 1000f
-        private const val WORK_TIME = 8f //todo take from share-prefs
+//        private const val WORK_TIME = 8 //todo take from share-prefs
     }
+
+    private var WORK_TIME = 8 //TODo refactor
 
     private val configuration by lazy { view.timerService.configuration }
 
     override fun initialize() {
+        view.setProgressAngles(getProgressAngles(0f, emptyList()))
+
         compositeDisposable.add(
             Observable.combineLatest(
-                jobTimeSubject.map { countProgressAngle(it) },
+                jobTimeSubject
+                    .doOnNext { WORK_TIME += (it / (WORK_TIME * MINUTES_IN_HOUR * MILLISECONDS_IN_SECONDS)).toInt() }
+                    .map { countProgressAngle(it) },
                 breakTimeSubject.map { transformToProgressAngleList(it) },
-                BiFunction<Float, List<BreakProgressAngle>, ProgressAngles> { t1, t2 -> ProgressAngles(t1, t2) }
+                BiFunction<Float, List<BreakProgressAngle>, ProgressAngles>
+                { jobProgress, breakProgresses -> getProgressAngles(jobProgress, breakProgresses) }
             )
-            .subscribeOn(Schedulers.computation())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ view.setProgressAngles(it) }, { Timber.e(it) })
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ view.setProgressAngles(it) }, { Timber.e(it) })
         )
+    }
+
+    private fun getProgressAngles(jobProgress: Float, breakProgressAngles: List<BreakProgressAngle>): ProgressAngles {
+        val indicatorList = MutableList(WORK_TIME) {
+            val indicatorStartingAngle = (CIRCLE_FULL_ANGLE / WORK_TIME) * it
+            val color = when (jobProgress > indicatorStartingAngle) {
+                true -> R.color.pale_grey
+                else -> R.color.lightish_blue
+            }
+            ProgressHourIndicator(indicatorStartingAngle, color)
+        }
+
+        return ProgressAngles(jobProgress, indicatorList, breakProgressAngles)
     }
 
     override fun clear() {
@@ -57,6 +79,11 @@ class MainFragmentPresenter(
     }
 
     override fun onServiceConnect() {
+        when(configuration.isRunning) {
+            true -> view.activeJobButton()
+            false -> view.deactivateJobButton()
+        }
+
         breakTimeSubject.onNext(0) //Todo refactor
     }
 
@@ -92,8 +119,8 @@ class MainFragmentPresenter(
         view.setJobTime(dateFormatter.parseTime(time))
     }
 
-    private fun countProgressAngle(time: Long) =
-        time * FULL_ANGLE_DEGREE / (WORK_TIME * MINUTS_IN_HOUR * MILLISECONDS_IN_SECONDS) //todo add SECONDS_IN_MINUTS
+    private fun countProgressAngle(time: Long): Float =
+        CIRCLE_FULL_ANGLE * time / (WORK_TIME * MINUTES_IN_HOUR * MILLISECONDS_IN_SECONDS) //todo add SECONDS_IN_MINUTS
 
     override fun onBreakTimeReceive(breakType: BreakType, time: Long) {
         val breakTime = dateFormatter.parseTime(getBreakTime(breakType) + time)

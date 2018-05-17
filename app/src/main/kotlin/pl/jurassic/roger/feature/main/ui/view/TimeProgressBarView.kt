@@ -18,14 +18,12 @@ class TimeProgressBarView @JvmOverloads constructor(
 
     companion object {
         private const val RING_STROKE_WITH = 2f
+        private const val RING_INDICATOR_OF_HOUR_SWEEP_ANGLE = 0.5f
         private const val INNER_CIRCLE_SHADOW_RADIUS = 10f
+        private const val STARTING_ANGLE = 270f
     }
 
-    var progressAngle: ProgressAngles = ProgressAngles(0f, emptyList())
-    set(value) {
-        field = value
-        invalidate()
-    }
+    private lateinit var progressAngles: ProgressAngles
 
     private val outerCircleRectF = RectF()
     private val innerCircleRectF = RectF()
@@ -33,6 +31,7 @@ class TimeProgressBarView @JvmOverloads constructor(
     private val innerCircleWhitePaint = Paint()
     private val innerCircleShadowPaint = Paint()
     private val ringBluePaint = Paint()
+    private val ringIndicatorPaint = Paint()
     private val ringStrokePaint = Paint()
 
     private val breakRingPaint = Paint()
@@ -53,6 +52,8 @@ class TimeProgressBarView @JvmOverloads constructor(
         ringBluePaint.color = getColor(R.color.lightish_blue)
         ringBluePaint.isAntiAlias = true
 
+        ringIndicatorPaint.isAntiAlias = true
+
         ringStrokePaint.color = getColor(R.color.lightish_blue)
         ringStrokePaint.style = Paint.Style.STROKE
         ringStrokePaint.strokeWidth = RING_STROKE_WITH
@@ -61,6 +62,11 @@ class TimeProgressBarView @JvmOverloads constructor(
         breakRingPaint.isAntiAlias = true
 
         setLayerType(LAYER_TYPE_SOFTWARE, innerCircleShadowPaint)
+    }
+
+    fun setProgressAngle(progressAngles: ProgressAngles) {
+        this.progressAngles = progressAngles
+        invalidate()
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
@@ -72,29 +78,38 @@ class TimeProgressBarView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) = with(canvas) {
+        super.onDraw(this)
+
         drawOval(outerCircleRectF, innerCircleWhitePaint)
         drawOval(outerCircleRectF, ringStrokePaint)
 
-        drawArc(outerCircleRectF, 270f, progressAngle.jobProgressAngle, true, ringBluePaint)
+        drawArc(outerCircleRectF, STARTING_ANGLE, progressAngles.jobProgressAngle, true, ringBluePaint)
 
-        progressAngle.progressBreakAngles.forEach {
-            breakRingPaint.color = getColor(it.arcColor)
-            drawArc(outerCircleRectF, 270f + it.startAngle, it.sweepAngle, true, breakRingPaint)
-        }
+        drawBreakProgressAngles(this)
 
-        //TODO clear that code
-        for (i in 0..8) {
-            val tmp = 45f * i
-            when(progressAngle.jobProgressAngle > tmp) {
-                true -> ringBluePaint.color = getColor(R.color.pale_grey)
-                false -> ringBluePaint.color = getColor(R.color.lightish_blue)
-            }
-
-            drawArc(outerCircleRectF, 270 + tmp, 0.5f, true, ringBluePaint)
-        }
+        drawRingHourIndicators(this)
 
         drawOval(innerCircleRectF, innerCircleShadowPaint)
+    }
 
-        super.onDraw(this)
+    private fun drawBreakProgressAngles(canvas: Canvas) = with(canvas) {
+        progressAngles.progressBreakAngles.forEach {
+            breakRingPaint.color = getColor(it.arcColor)
+            drawArc(outerCircleRectF, STARTING_ANGLE + it.startAngle, it.sweepAngle, true, breakRingPaint)
+        }
+    }
+
+    private fun drawRingHourIndicators(canvas: Canvas) = with(canvas) {
+        progressAngles.hourProgressIndicators.forEach {
+            ringIndicatorPaint.color = getColor(it.colorRes)
+
+            drawArc(
+                outerCircleRectF,
+                STARTING_ANGLE + it.sweepAngle,
+                RING_INDICATOR_OF_HOUR_SWEEP_ANGLE,
+                true,
+                ringIndicatorPaint
+            )
+        }
     }
 }

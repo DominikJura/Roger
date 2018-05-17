@@ -31,15 +31,10 @@ class RepositoryImpl(
     private fun transformWorkTimeToBarEntry(workTimeData: WorkTimeData): List<BreakBarData> =
         workTimeData.breakTimeList
             .groupBy { it -> it.breakType }
-            .map {
-                transformToBarEntry(
-                    it.key,
-                    workTimeData.jobTimeData.dateTime,
-                    it.value.sumByLong { it.stopTimestamp - it.startTimestamp })
-            }
+            .map { BreakBarData(it.key, workTimeData.jobTimeData.dateTime, it.value.sumByLong { getTimeDifference(it) }) }
 
-    private fun transformToBarEntry(breakType: BreakType, dateTime: DateTime, breakTotalTime: Long) =
-        BreakBarData(breakType, dateTime, breakTotalTime)
+    private fun getTimeDifference(breakTimeData: BreakTimeData) =
+        breakTimeData.stopTimestamp - breakTimeData.startTimestamp
 
     override fun getWorkTimeList(): Observable<List<SummaryWorkTime>> =
         workTimeDao
@@ -53,13 +48,10 @@ class RepositoryImpl(
     private fun transformWorkTimeData(workTime: WorkTimeData): SummaryWorkTime = with(workTime) {
         val workDateTime = dateFormatter.parseDate(jobTimeData.dateTime)
         val jobTime = dateFormatter.parseTime(jobTimeData.jobTime)
-        val breakTotalTime = dateFormatter.parseTime(breakTimeList
-            .sumByLong { (it.stopTimestamp - it.startTimestamp) })
+        val breakTotalTime = dateFormatter.parseTime(breakTimeList.sumByLong { getTimeDifference(it) })
 
         val summaryBreakTimeList = breakTimeList.groupBy { it -> it.breakType }
-            .map {
-                transformBreakTimeData(it.key, it.value.sumByLong { it.stopTimestamp - it.startTimestamp })
-            }
+            .map { transformBreakTimeData(it.key, it.value.sumByLong { getTimeDifference(it) }) }
             .sortedBy { it.breakType.ordinal }
 
         return SummaryWorkTime(workDateTime, jobTime, breakTotalTime, summaryBreakTimeList)

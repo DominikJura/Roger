@@ -8,8 +8,11 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import org.joda.time.LocalTime
+import org.joda.time.format.DateTimeFormat
+import org.joda.time.format.DateTimeFormatter
 import pl.jurassic.roger.data.ui.BreakBarData
 import pl.jurassic.roger.getColor
 import pl.jurassic.roger.util.timer.BreakType
@@ -20,11 +23,21 @@ class SummaryChartView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : BarChart(context, attrs, defStyleAttr) {
 
+
+    companion object {
+        //TODO move all magic numbers
+
+        @JvmStatic
+        val CHART_DATE_FORMAT: DateTimeFormatter = DateTimeFormat.forPattern("MMM dd")
+    }
+
     init {
         initXAxis()
         initLeftAxis()
         setLegend()
         disableDescription()
+
+        axisRight.isEnabled = false
     }
 
     private fun setLegend() = with(legend) {
@@ -43,9 +56,7 @@ class SummaryChartView @JvmOverloads constructor(
         setCenterAxisLabels(true)
         xOffset = 0f
         granularity = 1f
-        setValueFormatter { value, _ ->  "May ${value.toInt()}"}
-
-        axisRight.isEnabled = false
+        setValueFormatter { value, _ ->   CHART_DATE_FORMAT.print(DateTime(0).withDayOfYear(value.toInt())) }
     }
 
     private fun disableDescription() {
@@ -62,9 +73,9 @@ class SummaryChartView @JvmOverloads constructor(
 
         barDataList.forEach {
             when(it.breakType) {
-                BreakType.LUNCH -> lunchList.add(BarEntry(it.dateTime.dayOfMonth.toFloat(), it.totalBreakTime.toFloat()))
-                BreakType.SMOKING -> smokingList.add(BarEntry(it.dateTime.dayOfMonth.toFloat(), it.totalBreakTime.toFloat()))
-                BreakType.OTHER -> otherList.add(BarEntry(it.dateTime.dayOfMonth.toFloat(), it.totalBreakTime.toFloat()))
+                BreakType.LUNCH -> lunchList.add(BarEntry(it.dateTime.dayOfYear.toFloat(), it.totalBreakTime.toFloat()))
+                BreakType.SMOKING -> smokingList.add(BarEntry(it.dateTime.dayOfYear.toFloat(), it.totalBreakTime.toFloat()))
+                BreakType.OTHER -> otherList.add(BarEntry(it.dateTime.dayOfYear.toFloat(), it.totalBreakTime.toFloat()))
             }
         }
 
@@ -79,21 +90,20 @@ class SummaryChartView @JvmOverloads constructor(
         val groupSpace = 0.04f
         val barSpace = 0.02f
         val barWidth = 0.30f
-// (0.02 + 0.45) * 2 + 0.06 = 1.00 -> interval per "group"
 
         data = BarData(smokingDataSet, lunchDataSet, otherDataSet)
         data.barWidth = barWidth // set the width of each bar
         data.setDrawValues(false)
 
         val minElement = barDataList
-            .minBy { it.dateTime.dayOfMonth }
-            ?.let { it.dateTime.dayOfMonth.toFloat() } ?: 0f
+            .minBy { it.dateTime.dayOfYear }
+            ?.let { it.dateTime.dayOfYear.toFloat() } ?: 0f
 
-        groupBars(minElement, groupSpace, barSpace) // perform the "explicit" grouping
+        groupBars(minElement, groupSpace, barSpace)
 
         xAxis.axisMinimum = minElement
         xAxis.axisMaximum = minElement + 5
 
-        invalidate() // refresh
+        invalidate()
     }
 }

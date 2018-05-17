@@ -2,17 +2,22 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'io.fabric'
 
 buildscript {
     repositories {
         jcenter()
+        maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'io.fabric.tools:gradle:1.25.1'
+        classpath 'com.google.gms:google-services:3.2.0'
     }
 }
 
 repositories {
+    maven { url 'https://maven.fabric.io/public' }
     maven { url 'https://maven.google.com/' }
     maven { url "https://jitpack.io" }
 }
@@ -38,6 +43,16 @@ android {
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        release {
+            storeFile file(ROGER_RELEASE_KESTORE_PATH)
+            keyAlias ROGER_RELEASE_KEYSTORE_ALIAS
+            keyPassword ROGER_RELEASE_KEYSTORE_PASSWORD
+            storePassword ROGER_RELEASE_KEYSTORE_PASSWORD
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled true
@@ -86,6 +101,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //Espresso
+    implementation 'com.google.firebase:firebase-crash:15.0.2'
     androidTestImplementation("com.android.support.test.espresso:espresso-core:$espresso_version", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -109,9 +125,9 @@ dependencies {
     implementation "com.android.support:support-annotations:$support_version"
     implementation "com.android.support.constraint:constraint-layout:1.1.0"
     //Room
-    implementation "android.arch.persistence.room:runtime:1.0.0"
-    implementation "android.arch.persistence.room:rxjava2:1.0.0"
-    kapt "android.arch.persistence.room:compiler:1.0.0"
+    implementation "android.arch.persistence.room:runtime:1.1.0"
+    implementation "android.arch.persistence.room:rxjava2:1.1.0"
+    kapt "android.arch.persistence.room:compiler:1.1.0"
     //Dagger
     implementation "com.google.dagger:dagger:$dagger2_version"
     kapt "com.google.dagger:dagger-compiler:$dagger2_version"
@@ -134,6 +150,8 @@ dependencies {
     implementation 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
     //MPCharts
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    //Fabric
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.2'
 }
 
 task ktlint(type: JavaExec) {
@@ -149,3 +167,5 @@ task ktlintFormat(type: JavaExec) {
     classpath = configurations.ktlint
     args "-F", "src/**/*.kt"
 }
+
+apply plugin: 'com.google.gms.google-services'

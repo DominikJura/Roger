@@ -1,6 +1,9 @@
 package pl.jurassic.roger.feature.summary.ui
 
+import android.graphics.ColorFilter
+import android.graphics.PorterDuff
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.widget.ImageView
 import pl.jurassic.roger.R
@@ -30,9 +33,12 @@ class SummaryActivity : BaseActivity<Presenter>(), View {
 
     private fun initToolbar() = with(toolbar) {
         setSupportActionBar(this)
-        navigationIcon = getDrawable(R.drawable.ic_arrow_back)
-        title = ""
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        val drawable = getDrawable(R.drawable.ic_arrow_back)
+        drawable.setColorFilter(ContextCompat.getColor(context, R.color.lightish_blue), PorterDuff.Mode.SRC_ATOP)
+        navigationIcon = drawable
         setNavigationOnClickListener { presenter.onBackPressed() }
+
     }
 
     private fun initViewPager() {

@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:colorControlNormal">@color/summary_navigation_arrow_color</item>
     </style>
 
     <style name="AppTheme.Fullscreen" parent="AppTheme">
@@ -43,8 +45,32 @@
         <item name="android:orientation">horizontal</item>
     </style>
 
-    <style name="SummaryToolbarTheme" parent="AppTheme">
+    <style name="SummaryToolbarTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:colorControlNormal">@color/summary_navigation_arrow_color</item>
     </style>
+
+    <style name="NotificationLayout">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="NotificationTimeLayout" parent="Wrap">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="NotificationTotalTimeText" parent="Wrap">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/font_size_medium</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="NotificationContentText" parent="Wrap">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">@dimen/font_size_medium</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
 
 </resources>

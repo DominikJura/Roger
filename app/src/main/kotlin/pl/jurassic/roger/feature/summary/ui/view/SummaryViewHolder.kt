@@ -2,10 +2,8 @@ package pl.jurassic.roger.feature.summary.ui.view
 
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
-import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.view.ViewGroup
 import pl.jurassic.roger.R
 import pl.jurassic.roger.data.ui.SummaryWorkTime
 import pl.jurassic.roger.feature.common.ui.view.BreakItemView
@@ -52,19 +50,12 @@ class SummaryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         breakView.breakTimeText = totalTime
 
-        val tmp = ConstraintLayout.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
+        breakView.setPadding(            0,
+                getDimen(R.dimen.summary_item_break_element_margin_top),
+                getDimen(R.dimen.summary_item_break_element_margin_right),
+                getDimen(R.dimen.summary_item_break_element_margin_bottom))
 
-        tmp.setMargins(
-            0,
-            getDimen(R.dimen.summary_item_break_element_margin_top),
-            getDimen(R.dimen.summary_item_break_element_margin_right),
-            getDimen(R.dimen.summary_item_break_element_margin_bottom)
-        )
-
-        itemView.containerLinearLayout.addView(breakView, tmp)
+        itemView.containerLinearLayout.addView(breakView)
     }
 
     private fun getBreakView(

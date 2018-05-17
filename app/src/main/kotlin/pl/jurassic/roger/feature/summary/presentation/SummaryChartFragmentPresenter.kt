@@ -19,7 +19,7 @@ class SummaryChartFragmentPresenter(
             repository.getWorkTimeChartData()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe({ view.setBarData(it) }, { Timber.e(it) })
+                .subscribe({ view.setBarData(it) }, { Timber.e(it) }) //todo divide to recyler in feature
         )
     }
 
