@@ -22,27 +22,27 @@
       </configuration>
     </facet>
     <facet type="kotlin-language" name="Kotlin">
-      <configuration version="3" platform="JVM 1.6" useProjectSettings="false">
+      <configuration version="3" platform="JVM 1.8" useProjectSettings="false">
         <compilerSettings />
         <compilerArguments>
           <option name="destination" value="$MODULE_DIR$/build/tmp/kotlin-classes/developDebug" />
           <option name="noStdlib" value="true" />
           <option name="noReflect" value="true" />
           <option name="moduleName" value="app_developDebug" />
+          <option name="jvmTarget" value="1.8" />
           <option name="addCompilerBuiltIns" value="true" />
           <option name="loadBuiltInsFromDependencies" value="true" />
+          <option name="languageVersion" value="1.2" />
+          <option name="apiVersion" value="1.2" />
           <option name="pluginOptions">
             <array>
               <option value="plugin:org.jetbrains.kotlin.android:experimental=false" />
               <option value="plugin:org.jetbrains.kotlin.android:enabled=true" />
               <option value="plugin:org.jetbrains.kotlin.android:defaultCacheImplementation=hashMap" />
-              <option value="plugin:org.jetbrains.kotlin.android:configuration=rO0ABXoAAALuAAAAAgAHcGFja2FnZQAAAAEAEXBsLmp1cmFzc2ljLnJvZ2VyAAd2YXJpYW50AAAAAwItbWFpbjsvVXNlcnMvZG9taW5pa2p1cmEvUHJhY2Evcm9nZXJfYW5kcm9pZC9hcHAvc3JjL21haW4vcmVzOy9Vc2Vycy9kb21pbmlranVyYS9QcmFjYS9yb2dlcl9hbmRyb2lkL2FwcC9zcmMvbWFpbi9yZXMvbGF5b3V0czsvVXNlcnMvZG9taW5pa2p1cmEvUHJhY2Evcm9nZXJfYW5kcm9pZC9hcHAvc3JjL21haW4vcmVzL2xheW91dHMvYWN0aXZpdHk7L1VzZXJzL2RvbWluaWtqdXJhL1ByYWNhL3JvZ2VyX2FuZHJvaWQvYXBwL3NyYy9tYWluL3Jlcy9sYXlvdXRzL2ZyYWdtZW50Oy9Vc2Vycy9kb21pbmlranVyYS9QcmFjYS9yb2dlcl9hbmRyb2lkL2FwcC9zcmMvbWFpbi9yZXMvbGF5b3V0cy92aWV3Oy9Vc2Vycy9kb21pbmlranVyYS9QcmFjYS9yb2dlcl9hbmRyb2lkL2FwcC9zcmMvbWFpbi9yZXMvZHJhd2FibGVzL3NlbGVjdG9yOy9Vc2Vycy9kb21pbmlranVyYS9QcmFjYS9yb2dlcl9hbmRyb2lkL2FwcC9zcmMvbWFpbi9yZXMvZHJhd2FibGVzL3NoYXBlOy9Vc2Vycy9kb21pbmlranVyYS9QcmFjYS9yb2dlcl9hbmRyb2lkL2FwcC9zcmMvbWFpbi9yZXMvZHJhd2FibGVzL2ljb24AQmRldmVsb3A7L1VzZXJzL2RvbWluaWtqdXJhL1ByYWNhL3JvZ2VyX2FuZHJvaWQvYXBwL3NyYy9kZXZlbG9wL3JlcwBIcHJvZHVjdGlvbjsvVXNlcnMvZG9taW5pa2p1cmEvUHJhY2Evcm9nZXJfYW5kcm9pZC9hcHAvc3JjL3Byb2R1Y3Rpb24vcmVz" />
             </array>
           </option>
           <option name="pluginClasspaths">
             <array>
-              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-android-extensions/1.2.41/10100eedfe2e26b9cf18b850d997b42d02af7500/kotlin-android-extensions-1.2.41.jar" />
-              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-annotation-processing-gradle/1.2.41/870d8f3b110200303a07d4bbfc7bf9066669203b/kotlin-annotation-processing-gradle-1.2.41.jar" />
               <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-android-extensions/1.2.41/10100eedfe2e26b9cf18b850d997b42d02af7500/kotlin-android-extensions-1.2.41.jar" />
               <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-annotation-processing-gradle/1.2.41/870d8f3b110200303a07d4bbfc7bf9066669203b/kotlin-annotation-processing-gradle-1.2.41.jar" />
             </array>

@@ -31,7 +31,7 @@ class RepositoryImpl(
     private fun transformWorkTimeToBarEntry(workTimeData: WorkTimeData): List<BreakBarData> =
         workTimeData.breakTimeList
             .groupBy { it -> it.breakType }
-            .map { BreakBarData(it.key, workTimeData.jobTimeData.dateTime, it.value.sumByLong { getTimeDifference(it) }) }
+            .map { BreakBarData(it.key, workTimeData.jobTimeData.dateTimeKey, it.value.sumByLong { getTimeDifference(it) }) }
 
     private fun getTimeDifference(breakTimeData: BreakTimeData) =
         breakTimeData.stopTimestamp - breakTimeData.startTimestamp
@@ -46,7 +46,7 @@ class RepositoryImpl(
             .toObservable()
 
     private fun transformWorkTimeData(workTime: WorkTimeData): SummaryWorkTime = with(workTime) {
-        val workDateTime = dateFormatter.parseDate(jobTimeData.dateTime)
+        val workDateTime = dateFormatter.parseDate(jobTimeData.dateTimeKey)
         val jobTime = dateFormatter.parseTime(jobTimeData.jobTime)
         val breakTotalTime = dateFormatter.parseTime(breakTimeList.sumByLong { getTimeDifference(it) })
 
@@ -64,10 +64,10 @@ class RepositoryImpl(
 
     override fun saveWorkTime(workTime: WorkTime) = with(workTime) {
         val dateTime = DateTime.now()
-        val jobTimeData = JobTimeData(dateTime, jobTime)
+        val jobTimeData = JobTimeData(dateTime, startJobTime, endDateTime, jobTime)
 
         breakTime.forEach {
-            workTimeDao.insertBreakTime(BreakTimeData(it.breakType, dateTime, it.startTimestamp, it.stopTimestamp))
+            workTimeDao.insertBreakTime(BreakTimeData(dateTime, it.breakType, it.startTimestamp, it.stopTimestamp))
         }
 
         workTimeDao.insertJobTime(jobTimeData)

@@ -22,13 +22,13 @@ import pl.jurassic.roger.util.tools.DateFormatter
 import timber.log.Timber
 
 class MainFragmentPresenter(
-    private val view: View,
-    private val router: Router,
-    private val dateFormatter: DateFormatter,
-    private val repository: Repository,
-    private val jobTimeSubject: Subject<Long>,
-    private val breakTimeSubject: Subject<Long>,
-    private val compositeDisposable: CompositeDisposable
+        private val view: View,
+        private val router: Router,
+        private val dateFormatter: DateFormatter,
+        private val repository: Repository,
+        private val jobTimeSubject: Subject<Long>,
+        private val breakTimeSubject: Subject<Long>,
+        private val compositeDisposable: CompositeDisposable
 ) : Presenter {
 
     companion object {
@@ -47,17 +47,17 @@ class MainFragmentPresenter(
         view.setProgressAngles(getProgressAngles(0f, emptyList()))
 
         compositeDisposable.add(
-            Observable.combineLatest(
-                jobTimeSubject
-                    .doOnNext { WORK_TIME += (it / (WORK_TIME * MINUTES_IN_HOUR * MILLISECONDS_IN_SECONDS)).toInt() }
-                    .map { countProgressAngle(it) },
-                breakTimeSubject.map { transformToProgressAngleList(it) },
-                BiFunction<Float, List<BreakProgressAngle>, ProgressAngles>
-                { jobProgress, breakProgresses -> getProgressAngles(jobProgress, breakProgresses) }
-            )
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ view.setProgressAngles(it) }, { Timber.e(it) })
+                Observable.combineLatest(
+                        jobTimeSubject
+                                .doOnNext { WORK_TIME += (it / (WORK_TIME * MINUTES_IN_HOUR * MILLISECONDS_IN_SECONDS)).toInt() }
+                                .map { countProgressAngle(it) },
+                        breakTimeSubject.map { transformToProgressAngleList(it) },
+                        BiFunction<Float, List<BreakProgressAngle>, ProgressAngles>
+                        { jobProgress, breakProgresses -> getProgressAngles(jobProgress, breakProgresses) }
+                )
+                        .subscribeOn(Schedulers.computation())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ view.setProgressAngles(it) }, { Timber.e(it) })
         )
     }
 
@@ -79,7 +79,7 @@ class MainFragmentPresenter(
     }
 
     override fun onServiceConnect() {
-        when(configuration.isRunning) {
+        when (configuration.isRunning) {
             true -> view.activeJobButton()
             false -> view.deactivateJobButton()
         }
@@ -120,7 +120,7 @@ class MainFragmentPresenter(
     }
 
     private fun countProgressAngle(time: Long): Float =
-        CIRCLE_FULL_ANGLE * time / (WORK_TIME * MINUTES_IN_HOUR * MILLISECONDS_IN_SECONDS) //todo add SECONDS_IN_MINUTS
+            CIRCLE_FULL_ANGLE * time / (WORK_TIME * MINUTES_IN_HOUR * MILLISECONDS_IN_SECONDS) //todo add SECONDS_IN_MINUTS
 
     override fun onBreakTimeReceive(breakType: BreakType, time: Long) {
         val breakTime = dateFormatter.parseTime(getBreakTime(breakType) + time)
@@ -134,21 +134,21 @@ class MainFragmentPresenter(
     }
 
     private fun getBreakTotalTime(): Long =
-        configuration.breakTimesList.sumByLong { (it.stopTimestamp - it.startTimestamp) }
+            configuration.breakTimesList.sumByLong { (it.stopTimestamp - it.startTimestamp) }
 
     private fun getBreakTime(breakType: BreakType): Long =
-        configuration.breakTimesList
-            .filter { it.breakType == breakType }
-            .sumByLong { (it.stopTimestamp - it.startTimestamp) }
+            configuration.breakTimesList
+                    .filter { it.breakType == breakType }
+                    .sumByLong { (it.stopTimestamp - it.startTimestamp) }
 
     private fun transformToProgressAngleList(time: Long): List<BreakProgressAngle> =
-        configuration.breakTimesList
-            .map {
-                val startAngle = countProgressAngle(it.jobTimeThatPass)
-                val sweepAngle = countProgressAngle(it.stopTimestamp - it.startTimestamp)
-                BreakProgressAngle(startAngle, sweepAngle, it.breakType.breakColorRes)
-            }
-            .also { if (it.isNotEmpty()) it.last().sweepAngle += countProgressAngle(time) }
+            configuration.breakTimesList
+                    .map {
+                        val startAngle = countProgressAngle(it.jobTimeThatPass)
+                        val sweepAngle = countProgressAngle(it.stopTimestamp - it.startTimestamp)
+                        BreakProgressAngle(startAngle, sweepAngle, it.breakType.breakColorRes)
+                    }
+                    .also { if (it.isNotEmpty()) it.last().sweepAngle += countProgressAngle(time) }
 
     override fun onSmokingItemClicked(isSelected: Boolean) = with(view) {
         when (isSelected) {
@@ -212,10 +212,48 @@ class MainFragmentPresenter(
         }
     }
 
+    override fun onNotificationPauseClicked() = with(view) {
+        pauseBreakTimer()
+        deactivateAllButtons()
+        showSaveButton()
+
+    }
+
+    override fun onNotificationResumeClicked() = with(view) {
+        activeJobButton()
+        hideSaveButton()
+    }
+
     override fun onSaveClicked() = with(configuration) {
-        val workTime = WorkTime(configuration.totalJobTimeThatPass, breakTimesList, DateTime.now())
+        val workTime = WorkTime(startJobTime, DateTime.now(), totalJobTimeThatPass, breakTimesList)
         repository.saveWorkTime(workTime)
 
         router.navigateToSummaryScreen()
+
+        clearConfiguration()
+        clearView()
+    }
+
+    private fun clearConfiguration() = with(configuration) {
+        isRunning = false
+        startJobTime = DateTime.now()
+        timeThatPass = 0L
+        totalJobTimeThatPass = 0L
+        breakTimesList = arrayListOf()
+    }
+
+    private fun clearView() = with(view) {
+        val zeroTime = dateFormatter.parseTime(0L)
+
+        setJobTime(zeroTime)
+        setBreakTotalTime(zeroTime)
+        setLunchTimeText(zeroTime)
+        setSmokingTimeText(zeroTime)
+        setOtherTimeText(zeroTime)
+        setProgressAngles(getProgressAngles(0f, emptyList()))
+        hideSaveButton()
+
+        jobTimeSubject.onNext(0) // TODO refactor
+        breakTimeSubject.onNext(0) // TODO refactor
     }
 }

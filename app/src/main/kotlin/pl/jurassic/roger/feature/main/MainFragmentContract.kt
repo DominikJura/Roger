@@ -43,5 +43,7 @@ interface MainFragmentContract {
         fun onJobTimeReceive(time: Long)
         fun onBreakTimeReceive(breakType: BreakType, time: Long)
         fun onServiceConnect()
+        fun onNotificationPauseClicked()
+        fun onNotificationResumeClicked()
     }
 }

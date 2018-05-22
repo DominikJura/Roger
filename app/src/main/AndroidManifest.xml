@@ -10,21 +10,26 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-        <activity android:name=".feature.main.ui.MainActivity" >
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".feature.main.ui.MainActivity"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <meta-data
-                android:name="io.fabric.ApiKey"
-                android:value="c37e6220faf107d14ea457a4d10683d8caeb0e3a"
-                />
-
-        <activity android:name=".feature.summary.ui.SummaryActivity" />
+        <activity
+            android:name=".feature.summary.ui.SummaryActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name=".util.timer.TimerService" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="c37e6220faf107d14ea457a4d10683d8caeb0e3a" />
     </application>
 </manifest>

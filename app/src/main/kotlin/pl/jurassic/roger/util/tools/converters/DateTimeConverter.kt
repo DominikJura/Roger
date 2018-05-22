@@ -2,13 +2,12 @@ package pl.jurassic.roger.util.tools.converters
 
 import android.arch.persistence.room.TypeConverter
 import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
 
 class DateTimeConverter {
 
     @TypeConverter
-    fun fromTimestamp(timestamp: String): DateTime = DateTime.parse(timestamp, DateTimeFormat.shortDate())
+    fun fromTimestamp(timestamp: Long): DateTime = DateTime(timestamp)
 
     @TypeConverter
-    fun dateToTimestamp(date: DateTime): String = date.toString(DateTimeFormat.shortDate())
+    fun dateToTimestamp(date: DateTime): Long = date.millis
 }

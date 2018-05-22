@@ -1,16 +1,19 @@
 package pl.jurassic.roger.util.timer
 
 import android.support.annotation.ColorRes
+import org.joda.time.DateTime
 import pl.jurassic.roger.R
 import pl.jurassic.roger.data.BreakTime
 
 interface TimerConfiguration {
 
     var isRunning: Boolean
-    var initialize: Boolean
 
-    var startJobTime: Long
+    var startJobTime: DateTime
     var totalJobTimeThatPass: Long
+
+    var timeThatPass: Long //todo refactor
+
 
     var breakTimesList: ArrayList<BreakTime>
 }

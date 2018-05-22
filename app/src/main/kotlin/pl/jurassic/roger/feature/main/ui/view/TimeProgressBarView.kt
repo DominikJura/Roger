@@ -19,7 +19,7 @@ class TimeProgressBarView @JvmOverloads constructor(
     companion object {
         private const val RING_STROKE_WITH = 2f
         private const val RING_INDICATOR_OF_HOUR_SWEEP_ANGLE = 0.5f
-        private const val INNER_CIRCLE_SHADOW_RADIUS = 10f
+        private const val INNER_CIRCLE_SHADOW_RADIUS = 15f
         private const val STARTING_ANGLE = 270f
     }
 
@@ -105,7 +105,7 @@ class TimeProgressBarView @JvmOverloads constructor(
 
             drawArc(
                 outerCircleRectF,
-                STARTING_ANGLE + it.sweepAngle,
+                    it.sweepAngle + STARTING_ANGLE,
                 RING_INDICATOR_OF_HOUR_SWEEP_ANGLE,
                 true,
                 ringIndicatorPaint

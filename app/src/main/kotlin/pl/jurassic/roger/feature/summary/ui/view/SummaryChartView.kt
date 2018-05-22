@@ -46,6 +46,7 @@ class SummaryChartView @JvmOverloads constructor(
     }
 
     private fun initLeftAxis() = with(axisLeft) {
+        axisMinimum = 0f
         setValueFormatter { value, _ ->
             val dateTime = LocalTime(value.toLong(), DateTimeZone.UTC)
             return@setValueFormatter "${dateTime.minuteOfHour}m ${dateTime.secondOfMinute}s"}

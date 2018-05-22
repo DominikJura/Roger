@@ -30,27 +30,28 @@ class SummaryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private fun addBreakView(breakType: BreakType, totalTime: String) {
         val breakView = when (breakType) {
             BreakType.LUNCH -> getBreakView(
-                R.drawable.break_lunch_background_selector,
-                R.color.break_lunch,
-                R.drawable.ic_lunch
+                    R.drawable.break_lunch_background_selector,
+                    R.color.break_lunch,
+                    R.drawable.ic_lunch
             )
 
             BreakType.SMOKING -> getBreakView(
-                R.drawable.break_smoking_background_selector,
-                R.color.break_smoking,
-                R.drawable.ic_smoke
+                    R.drawable.break_smoking_background_selector,
+                    R.color.break_smoking,
+                    R.drawable.ic_smoke
             )
 
             BreakType.OTHER -> getBreakView(
-                R.drawable.break_other_background_selector,
-                R.color.break_other,
-                R.drawable.ic_other
+                    R.drawable.break_other_background_selector,
+                    R.color.break_other,
+                    R.drawable.ic_other
             )
         }
 
         breakView.breakTimeText = totalTime
 
-        breakView.setPadding(            0,
+        breakView.setPadding(
+                0,
                 getDimen(R.dimen.summary_item_break_element_margin_top),
                 getDimen(R.dimen.summary_item_break_element_margin_right),
                 getDimen(R.dimen.summary_item_break_element_margin_bottom))
@@ -59,9 +60,9 @@ class SummaryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     private fun getBreakView(
-        @DrawableRes backgroundResource: Int,
-        @ColorRes color: Int,
-        @DrawableRes imageDrawable: Int
+            @DrawableRes backgroundResource: Int,
+            @ColorRes color: Int,
+            @DrawableRes imageDrawable: Int
     ): BreakItemView = BreakItemView(itemView.context).apply {
         breakBackgroundResource = backgroundResource
         breakImageColor = color

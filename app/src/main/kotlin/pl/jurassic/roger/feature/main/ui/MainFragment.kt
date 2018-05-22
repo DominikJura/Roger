@@ -8,8 +8,6 @@ import android.os.IBinder
 import android.transition.TransitionManager
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import com.crashlytics.android.Crashlytics
-import org.joda.time.format.DateTimeFormat
 import pl.jurassic.roger.R
 import pl.jurassic.roger.data.ui.ProgressAngles
 import pl.jurassic.roger.feature.common.ui.BaseFragment
@@ -46,9 +44,13 @@ class MainFragment : BaseFragment<Presenter>(), View {
             if (value) {
                 timeUpdateCallback = { presenter.onJobTimeReceive(it) }
                 breakUpdateCallback = { breakType, breakTime -> presenter.onBreakTimeReceive(breakType, breakTime) }
+                onNotificationPauseClicked = { presenter.onNotificationPauseClicked() }
+                onNotificationResumeClicked = { presenter.onNotificationResumeClicked() }
             } else {
                 timeUpdateCallback = null
                 breakUpdateCallback = null
+                onNotificationPauseClicked = null
+                onNotificationResumeClicked = null
             }
         }
 

@@ -8,6 +8,6 @@ class WorkTimeData {
     @Embedded
     lateinit var jobTimeData: JobTimeData
 
-    @Relation(parentColumn = "dateTime", entityColumn = "dateTime")
+    @Relation(parentColumn = "dateTimeKey", entityColumn = "dateTimeForeignKey")
     var breakTimeList: List<BreakTimeData> = ArrayList()
 }
