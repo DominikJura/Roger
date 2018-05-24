@@ -94,7 +94,6 @@ class TimerService : Service() {
     private fun startNotificationsTimer() { //TODO rename
         if(!configuration.isRunning) {
 
-            startForeground(NOTIFICATION_ID, notificationBuilder.build())
             startChronometer(DateTime.now().millis - configuration.totalJobTimeThatPass)
 
             configuration.isRunning = true
@@ -145,8 +144,10 @@ class TimerService : Service() {
     }
 
     fun startJobTimer() {
-        startNotificationsTimer()
-        startForeground(NOTIFICATION_ID, notificationBuilder.build())
+        if(!configuration.isRunning) {
+            startNotificationsTimer()
+            startForeground(NOTIFICATION_ID, notificationBuilder.build())
+        }
     }
 
     fun pauseJobTimer() {

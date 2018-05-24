@@ -13,24 +13,17 @@ import java.util.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
+//        for(x in 30..35) {
+//            println("Step: $x")
+//            println()
+//        }
 
-        Random().nextInt(3)
-
-        val tmp = MutableList(49) { DateTime.now().plusDays(it + 1).dayOfYear }
-
-        println(DateTime.now().dayOfWeek)
-
-        for(x in tmp.first()..tmp.last()) {
-            if(!tmp.contains(x)) {
-                tmp.add(x)
-            }
+        for(x in 0..20) {
+            println("Step: $x")
+            println("SimpleData1: 10, SimpleData2: 20, SimpleData3: 30;")
+            println()
         }
 
 
-        val x = tmp.chunked(7)
-
-        print(x)
-
-        assertEquals(4, 2 + 2)
     }
 }

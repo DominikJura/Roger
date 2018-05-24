@@ -33,10 +33,10 @@ class MainFragmentPresenter(
 
     companion object {
         private const val CIRCLE_FULL_ANGLE = 360f
-        private const val MINUTES_IN_HOUR = 60f
+        private const val WORK_TIME_HOURS = 60f //todo take from share-prefs
+        private const val MINUTES_IN_HOUR = 60f * WORK_TIME_HOURS
         private const val SECONDS_IN_MINUTS = 60f
         private const val MILLISECONDS_IN_SECONDS = 1000f
-//        private const val WORK_TIME = 8 //todo take from share-prefs
     }
 
     private var WORK_TIME = 8 //TODo refactor
