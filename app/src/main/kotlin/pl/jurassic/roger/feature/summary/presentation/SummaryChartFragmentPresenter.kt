@@ -9,17 +9,18 @@ import pl.jurassic.roger.util.repository.Repository
 import timber.log.Timber
 
 class SummaryChartFragmentPresenter(
-    private val view: View,
-    private val repository: Repository,
-    private val compositeDisposable: CompositeDisposable
+        private val view: View,
+        private val repository: Repository,
+        private val compositeDisposable: CompositeDisposable
 ) : Presenter {
 
     override fun initialize() {
         compositeDisposable.add(
-            repository.getWorkTimeChartData()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe({ view.setBarData(it) }, { Timber.e(it) }) //todo divide to recyler in feature
+                repository.getWorkTimeChartData()
+                        .filter { it.isNotEmpty() }
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io())
+                        .subscribe({ view.setBarData(it) }, { Timber.e(it) }) //todo divide to recyler in feature
         )
     }
 

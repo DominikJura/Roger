@@ -49,7 +49,8 @@ class SummaryChartView @JvmOverloads constructor(
         axisMinimum = 0f
         setValueFormatter { value, _ ->
             val dateTime = LocalTime(value.toLong(), DateTimeZone.UTC)
-            return@setValueFormatter "${dateTime.minuteOfHour}m ${dateTime.secondOfMinute}s"}
+            return@setValueFormatter "${dateTime.minuteOfHour}m ${dateTime.secondOfMinute}s"
+        }
     }
 
     private fun initXAxis() = with(xAxis) {
@@ -57,7 +58,7 @@ class SummaryChartView @JvmOverloads constructor(
         setCenterAxisLabels(true)
         xOffset = 0f
         granularity = 1f
-        setValueFormatter { value, _ ->   CHART_DATE_FORMAT.print(DateTime(0).withDayOfYear(value.toInt())) }
+        setValueFormatter { value, _ -> CHART_DATE_FORMAT.print(DateTime().withDayOfYear(value.toInt())) }
     }
 
     private fun disableDescription() {
