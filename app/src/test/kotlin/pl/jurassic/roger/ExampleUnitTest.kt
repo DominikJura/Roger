@@ -1,9 +1,6 @@
 package pl.jurassic.roger
 
-import org.joda.time.DateTime
-import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.util.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -18,12 +15,10 @@ class ExampleUnitTest {
 //            println()
 //        }
 
-        for(x in 0..20) {
+        for (x in 0..20) {
             println("Step: $x")
             println("SimpleData1: 10, SimpleData2: 20, SimpleData3: 30;")
             println()
         }
-
-
     }
 }

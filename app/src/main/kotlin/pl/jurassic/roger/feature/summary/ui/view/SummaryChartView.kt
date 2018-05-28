@@ -23,7 +23,6 @@ class SummaryChartView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : BarChart(context, attrs, defStyleAttr) {
 
-
     companion object {
         //TODO move all magic numbers
 
@@ -65,16 +64,14 @@ class SummaryChartView @JvmOverloads constructor(
         description.isEnabled = false
     }
 
-
     fun setBarData(barDataList: List<BreakBarData>) {
 
         val smokingList = arrayListOf<BarEntry>()
         val lunchList = arrayListOf<BarEntry>()
         val otherList = arrayListOf<BarEntry>()
 
-
         barDataList.forEach {
-            when(it.breakType) {
+            when (it.breakType) {
                 BreakType.LUNCH -> lunchList.add(BarEntry(it.dateTime.dayOfYear.toFloat(), it.totalBreakTime.toFloat()))
                 BreakType.SMOKING -> smokingList.add(BarEntry(it.dateTime.dayOfYear.toFloat(), it.totalBreakTime.toFloat()))
                 BreakType.OTHER -> otherList.add(BarEntry(it.dateTime.dayOfYear.toFloat(), it.totalBreakTime.toFloat()))

@@ -1,5 +1,6 @@
 package pl.jurassic.roger
 
+import android.app.Activity
 import android.graphics.drawable.Drawable
 import android.support.annotation.ColorRes
 import android.support.annotation.DimenRes
@@ -16,6 +17,8 @@ fun View.getString(@StringRes id: Int): String = context.getString(id)
 fun View.getColor(@ColorRes id: Int): Int = ContextCompat.getColor(context, id)
 
 fun View.getDrawable(@DrawableRes id: Int): Drawable? = ContextCompat.getDrawable(context, id)
+
+fun Activity.getColor(@ColorRes id: Int): Int = ContextCompat.getColor(this, id)
 
 fun RecyclerView.ViewHolder.getColor(@ColorRes id: Int): Int = itemView.getColor(id)
 

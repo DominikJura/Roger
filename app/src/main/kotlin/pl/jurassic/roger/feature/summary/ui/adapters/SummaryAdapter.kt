@@ -15,7 +15,7 @@ class SummaryAdapter : ListAdapter<SummaryWorkTime, SummaryViewHolder>(SummaryDi
                     .inflate(R.layout.view_summary_item, parent, false))
 
     override fun onBindViewHolder(holder: SummaryViewHolder, position: Int) {
-        when(position % 2) {
+        when (position % 2) {
             0 -> holder.setBackground(R.color.summary_item_background)
             else -> holder.setBackground(R.color.white)
         }

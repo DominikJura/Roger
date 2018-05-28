@@ -14,5 +14,4 @@ class TimerConfigurationImpl : TimerConfiguration {
     override var startJobTime: DateTime = DateTime.now()
 
     override var breakTimesList: ArrayList<BreakTime> = arrayListOf()
-
 }

@@ -26,7 +26,6 @@ import javax.inject.Named
 
 typealias TimeUpdateCallback = (time: Long) -> Unit
 
-
 class TimerService : Service() {
 
     companion object {
@@ -92,7 +91,7 @@ class TimerService : Service() {
     }
 
     private fun startNotificationsTimer() { //TODO rename
-        if(!configuration.isRunning) {
+        if (!configuration.isRunning) {
 
             startChronometer(DateTime.now().millis - configuration.totalJobTimeThatPass)
 
@@ -114,7 +113,7 @@ class TimerService : Service() {
         compositeDisposable.remove(jobTimeDisposable)
 
         configuration.totalJobTimeThatPass += DateTime.now().millis - configuration.startJobTime.millis
-        pauseChronometer(DateTime.now().millis  - configuration.totalJobTimeThatPass)
+        pauseChronometer(DateTime.now().millis - configuration.totalJobTimeThatPass)
 
         configuration.isRunning = false
     }
@@ -144,7 +143,7 @@ class TimerService : Service() {
     }
 
     fun startJobTimer() {
-        if(!configuration.isRunning) {
+        if (!configuration.isRunning) {
             startNotificationsTimer()
             startForeground(NOTIFICATION_ID, notificationBuilder.build())
         }

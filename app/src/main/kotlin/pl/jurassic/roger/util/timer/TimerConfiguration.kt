@@ -14,7 +14,6 @@ interface TimerConfiguration {
 
     var timeThatPass: Long //todo refactor
 
-
     var breakTimesList: ArrayList<BreakTime>
 }
 

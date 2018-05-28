@@ -22,13 +22,13 @@ import pl.jurassic.roger.util.tools.DateFormatter
 import timber.log.Timber
 
 class MainFragmentPresenter(
-        private val view: View,
-        private val router: Router,
-        private val dateFormatter: DateFormatter,
-        private val repository: Repository,
-        private val jobTimeSubject: Subject<Long>,
-        private val breakTimeSubject: Subject<Long>,
-        private val compositeDisposable: CompositeDisposable
+    private val view: View,
+    private val router: Router,
+    private val dateFormatter: DateFormatter,
+    private val repository: Repository,
+    private val jobTimeSubject: Subject<Long>,
+    private val breakTimeSubject: Subject<Long>,
+    private val compositeDisposable: CompositeDisposable
 ) : Presenter {
 
     companion object {
@@ -216,7 +216,6 @@ class MainFragmentPresenter(
         pauseBreakTimer()
         deactivateAllButtons()
         showSaveButton()
-
     }
 
     override fun onNotificationResumeClicked() = with(view) {

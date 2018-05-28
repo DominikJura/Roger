@@ -60,9 +60,9 @@ class SummaryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     private fun getBreakView(
-            @DrawableRes backgroundResource: Int,
-            @ColorRes color: Int,
-            @DrawableRes imageDrawable: Int
+        @DrawableRes backgroundResource: Int,
+        @ColorRes color: Int,
+        @DrawableRes imageDrawable: Int
     ): BreakItemView = BreakItemView(itemView.context).apply {
         breakBackgroundResource = backgroundResource
         breakImageColor = color

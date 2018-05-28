@@ -1,9 +1,7 @@
 package pl.jurassic.roger.feature.summary.ui
 
-import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.widget.ImageView
 import pl.jurassic.roger.R
@@ -12,6 +10,7 @@ import pl.jurassic.roger.feature.summary.SummaryActivityContract.Presenter
 import pl.jurassic.roger.feature.summary.SummaryActivityContract.View
 import pl.jurassic.roger.feature.summary.ui.adapters.SummaryFragments
 import pl.jurassic.roger.feature.summary.ui.adapters.SummaryPageAdapter
+import pl.jurassic.roger.getColor
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_summary.summary_tab as viewPagerTabLayout
 import kotlinx.android.synthetic.main.activity_summary.summary_toolbar as toolbar
@@ -35,10 +34,9 @@ class SummaryActivity : BaseActivity<Presenter>(), View {
         setSupportActionBar(this)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         val drawable = getDrawable(R.drawable.ic_arrow_back)
-        drawable.setColorFilter(ContextCompat.getColor(context, R.color.lightish_blue), PorterDuff.Mode.SRC_ATOP)
+        drawable.setColorFilter(getColor(R.color.lightish_blue), PorterDuff.Mode.SRC_ATOP)
         navigationIcon = drawable
         setNavigationOnClickListener { presenter.onBackPressed() }
-
     }
 
     private fun initViewPager() {

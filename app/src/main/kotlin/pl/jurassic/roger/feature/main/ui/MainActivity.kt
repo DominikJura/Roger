@@ -24,7 +24,7 @@ class MainActivity : BaseActivity<Presenter>(true), View {
         initToolbar()
     }
 
-    private fun initToolbar()  {
+    private fun initToolbar() {
         setSupportActionBar(toolbar)
         toolbar.statisticsClickedListener = { presenter.onStatisticClicked() }
     }

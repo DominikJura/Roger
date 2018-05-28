@@ -110,7 +110,7 @@ dependencies {
     //JUnit
     testImplementation "junit:junit:4.12"
     //Mockito
-    testImplementation "org.mockito:mockito-core:2.13.0"
+    testImplementation "org.mockito:mockito-core:2.15.0"
     //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //Ktlint
@@ -137,8 +137,8 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$dagger2_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger2_version"
     //RxAndroid
-    implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
-    implementation "io.reactivex.rxjava2:rxjava:2.1.8"
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.2"
+    implementation "io.reactivex.rxjava2:rxjava:2.1.14"
     //Timber
     implementation "com.jakewharton.timber:timber:4.5.1"
     //Leak Canary
@@ -153,7 +153,7 @@ dependencies {
     //MPCharts
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     //Fabric
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.2'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.3'
 }
 
 task ktlint(type: JavaExec) {
