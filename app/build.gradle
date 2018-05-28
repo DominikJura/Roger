@@ -11,14 +11,14 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.gms:google-services:4.0.1'
         classpath 'io.fabric.tools:gradle:1.25.1'
-        classpath 'com.google.gms:google-services:3.2.0'
     }
 }
 
 repositories {
-    maven { url 'https://maven.fabric.io/public' }
     maven { url 'https://maven.google.com/' }
+    maven { url 'https://maven.fabric.io/public' }
     maven { url "https://jitpack.io" }
 }
 
@@ -101,7 +101,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //Espresso
-    implementation 'com.google.firebase:firebase-crash:15.0.2'
     androidTestImplementation("com.android.support.test.espresso:espresso-core:$espresso_version", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -128,6 +127,9 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:1.1.0"
     implementation "android.arch.persistence.room:rxjava2:1.1.0"
     kapt "android.arch.persistence.room:compiler:1.1.0"
+    //Firebase
+    implementation 'com.google.firebase:firebase-core:16.0.0'
+    implementation 'com.google.firebase:firebase-crash:16.0.0'
     //Dagger
     implementation "com.google.dagger:dagger:$dagger2_version"
     kapt "com.google.dagger:dagger-compiler:$dagger2_version"
