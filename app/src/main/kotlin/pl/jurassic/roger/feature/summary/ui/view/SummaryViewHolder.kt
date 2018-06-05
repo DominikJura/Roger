@@ -9,7 +9,7 @@ import pl.jurassic.roger.data.ui.SummaryWorkTime
 import pl.jurassic.roger.feature.common.ui.view.BreakItemView
 import pl.jurassic.roger.getColor
 import pl.jurassic.roger.getDimen
-import pl.jurassic.roger.util.timer.BreakType
+import pl.jurassic.roger.data.BreakType
 import kotlinx.android.synthetic.main.view_summary_item.view.summary_item_break_time as breakTimeTimeView
 import kotlinx.android.synthetic.main.view_summary_item.view.summary_item_break_view_container as containerLinearLayout
 import kotlinx.android.synthetic.main.view_summary_item.view.summary_item_date as dateTextView

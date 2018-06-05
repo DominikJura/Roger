@@ -17,7 +17,7 @@ import pl.jurassic.roger.feature.main.MainFragmentContract.Router
 import pl.jurassic.roger.feature.main.MainFragmentContract.View
 import pl.jurassic.roger.sumByLong
 import pl.jurassic.roger.util.repository.Repository
-import pl.jurassic.roger.util.timer.BreakType
+import pl.jurassic.roger.data.BreakType
 import pl.jurassic.roger.util.tools.DateFormatter
 import timber.log.Timber
 
@@ -84,6 +84,12 @@ class MainFragmentPresenter(
             false -> view.deactivateJobButton()
         }
 
+        when(configuration.activeBreakType) {
+            BreakType.SMOKING -> view.activeSmokingButton()
+            BreakType.LUNCH -> view.activeLunchButton()
+            BreakType.OTHER -> view.activeOtherButton()
+        }
+
         breakTimeSubject.onNext(0) //Todo refactor
     }
 
@@ -102,7 +108,6 @@ class MainFragmentPresenter(
 
     private fun pauseTimer() = with(view) {
         timerService.pauseJobTimer()
-        pauseBreakTimer()
         deactivateAllButtons()
         showSaveButton()
     }
@@ -168,13 +173,13 @@ class MainFragmentPresenter(
     }
 
     private fun pauseBreakTimer() = with(view) {
-        activeBreakType?.let { timerService.pauseBreakTimer() }
-        activeBreakType = null
+        configuration.activeBreakType?.let { timerService.pauseBreakTimer() }
+        configuration.activeBreakType = null
     }
 
     private fun startBreakTimer(breakType: BreakType) = with(view) {
-        activeBreakType?.let { timerService.pauseBreakTimer() }
-        activeBreakType = breakType
+        configuration.activeBreakType?.let { timerService.pauseBreakTimer() }
+        configuration.activeBreakType = breakType
         timerService.startBreakTimer(breakType)
     }
 
@@ -213,7 +218,6 @@ class MainFragmentPresenter(
     }
 
     override fun onNotificationPauseClicked() = with(view) {
-        pauseBreakTimer()
         deactivateAllButtons()
         showSaveButton()
     }
@@ -225,6 +229,7 @@ class MainFragmentPresenter(
 
     override fun onSaveClicked() = with(configuration) {
         val workTime = WorkTime(startJobTime, DateTime.now(), totalJobTimeThatPass, breakTimesList)
+        //TODO Save break time with 0 value if it was not started
         repository.saveWorkTime(workTime)
 
         router.navigateToSummaryScreen()

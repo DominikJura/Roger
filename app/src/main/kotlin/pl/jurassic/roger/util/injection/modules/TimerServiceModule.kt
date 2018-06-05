@@ -16,7 +16,7 @@ import pl.jurassic.roger.R
 import pl.jurassic.roger.feature.main.ui.MainActivity
 import pl.jurassic.roger.util.config.StringConstants.INTENT_ACTION_PAUSE_TIMER
 import pl.jurassic.roger.util.config.StringConstants.INTENT_ACTION_RESUME_TIMER
-import pl.jurassic.roger.util.timer.BreakType
+import pl.jurassic.roger.data.BreakType
 import pl.jurassic.roger.util.timer.TimerConfiguration
 import pl.jurassic.roger.util.timer.TimerConfigurationImpl
 import pl.jurassic.roger.util.timer.TimerService

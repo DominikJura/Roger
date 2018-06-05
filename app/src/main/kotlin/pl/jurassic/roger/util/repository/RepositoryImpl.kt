@@ -11,7 +11,7 @@ import pl.jurassic.roger.data.ui.SummaryBreakTime
 import pl.jurassic.roger.data.ui.SummaryWorkTime
 import pl.jurassic.roger.sumByLong
 import pl.jurassic.roger.util.database.WorkTimeDao
-import pl.jurassic.roger.util.timer.BreakType
+import pl.jurassic.roger.data.BreakType
 import pl.jurassic.roger.util.tools.DateFormatter
 
 class RepositoryImpl(

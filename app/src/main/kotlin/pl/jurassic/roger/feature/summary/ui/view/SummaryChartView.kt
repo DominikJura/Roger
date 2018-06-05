@@ -15,7 +15,7 @@ import org.joda.time.format.DateTimeFormat
 import org.joda.time.format.DateTimeFormatter
 import pl.jurassic.roger.data.ui.BreakBarData
 import pl.jurassic.roger.getColor
-import pl.jurassic.roger.util.timer.BreakType
+import pl.jurassic.roger.data.BreakType
 
 class SummaryChartView @JvmOverloads constructor(
     context: Context,

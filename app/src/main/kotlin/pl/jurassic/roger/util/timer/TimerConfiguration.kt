@@ -1,13 +1,13 @@
 package pl.jurassic.roger.util.timer
 
-import android.support.annotation.ColorRes
 import org.joda.time.DateTime
-import pl.jurassic.roger.R
 import pl.jurassic.roger.data.BreakTime
+import pl.jurassic.roger.data.BreakType
 
 interface TimerConfiguration {
 
     var isRunning: Boolean
+    var activeBreakType: BreakType?
 
     var startJobTime: DateTime
     var totalJobTimeThatPass: Long
@@ -17,8 +17,3 @@ interface TimerConfiguration {
     var breakTimesList: ArrayList<BreakTime>
 }
 
-enum class BreakType(@ColorRes val breakColorRes: Int) {
-    SMOKING(R.color.break_smoking),
-    LUNCH(R.color.break_lunch),
-    OTHER(R.color.break_other)
-}

@@ -2,7 +2,7 @@ package pl.jurassic.roger.feature.main
 
 import pl.jurassic.roger.data.ui.ProgressAngles
 import pl.jurassic.roger.feature.common.BaseContract
-import pl.jurassic.roger.util.timer.BreakType
+import pl.jurassic.roger.data.BreakType
 import pl.jurassic.roger.util.timer.TimerService
 
 interface MainFragmentContract {
@@ -10,7 +10,6 @@ interface MainFragmentContract {
     interface View {
         var timerService: TimerService
         var timerServiceBound: Boolean
-        var activeBreakType: BreakType?
 
         fun activeSmokingButton()
         fun activeLunchButton()

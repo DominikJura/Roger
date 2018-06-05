@@ -17,6 +17,7 @@ import org.joda.time.DateTime
 import pl.jurassic.roger.OnClickedListener
 import pl.jurassic.roger.R
 import pl.jurassic.roger.data.BreakTime
+import pl.jurassic.roger.data.BreakType
 import pl.jurassic.roger.util.config.StringConstants.INTENT_ACTION_PAUSE_TIMER
 import pl.jurassic.roger.util.config.StringConstants.INTENT_ACTION_RESUME_TIMER
 import pl.jurassic.roger.util.tools.JobTimer
@@ -112,6 +113,9 @@ class TimerService : Service() {
     private fun pauseNotificationTimer() {
         compositeDisposable.remove(jobTimeDisposable)
 
+        configuration.activeBreakType?.let { pauseBreakTimer() }
+        configuration.activeBreakType = null
+
         configuration.totalJobTimeThatPass += DateTime.now().millis - configuration.startJobTime.millis
         pauseChronometer(DateTime.now().millis - configuration.totalJobTimeThatPass)
 
@@ -151,6 +155,7 @@ class TimerService : Service() {
 
     fun pauseJobTimer() {
         pauseNotificationTimer()
+
         stopForeground(true)
     }
 

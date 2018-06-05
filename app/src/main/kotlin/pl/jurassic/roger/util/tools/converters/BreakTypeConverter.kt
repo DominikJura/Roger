@@ -1,7 +1,7 @@
 package pl.jurassic.roger.util.tools.converters
 
 import android.arch.persistence.room.TypeConverter
-import pl.jurassic.roger.util.timer.BreakType
+import pl.jurassic.roger.data.BreakType
 
 class BreakTypeConverter {
 
