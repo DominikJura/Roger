@@ -10,7 +10,7 @@ import pl.jurassic.roger.util.tools.converters.DateTimeConverter
 import pl.jurassic.roger.util.tools.converters.DateTimeKeyConverter
 
 @Database(entities = [(JobTimeData::class), (BreakTimeData::class)], version = 1, exportSchema = false)
-@TypeConverters(value = [(DateTimeKeyConverter::class), (DateTimeConverter::class), (BreakTypeConverter::class)])
+@TypeConverters(value = [(DateTimeConverter::class), (DateTimeKeyConverter::class), (BreakTypeConverter::class)])
 abstract class WorkTimeDatabase : RoomDatabase() {
 
     abstract fun workTimeDao(): WorkTimeDao

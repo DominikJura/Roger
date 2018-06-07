@@ -16,4 +16,3 @@ interface TimerConfiguration {
 
     var breakTimesList: ArrayList<BreakTime>
 }
-

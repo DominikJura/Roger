@@ -17,9 +17,15 @@ interface WorkTimeDao {
     @Query("SELECT * FROM job_time")
     fun getAllWorkTime(): Single<List<WorkTimeData>>
 
+    @Transaction
+    fun insertWorkTime(jobTimeData: JobTimeData, breakTimeDataList: List<BreakTimeData>) {
+        insertJobTime(jobTimeData)
+        insertBreakTimeList(breakTimeDataList)
+    }
+
     @Insert(onConflict = REPLACE)
     fun insertJobTime(jobTimeData: JobTimeData)
 
     @Insert(onConflict = REPLACE)
-    fun insertBreakTime(breakTimeData: BreakTimeData)
+    fun insertBreakTimeList(breakTimeDataList: List<BreakTimeData>)
 }

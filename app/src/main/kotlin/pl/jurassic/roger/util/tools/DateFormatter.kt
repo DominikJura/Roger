@@ -6,4 +6,5 @@ interface DateFormatter {
 
     fun parseTime(timestamp: Long): String
     fun parseDate(dateTime: DateTime): String
+    fun parseWeekIntervalDate(dateTime: DateTime): String
 }

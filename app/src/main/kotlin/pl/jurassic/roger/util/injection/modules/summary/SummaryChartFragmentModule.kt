@@ -8,6 +8,7 @@ import pl.jurassic.roger.feature.summary.presentation.SummaryChartFragmentPresen
 import pl.jurassic.roger.feature.summary.ui.SummaryChartFragment
 import pl.jurassic.roger.util.injection.RuntimeScope
 import pl.jurassic.roger.util.repository.Repository
+import pl.jurassic.roger.util.tools.DateFormatter
 
 @Module
 class SummaryChartFragmentModule {
@@ -20,7 +21,8 @@ class SummaryChartFragmentModule {
     fun presenter(
         view: SummaryChartFragmentContract.View,
         repository: Repository,
+        dateFormatter: DateFormatter,
         compositeDisposable: CompositeDisposable
     ): SummaryChartFragmentContract.Presenter =
-        SummaryChartFragmentPresenter(view, repository, compositeDisposable)
+        SummaryChartFragmentPresenter(view, repository, dateFormatter, compositeDisposable)
 }

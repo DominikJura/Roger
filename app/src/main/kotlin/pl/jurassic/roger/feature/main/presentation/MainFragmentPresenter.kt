@@ -78,17 +78,23 @@ class MainFragmentPresenter(
         compositeDisposable.clear()
     }
 
-    override fun onServiceConnect() {
+    override fun onServiceConnect() = with(view) {
         when (configuration.isRunning) {
-            true -> view.activeJobButton()
-            false -> view.deactivateJobButton()
+            true -> activeJobButton()
+            false -> deactivateJobButton()
         }
 
-        when(configuration.activeBreakType) {
-            BreakType.SMOKING -> view.activeSmokingButton()
-            BreakType.LUNCH -> view.activeLunchButton()
-            BreakType.OTHER -> view.activeOtherButton()
+        when (configuration.activeBreakType) {
+            BreakType.SMOKING -> activeSmokingButton()
+            BreakType.LUNCH -> activeLunchButton()
+            BreakType.OTHER -> activeOtherButton()
         }
+
+        setSmokingTimeText(dateFormatter.parseTime(getBreakTime(BreakType.SMOKING)))
+        setLunchTimeText(dateFormatter.parseTime(getBreakTime(BreakType.LUNCH)))
+        setOtherTimeText(dateFormatter.parseTime(getBreakTime(BreakType.OTHER)))
+
+        setBreakTotalTime(dateFormatter.parseTime(getBreakTotalTime()))
 
         breakTimeSubject.onNext(0) //Todo refactor
     }

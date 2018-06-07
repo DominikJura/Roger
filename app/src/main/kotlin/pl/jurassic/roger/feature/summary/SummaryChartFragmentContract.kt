@@ -7,6 +7,7 @@ interface SummaryChartFragmentContract {
 
     interface View {
         fun setBarData(barDataList: List<BreakBarData>)
+        fun setWeekIntervalText(parseWeekIntervalDate: String)
     }
 
     interface Router

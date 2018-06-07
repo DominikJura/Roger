@@ -13,7 +13,6 @@ import pl.jurassic.roger.data.ui.ProgressAngles
 import pl.jurassic.roger.feature.common.ui.BaseFragment
 import pl.jurassic.roger.feature.main.MainFragmentContract.Presenter
 import pl.jurassic.roger.feature.main.MainFragmentContract.View
-import pl.jurassic.roger.data.BreakType
 import pl.jurassic.roger.util.timer.TimerService
 import pl.jurassic.roger.util.timer.TimerServiceBinder
 import javax.inject.Inject

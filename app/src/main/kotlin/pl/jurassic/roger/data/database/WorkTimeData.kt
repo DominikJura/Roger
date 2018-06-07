@@ -9,5 +9,5 @@ class WorkTimeData {
     lateinit var jobTimeData: JobTimeData
 
     @Relation(parentColumn = "dateTimeKey", entityColumn = "dateTimeForeignKey")
-    var breakTimeList: List<BreakTimeData> = ArrayList()
+    lateinit var breakTimeList: List<BreakTimeData>
 }

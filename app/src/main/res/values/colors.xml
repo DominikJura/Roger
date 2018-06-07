@@ -21,6 +21,10 @@
     <color name="black16">#29000000</color>
     <color name="black">#000000</color>
 
+    <!--Notifications-->
+    <color name="notification_start_button">@color/lightish_blue</color>
+    <color name="notification_pause_button">@color/lightish_blue</color>
+
     <!--Main-->
     <color name="main_toolbar_background">@android:color/transparent</color>
     <color name="main_save_button_background">@color/lightish_blue</color>
@@ -33,6 +37,8 @@
 	<color name="summary_pager_indicator">@color/lightish_blue</color>
     <color name="summary_navigation_arrow_color">@color/periwinkle_blue</color>
     <color name="summary_time_text">@color/black</color>
+    
+    <color name="summary_weeks_interval_text">@color/vivid_blue</color>
 
     <!--Toolbar-->
     <color name="toolbar_icon_tint">@color/white</color>
