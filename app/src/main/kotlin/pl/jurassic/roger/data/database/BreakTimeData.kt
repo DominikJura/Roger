@@ -20,12 +20,14 @@ import pl.jurassic.roger.util.tools.converters.DateTimeKeyConverter
                 childColumns = arrayOf("dateTimeForeignKey"),
                 onDelete = CASCADE
         ))])
-data class BreakTimeData(
-        @TypeConverters(DateTimeKeyConverter::class) val dateTimeForeignKey: DateTime,
-        @TypeConverters(BreakTypeConverter::class) val breakType: BreakType,
-        @TypeConverters(DateTimeConverter::class) val startDateTime: DateTime,
-        @TypeConverters(DateTimeConverter::class) val stopDateTime: DateTime
+class BreakTimeData(
+        @field:TypeConverters(DateTimeKeyConverter::class) val dateTimeForeignKey: DateTime,
+        @field:TypeConverters(BreakTypeConverter::class) val breakType: BreakType,
+        @field:TypeConverters(DateTimeConverter::class) val startDateTime: DateTime,
+        @field:TypeConverters(DateTimeConverter::class) val stopDateTime: DateTime
 ) {
+
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
+
 }

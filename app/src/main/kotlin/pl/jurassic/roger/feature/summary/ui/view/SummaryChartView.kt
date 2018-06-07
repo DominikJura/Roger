@@ -101,7 +101,7 @@ class SummaryChartView @JvmOverloads constructor(
         groupBars(minElement, groupSpace, barSpace)
 
         xAxis.axisMinimum = minElement
-        xAxis.axisMaximum = minElement + 5
+        xAxis.axisMaximum = minElement + 7
 
         invalidate()
     }
