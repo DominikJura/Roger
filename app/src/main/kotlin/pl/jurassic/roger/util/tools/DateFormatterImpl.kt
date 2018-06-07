@@ -29,10 +29,8 @@ class DateFormatterImpl : DateFormatter {
         )
     }
 
-    override fun parseWeekIntervalDate(dateTime: DateTime): String  =
+    override fun parseWeekIntervalDate(dateTime: DateTime): String =
         "${WEEK_FORMAT.format(dateTime.dayOfMonth)} - ${STANDARD_DATE_FORMAT.print(dateTime.plusDays(6))}"
-
-
 
     override fun parseDate(dateTime: DateTime): String =
         WORK_DATE_FORMAT.print(dateTime)

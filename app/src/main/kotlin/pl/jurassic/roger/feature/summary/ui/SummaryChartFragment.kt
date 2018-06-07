@@ -1,6 +1,5 @@
 package pl.jurassic.roger.feature.summary.ui
 
-import org.joda.time.DateTime
 import pl.jurassic.roger.R
 import pl.jurassic.roger.data.ui.BreakBarData
 import pl.jurassic.roger.feature.common.ui.BaseFragment
