@@ -10,12 +10,12 @@ import pl.jurassic.roger.feature.common.ui.view.BreakItemView
 import pl.jurassic.roger.getColor
 import pl.jurassic.roger.getDimen
 import pl.jurassic.roger.data.BreakType
-import kotlinx.android.synthetic.main.view_summary_item.view.summary_item_break_time as breakTimeTimeView
-import kotlinx.android.synthetic.main.view_summary_item.view.summary_item_break_view_container as containerLinearLayout
-import kotlinx.android.synthetic.main.view_summary_item.view.summary_item_date as dateTextView
-import kotlinx.android.synthetic.main.view_summary_item.view.summary_item_work_time as workTimeView
+import kotlinx.android.synthetic.main.view_summary_list_item.view.summary_item_break_time as breakTimeTimeView
+import kotlinx.android.synthetic.main.view_summary_list_item.view.summary_item_break_view_container as containerLinearLayout
+import kotlinx.android.synthetic.main.view_summary_list_item.view.summary_item_date as dateTextView
+import kotlinx.android.synthetic.main.view_summary_list_item.view.summary_item_work_time as workTimeView
 
-class SummaryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class SummaryListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun setItem(summaryWorkTime: SummaryWorkTime) = with(itemView) {
         dateTextView.text = summaryWorkTime.dateTime

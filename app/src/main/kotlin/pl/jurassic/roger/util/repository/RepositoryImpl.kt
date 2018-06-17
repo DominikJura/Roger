@@ -1,5 +1,6 @@
 package pl.jurassic.roger.util.repository
 
+import android.util.Log
 import io.reactivex.Observable
 import org.joda.time.DateTime
 import pl.jurassic.roger.data.WorkTime
@@ -12,14 +13,15 @@ import pl.jurassic.roger.data.ui.SummaryWorkTime
 import pl.jurassic.roger.sumByLong
 import pl.jurassic.roger.util.database.WorkTimeDao
 import pl.jurassic.roger.data.BreakType
+import pl.jurassic.roger.data.ui.summary.SummaryChartData
 import pl.jurassic.roger.util.tools.DateFormatter
 
 class RepositoryImpl(
-    private val workTimeDao: WorkTimeDao,
-    private val dateFormatter: DateFormatter
+        private val workTimeDao: WorkTimeDao,
+        private val dateFormatter: DateFormatter
 ) : Repository {
 
-    override fun getWorkTimeChartData(): Observable<List<BreakBarData>> =
+    override fun getWorkTimeChartData(): Observable<List<SummaryChartData>> =
             workTimeDao.getAllWorkTime()
                     .toObservable()
                     .filter { it.isNotEmpty() }
@@ -29,9 +31,11 @@ class RepositoryImpl(
                     .flatMapIterable { it }
                     .toList()
                     .toObservable()
+                    .buffer(7 * 3)
+                    .map { transformToSummaryChartData(it) }
 
 
-    private fun addMissingDays(workList: List<WorkTimeData>): ArrayList<WorkTimeData> {
+    private fun addMissingDays(workList: List<WorkTimeData>): List<WorkTimeData> {
         val totalWorkList = arrayListOf<WorkTimeData>()
 
         val firstElementDate = workList.first().jobTimeData.dateTimeKey
@@ -76,6 +80,9 @@ class RepositoryImpl(
 
     private fun getTimeDifference(breakTimeData: BreakTimeData) =
             breakTimeData.stopDateTime.millis - breakTimeData.startDateTime.millis
+
+    private fun transformToSummaryChartData(list: MutableList<List<BreakBarData>>): List<SummaryChartData> =
+            list.map { SummaryChartData(dateFormatter.parseWeekIntervalDate(it.first().dateTime), it) }
 
     override fun getWorkTimeList(): Observable<List<SummaryWorkTime>> =
             workTimeDao

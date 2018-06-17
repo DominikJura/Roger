@@ -31,7 +31,7 @@ abstract class BaseRogerApp : Application(), HasActivityInjector, HasServiceInje
 
     override fun activityInjector(): AndroidInjector<Activity> = activityInjector
 
-    open fun init() {
+    protected open fun init() {
         initFabric()
         initTimber()
         initJodaTime()

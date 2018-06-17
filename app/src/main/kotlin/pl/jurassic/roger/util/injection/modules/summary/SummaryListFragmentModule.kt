@@ -8,7 +8,7 @@ import io.reactivex.disposables.CompositeDisposable
 import pl.jurassic.roger.feature.summary.SummaryListFragmentContract
 import pl.jurassic.roger.feature.summary.presentation.SummaryListFragmentPresenter
 import pl.jurassic.roger.feature.summary.ui.SummaryListFragment
-import pl.jurassic.roger.feature.summary.ui.adapters.SummaryAdapter
+import pl.jurassic.roger.feature.summary.ui.adapters.SummaryListAdapter
 import pl.jurassic.roger.util.injection.RuntimeScope
 import pl.jurassic.roger.util.repository.Repository
 
@@ -19,7 +19,7 @@ class SummaryListFragmentModule {
     fun view(fragment: SummaryListFragment): SummaryListFragmentContract.View = fragment
 
     @Provides
-    fun adapter(): SummaryAdapter = SummaryAdapter()
+    fun adapter(): SummaryListAdapter = SummaryListAdapter()
 
     @Provides
     fun recyclerLayoutManager(fragment: SummaryListFragment): RecyclerView.LayoutManager =
