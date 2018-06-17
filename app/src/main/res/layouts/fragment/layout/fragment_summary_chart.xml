@@ -13,6 +13,7 @@
         android:textStyle="bold"
         android:textSize="20sp"
         android:textColor="@color/vivid_blue"
+		android:fontFamily="@font/montserrat_semibold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

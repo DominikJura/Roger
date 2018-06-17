@@ -29,7 +29,7 @@ class RepositoryImpl(
                     .toList()
                     .toObservable()
 
-    //TODO rewrite it to clean way
+
     private fun addMissingDays(workList: List<WorkTimeData>): ArrayList<WorkTimeData> {
         val totalWorkList = arrayListOf<WorkTimeData>()
 
@@ -41,8 +41,8 @@ class RepositoryImpl(
 
         for (i in 0 until workList.size - 1) {
             totalWorkList.add(workList[i])
-            val lol = workList[i + 1].jobTimeData.dateTimeKey.dayOfYear - workList[i].jobTimeData.dateTimeKey.dayOfYear
-            for (j in 0 until lol) {
+            val workTime = workList[i + 1].jobTimeData.dateTimeKey.dayOfYear - workList[i].jobTimeData.dateTimeKey.dayOfYear
+            for (j in 0 until workTime) {
                 totalWorkList.add(getEmptyWorkTimeData(workList[i].jobTimeData.dateTimeKey.plusDays(j)))
             }
         }
