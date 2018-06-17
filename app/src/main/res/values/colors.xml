@@ -37,6 +37,8 @@
 	<color name="summary_pager_indicator">@color/lightish_blue</color>
     <color name="summary_navigation_arrow_color">@color/periwinkle_blue</color>
     <color name="summary_time_text">@color/black</color>
+
+    <color name="summary_no_item_text">@color/vivid_blue</color>
     
     <color name="summary_weeks_interval_text">@color/vivid_blue</color>
 

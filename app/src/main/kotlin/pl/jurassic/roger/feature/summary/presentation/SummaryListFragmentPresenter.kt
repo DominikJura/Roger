@@ -18,6 +18,7 @@ class SummaryListFragmentPresenter(
         compositeDisposable.add(repository.getWorkTimeList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
+                .doOnNext { if(it.isEmpty()) view.showNoDataText() }
                 .subscribe ({ view.setWorkTimeList(it) }, { Timber.e(it) })
         )
     }

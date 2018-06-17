@@ -4,4 +4,5 @@
     <string name="work_time">Czas Pracy:</string>
     <string name="timer_zero">0:00:00</string>
     <string name="save">zapisz</string>
+    <string name="no_data">Brak danych</string>
 </resources>

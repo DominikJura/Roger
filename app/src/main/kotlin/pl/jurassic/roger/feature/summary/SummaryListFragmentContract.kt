@@ -7,6 +7,7 @@ interface SummaryListFragmentContract {
 
     interface View {
         fun setWorkTimeList(summaryWorkList: List<SummaryWorkTime>)
+        fun showNoDataText()
     }
 
     interface Router

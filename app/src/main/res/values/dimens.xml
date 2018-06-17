@@ -4,6 +4,7 @@
     <!--Font size-->
     <dimen name="font_size_medium">15sp</dimen>
     <dimen name="font_size_big">16sp</dimen>
+    <dimen name="font_size_large">22sp</dimen>
 
     <!--Margins-->
     <dimen name="margin_small">8dp</dimen>

@@ -22,6 +22,7 @@ class RepositoryImpl(
     override fun getWorkTimeChartData(): Observable<List<BreakBarData>> =
             workTimeDao.getAllWorkTime()
                     .toObservable()
+                    .filter { it.isNotEmpty() }
                     .map { addMissingDays(it) }
                     .flatMapIterable { it }
                     .map { transformWorkTimeToBarEntry(it) }
