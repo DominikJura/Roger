@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="periwinkle_blue">#8c9eff</color>
+    <color name="lightish_blue">#536dfe</color>
+    <color name="warm_blue">#4e62df</color>
+    <color name="vivid_blue">#1c3bff</color>
+
+    <color name="purple">#7b1fa2</color>
+
+    <color name="orange_yellow">#fbc02d</color>
+
+    <color name="cerise">#f00a6b</color>
+
+    <color name="pale_grey">#e8eaf6</color>
+    <color name="white">#ffffff</color>
+
+    <color name="black16">#29000000</color>
+    <color name="black">#000000</color>
+
+    <!--Notifications-->
+    <color name="notification_start_button">@color/lightish_blue</color>
+    <color name="notification_pause_button">@color/lightish_blue</color>
+
+    <!--Main-->
+    <color name="main_toolbar_background">@android:color/transparent</color>
+    <color name="main_save_button_background">@color/lightish_blue</color>
+
+    <!--Summary-->
+    <color name="summary_item_background">@color/pale_grey</color>
+    <color name="summary_item_date_text">@color/vivid_blue</color>
+    <color name="summary_pager_selector_active">@color/lightish_blue</color>
+    <color name="summary_pager_selector_inactive">@color/periwinkle_blue</color>
+	<color name="summary_pager_indicator">@color/lightish_blue</color>
+    <color name="summary_navigation_arrow_color">@color/periwinkle_blue</color>
+    <color name="summary_time_text">@color/black</color>
+
+    <color name="summary_no_item_text">@color/vivid_blue</color>
+    
+    <color name="summary_weeks_interval_text">@color/vivid_blue</color>
+
+    <!--Toolbar-->
+    <color name="toolbar_icon_tint">@color/white</color>
+
+    <!--Custom-->
+    <color name="break_smoking">@color/purple</color>
+    <color name="break_lunch">@color/orange_yellow</color>
+    <color name="break_other">@color/cerise</color>
+
+    <color name="break_item_smoking_text">@color/break_smoking</color>
+    <color name="break_item_smoking_background_solid_active">@color/purple</color>
+    <color name="break_item_smoking_background_solid_inactive">@color/white</color>
+    <color name="break_item_lunch_background_solid_active">@color/orange_yellow</color>
+    <color name="break_item_lunch_background_solid_inactive">@color/white</color>
+    <color name="break_item_lunch_text">@color/break_lunch</color>
+    <color name="break_item_other_background_solid_active">@color/cerise</color>
+    <color name="break_item_other_background_solid_inactive">@color/white</color>
+    <color name="break_item_other_text">@color/break_other</color>
+    <color name="break_item_lunch_image_tint_inactive">@color/orange_yellow</color>
+    <color name="break_item_lunch_image_tint_active">@color/white</color>
+    <color name="break_item_smoking_image_tint_inactive">@color/purple</color>
+    <color name="break_item_smoking_image_tint_active">@color/white</color>
+    <color name="break_item_other_image_tint_inactive">@color/cerise</color>
+    <color name="break_item_other_image_tint_active">@color/white</color>
+    <color name="break_item_smoking_background_stroke">@color/purple</color>
+    <color name="break_item_lunch_background_stroke">@color/orange_yellow</color>
+    <color name="break_item_other_background_stroke">@color/cerise</color>
+
+    <color name="oval_blue_background">@color/periwinkle_blue</color>
+</resources>

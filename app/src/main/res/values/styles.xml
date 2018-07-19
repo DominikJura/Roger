@@ -1,0 +1,76 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:colorControlNormal">@color/summary_navigation_arrow_color</item>
+    </style>
+
+    <style name="AppTheme.Fullscreen" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="Match">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="Wrap">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="MatchWrap" parent="Match">
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="WrapMatch" parent="Wrap">
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="MatchConstraint">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+    </style>
+
+    <style name="GuidelineVertical" parent="MatchWrap">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="GuidelineHorizontal" parent="WrapMatch">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="SummaryToolbarTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:colorControlNormal">@color/summary_navigation_arrow_color</item>
+    </style>
+
+    <style name="NotificationLayout">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="NotificationTimeLayout" parent="Wrap">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="NotificationTotalTimeText" parent="Wrap">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/font_size_medium</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="NotificationContentText" parent="Wrap">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">@dimen/font_size_medium</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+
+</resources>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/main_root"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<TextView
+		android:id="@+id/main_job_time_text"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="8dp"
+		android:layout_marginStart="8dp"
+		android:textStyle="bold"
+		android:textSize="32sp"
+		android:textColor="@color/lightish_blue"
+		android:fontFamily="@font/montserrat_regular"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toTopOf="@+id/main_break_time_text"
+		app:layout_constraintVertical_chainStyle="packed"
+		android:text="@string/timer_zero" />
+
+	<TextView
+		android:id="@+id/main_break_time_text"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="8dp"
+		android:layout_marginStart="8dp"
+		android:textSize="20sp"
+		android:textColor="@color/warm_blue"
+        android:fontFamily="@font/montserrat_regular"
+		app:layout_constraintBottom_toTopOf="@id/main_time_progress"
+		app:layout_constraintTop_toBottomOf="@id/main_job_time_text"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		android:text="@string/timer_zero" />
+
+	<pl.jurassic.roger.feature.main.ui.view.TimeProgressBarView
+		android:id="@+id/main_time_progress"
+		android:layout_width="@dimen/main_progress_time_bar_size"
+		android:layout_height="@dimen/main_progress_time_bar_size"
+		app:layout_constraintTop_toBottomOf="@+id/main_job_time_text"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintBottom_toTopOf="@id/main_break_item_lunch"
+		/>
+
+	<ImageView
+		android:id="@+id/main_timer_button"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="8dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:background="?attr/selectableItemBackgroundBorderless"
+		android:src="@drawable/timer_start_pouse_selector"
+		android:tint="@color/lightish_blue"
+		app:layout_constraintEnd_toEndOf="@id/main_time_progress"
+		app:layout_constraintStart_toStartOf="@id/main_time_progress"
+		app:layout_constraintTop_toTopOf="@id/main_time_progress"
+		app:layout_constraintBottom_toBottomOf="@id/main_time_progress" />
+
+	<pl.jurassic.roger.feature.common.ui.view.BreakItemView
+		android:id="@+id/main_break_item_smoking"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="16dp"
+		android:layout_marginStart="16dp"
+		app:background_selector="@drawable/break_smoking_background_selector"
+		app:drawable_id="@drawable/ic_smoke"
+		app:time_text_color="@color/break_item_smoking_text"
+		app:image_tint_selector="@color/break_smoking_image_tint_selector"
+		app:layout_constraintTop_toBottomOf="@id/main_time_progress"
+		app:layout_constraintEnd_toStartOf="@+id/main_break_item_lunch"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintBottom_toTopOf="@+id/main_save_button" />
+
+	<pl.jurassic.roger.feature.common.ui.view.BreakItemView
+		android:id="@+id/main_break_item_lunch"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="16dp"
+		android:layout_marginStart="16dp"
+		app:background_selector="@drawable/break_lunch_background_selector"
+		app:drawable_id="@drawable/ic_lunch"
+		app:image_tint_selector="@color/break_lunch_image_tint_selector"
+		app:time_text_color="@color/break_item_lunch_text"
+		app:layout_constraintTop_toBottomOf="@id/main_time_progress"
+		app:layout_constraintEnd_toStartOf="@+id/main_break_item_other"
+		app:layout_constraintStart_toEndOf="@id/main_break_item_smoking"
+		app:layout_constraintBottom_toTopOf="@+id/main_save_button"
+		/>
+
+	<pl.jurassic.roger.feature.common.ui.view.BreakItemView
+		android:id="@+id/main_break_item_other"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="16dp"
+		android:layout_marginEnd="16dp"
+		app:background_selector="@drawable/break_other_background_selector"
+		app:drawable_id="@drawable/ic_other"
+		app:image_tint_selector="@color/break_other_image_tint_selector"
+		app:time_text_color="@color/break_item_other_text"
+		app:layout_constraintTop_toBottomOf="@id/main_time_progress"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toEndOf="@id/main_break_item_lunch"
+		app:layout_constraintBottom_toTopOf="@+id/main_save_button" />
+
+	<Button
+		android:id="@+id/main_save_button"
+		android:layout_width="@dimen/match_constraint"
+		android:layout_height="wrap_content"
+		android:textAllCaps="true"
+		android:visibility="gone"
+		android:textColor="@color/white"
+		android:background="@color/main_save_button_background"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		android:text="@string/save" />
+
+</android.support.constraint.ConstraintLayout>
